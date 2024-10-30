@@ -1,0 +1,74 @@
+<odoo>
+
+    <record id="seq_lease_agree" model="ir.sequence">
+        <field name="name">Lease Agree</field>
+        <field name="code">lease.agree</field>
+        <field name="prefix">L/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_all_args_agree" model="ir.sequence">
+        <field name="name">All Arguments</field>
+        <field name="code">all.args</field>
+        <field name="prefix">Arg/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_garage_delivery" model="ir.sequence">
+        <field name="name">Garage Delivery</field>
+        <field name="code">garage.delivery</field>
+        <field name="prefix">GD/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="replacement_seq_id" model="ir.sequence">
+        <field name="name">Replacement Model</field>
+        <field name="code">replacement.model</field>
+        <field name="prefix">RE/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="non_replacement_seq_id" model="ir.sequence">
+        <field name="name">Non Replacement Model</field>
+        <field name="code">non_replacement.model</field>
+        <field name="prefix">NRE/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="car_rental_agree_seq" model="ir.sequence">
+        <field name="name">Car Rental Agreement</field>
+        <field name="code">car.rental</field>
+        <field name="prefix">CRA/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="PreLease_seq_id" model="ir.sequence">
+        <field name="name">PreLease</field>
+        <field name="code">pre.lease</field>
+        <field name="prefix">PL/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="short_contact_seq" model="ir.sequence">
+        <field name="name">Short Contract</field>
+        <field name="code">short.contract</field>
+        <field name="prefix">SC/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="out_source_seq" model="ir.sequence">
+        <field name="name">Out Source</field>
+        <field name="code">out.source</field>
+        <field name="prefix">OS/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id="seq_vehicle_restriction" model="ir.sequence">
+        <field name="name">Vehicle Restitution</field>
+        <field name="code">vehicle.restitution</field>
+        <field name="prefix">VR/</field>
+        <field name="padding">5</field>
+        <field name="company_id" eval="False"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="sale_view_order_form_so_line_id" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="after">
+                    <field name="make_m_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="model_m_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="category_m_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="year_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="car_availability" invisible="1"/>
+                    <field name="so_delivery_date"/>
+                    <field name="license_plate" optional="hide"/>
+                    <field name="color_ids" widget="many2many_tags"
+                           options="{'color_field': 'color', 'no_create_edit': True , 'no_open': True}"/>
+                    <field name="duration_in_month"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
+                    <field name="purchasing_value" />
+                    <field name="extra_km" />
+                    <field name="order_line_km_per_year" />
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree//field[@name='name']" position="replace">
+                    <field name="name" widget="section_and_note_text"/>
+                </xpath>
+                <!--                <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="attributes">-->
+                <!--                    <attribute name="optional">hide</attribute>-->
+
+                <!--                </xpath>-->
+            </field>
+        </record>
+    </data>
+</odoo>

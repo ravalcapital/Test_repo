@@ -1,0 +1,79 @@
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="vehicle_order_form_view_id" model="ir.ui.view">
+        <field name="name">vehicle.order.form.inherit</field>
+        <field name="model">vehicle.order</field>
+        <field name="inherit_id" ref="vehicle_order.vehicle_order_form_view_id"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='bank_details_letter']" position="attributes">
+                <attribute name="string">ACCEPTANCE FORMS</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='invoice_every_months']" position="after">
+                <field name="millage_invoice_every_months"/>
+                <field name="millage_invoice_policy" required="1"/>
+                <field name="limited_poolmillage_extra"/>
+<!--                <field name="extra_km"/>-->
+            </xpath>
+            <xpath expr="//page[1]" position="after">
+
+                <page string="Millage Car Details">
+<!--                    <button name="create_invoice_action_millage" type="object" string="Create Invoice"-->
+<!--                            class="btn-primary"-->
+<!--                            attrs="{'invisible': [('millage_invoice_policy', '!=', 'grouped'), ('pool_millage', '!=', True)]}"/>-->
+                    <button name="create_invoice_action_millage" type="object" string="Create Invoice"
+                            class="btn-primary"
+                            attrs="{'invisible': [('millage_invoice_policy', '!=', 'grouped')]}"/>
+
+
+                    <field name="millage_car_details_ids">
+                        <tree editable="bottom">
+                            <field name="is_grouped" optional="hide"
+                                   attrs="{'column_invisible': [('parent.invoice_policy', '!=', 'grouped'), ('parent.pool_millage', '!=', True)],'readonly': [('invoice_id', '!=', False)]}"/>
+
+<!--                            <field name="is_grouped" optional="hide"-->
+<!--                                   attrs="{'column_invisible': [('parent.invoice_policy', '!=', 'grouped')],'readonly': [('invoice_id', '!=', False)]}"/>-->
+
+<!--                            <field name="total_rent" optional="hide"/>-->
+                            <!--                            <field name="vat_id" optional="hide"/>-->
+                            <field name="vehicle_car_details_id" readonly="1"/>
+                            <field name="vehicle_licence"/>
+                            <field name="no_of_days"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="total_km"/>
+                            <field name="km_reading"/>
+                            <field name="extra_km"/>
+                            <field name="pool_millage" optional="hide"/>
+                            <field name="invoice_policy" invisible="1"/>
+                            <field name="invoice_id" readonly="1" optional="hide"/>
+                            <button name="create_invoice_action" type="object" string="Create Invoice"
+                                    class="btn-primary"
+                                    attrs="{'invisible': ['|', '|', ('invoice_id', '!=', False), ('invoice_policy', '=', 'grouped'), ('pool_millage', '=', True)]}"/>
+<!--                                <button name="create_invoice_action" type="object" string="Create Invoice"-->
+<!--                                    class="btn-primary"-->
+<!--                                    attrs="{'invisible': ['|', ('invoice_id', '!=', False), ('invoice_policy', '=', 'grouped')]}"/>-->
+
+
+
+
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+
+            <xpath expr="//field[@name='vehicle_car_ids']/tree/field[@name='no_of_invoices']" position="after">
+                <field name="no_of_invoices_millage"/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='vehicle_payments']//tree/field[@name='date_from']" position="before">
+                <field name="no_of_days"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

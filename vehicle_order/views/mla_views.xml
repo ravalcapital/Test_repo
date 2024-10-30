@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_move_form_view_inherited_vo" model="ir.ui.view">
+            <field name="name">mla form view</field>
+            <field name="model">mla.data</field>
+            <field name="inherit_id" ref="mla_module.mla_data_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group[3]" position="inside">
+                    <label for="allowed_no_of_tire"/>
+                    <div>
+                        <field name="allowed_no_of_tire" class="oe_inline"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

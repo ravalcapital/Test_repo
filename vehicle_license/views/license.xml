@@ -1,0 +1,88 @@
+<odoo>
+    <record id="vehicle_license_form_view" model="ir.ui.view">
+        <field name="name">Vehicle License Form View</field>
+        <field name="model">vehicle.license</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle License">
+                <header>
+<!--                    <button name="message_click" type="object"-->
+<!--                        string="Message Post"-->
+<!--                        class="btn-primary"/>-->
+                    <field name="state" widget="statusbar" clickable="true"/>
+
+                </header>
+                <sheet>
+                    <group string="License">
+                        <group>
+<!--                             <field name="state" />-->
+                            <field name="car_plate_no"/>
+                            <field name="license_years"/>
+                            <field name="vehicle_id"/>
+                            <field name="pending_delivery_id" invisible="1"/>
+<!--                            <field name="change_time" invisible="0"/>-->
+<!--                            <field name="user_id" invisible="0"/>-->
+                        </group>
+                        <group>
+                            <field name="license_start_date"/>
+                            <field name="license_probation_date"/>
+                            <field name="license_renewal_date"/>
+                            <field name="name" readonly="0"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+    <record id="vehicle_license_tree_view" model="ir.ui.view">
+        <field name="name">Vehicle license Tree View</field>
+        <field name="model">vehicle.license</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicle License">
+                <field name="car_plate_no" invisible="1"/>
+                <field name="vehicle_id"/>
+                <field name="license_years"/>
+                <field name="license_start_date"/>
+                <field name="license_probation_date"/>
+                <field name="license_renewal_date"/>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="vehicle_license_e_search_view" model="ir.ui.view">
+        <field name="name">vehicle.license search</field>
+        <field name="model">vehicle.license</field>
+        <field name="arch" type="xml">
+            <search string="Vehicle License">
+                <field name="car_plate_no" string="Car Plate No" />
+<!--                <field name="vehicle_id" string="Car" />-->
+                <field name="name" string="License Code" force_save="1"/>
+<!--                <field string="Vehicle" name="name" filter_domain="['|', ('name', 'ilike', self), ('license_plate', 'ilike', self)]"/>-->
+                <field string="Car" name="vehicle_search_name" filter_domain="[('vehicle_search_name', 'like', self)]"/>
+
+            </search>
+        </field>
+    </record>
+    <record id="vehicle_license_action" model="ir.actions.act_window">
+        <field name="name">Vehicle License</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vehicle.license</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="vehicle_license_e_search_view"/>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+        </field>
+    </record>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="vehicle_license_menu" name="Vehicle License" parent="fleet.menu_root" sequence="5"
+              action="vehicle_license_action"/>
+
+</odoo>

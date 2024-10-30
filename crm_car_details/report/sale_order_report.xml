@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_saleorder_document_inherited_vechile_order" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr[1]/th[@name='th_description']" position="after">
+            <th name="th_make_model" style="font-size:14px;text-align:center;" >Make/Model</th>
+            <th name="th_year_model" style="font-size:14px;text-align:center;" >Year</th>
+            <th name="th_purchasing_value" style="font-size:14px;text-align:center;" >Purchasing Value</th>
+            <th name="th_km_year" style="font-size:14px;text-align:center;" >Km/Year</th>
+            <th name="th_extra_km" style="font-size:14px;text-align:center;" >Extra KM</th>
+            <th name="th_lead_time" style="font-size:14px;text-align:center;" >Lead Time</th>
+            <th name="th_duration_month" style="font-size:14px;text-align:center;" >Duration in Month</th>
+        </xpath>
+<!--style="font-size:10px;text-align:center;"-->
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr[1]/th[@name='th_priceunit']" position="replace">
+            <th name="th_priceunit" style="font-size:14px;text-align:center;" >Monthly Rate</th>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr[1]/th[@name='th_taxes']" position="replace">
+            <th name="th_taxes" style="font-size:14px;text-align:center;">Taxes</th>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/thead/tr[1]/th[@name='th_subtotal']" position="replace">
+            <th name="th_subtotal" >
+                <span groups="account.group_show_line_subtotals_tax_excluded" style="font-size:14px;text-align:center;">Amount</span>
+                <span groups="account.group_show_line_subtotals_tax_included" style="font-size:14px;text-align:center;">Total Price</span>
+            </th>
+        </xpath>
+
+        <xpath expr="//div[@id='informations']/div[3]" position="after">
+            <div class="col-auto col-3 mw-100 mb-2">
+                <strong>Contract Term:</strong>
+                <p class="m-0" t-field="doc.contract_term" />
+            </div>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[2]/tr[1]/t[1]/td[@name='td_name']" position="after">
+            <td name="td_model_m_id" style="font-size:13px;text-align:center;">
+                <span t-field="line.model_m_id.brand_id.name"/>
+                <span>/</span>
+                <span t-field="line.model_m_id.name"/>
+            </td>
+            <td name="td_year_id"  style="font-size:14px;text-align:center;"><span t-field="line.year_id.name"/></td>
+            <td name="td_purchasing_value"  style="font-size:14px;text-align:center;"><span t-field="line.purchasing_value"/></td>
+            <td name="td_km_year"  style="font-size:14px;text-align:center;"><span t-field="line.order_line_km_per_year"/></td>
+            <td name="td_extra_km" style="font-size:14px;text-align:center;"><span t-field="line.extra_km"/></td>
+            <td name="td_customer_lead" style="font-size:14px;text-align:center;"><span t-field="line.customer_lead"/></td>
+            <td name="td_duration_in_month" style="font-size:14px;text-align:center;"><span t-field="line.duration_in_month"/></td>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[2]/tr[1]/t[1]/td[@name='td_priceunit']" position="replace">
+            <td name="td_priceunit" style="font-size:14px;text-align:center;">
+                <span t-field="line.price_unit"/>
+            </td>
+        </xpath>
+<!--        <t t-set="display_discount" t-value="any(l.discount for l in doc.order_line)"/>-->
+<!--        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[2]/tr[1]/t[1]/td[@name='display_discount']" position="replace">-->
+<!--             <td t-if="display_discount" groups="product.group_discount_per_so_line" style="font-size:14px;text-align:center;">-->
+<!--                <span t-field="line.discount"/>-->
+<!--             </td>-->
+<!--        </xpath>-->
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[2]/tr[1]/t[1]/td[@name='td_taxes']" position="replace">
+            <td name="td_taxes" style="font-size:14px;text-align:center;">
+                <span t-esc="', '.join(map(lambda x: (x.description or x.name), line.tax_id))"/>
+            </td>
+        </xpath>
+        <xpath expr="//table[@class='table table-sm o_main_table']/tbody/t[2]/tr[1]/t[1]/td[@name='td_subtotal']" position="replace">
+            <td name="td_subtotal" class="o_price_total" style="font-size:14px;text-align:center;">
+                <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+            </td>
+        </xpath>
+
+    </template>
+
+</odoo>

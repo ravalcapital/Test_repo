@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="partner_view_loan_form_inherit" model="ir.ui.view">
+            <field name="name">loan.form.views</field>
+            <field name="model">partner.loan.details</field>
+            <field name="inherit_id" ref="odoo_customer_supplier_loan.partner_view_loan_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('oe_title')]" position="before">
+                    <div class="oe_button_box">
+                       <button type="object" name="bank_paper_action" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <span>Bank Paper</span>
+                        </button>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="fleet_car_identity_id__inheritview_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='driver_id']" position='before'>
+                   <field name="car_identity_id" force_save="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="fleet_car_identity_id_search_view_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.search</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+        <field name="arch" type="xml">
+            <group expand="1" position="inside">
+                <field name="car_identity_id"/>
+                <filter string="Car Identity" name="car_identity_id" context="{'group_by':'car_identity_id'}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pre_lease_report" model="ir.actions.report">
+            <field name="name">Prelease</field>
+            <field name="model">pre.lease</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">operation_forms.prelease_agreement_template</field>
+            <field name="report_file">operation_forms.prelease_agreement_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="model_pre_lease"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_operation_forms"/>
+        </record>
+
+
+        <template id="prelease_agreement_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="context.get('lang')"/>
+                    <t t-call="operation_forms.car_rental_base_template"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

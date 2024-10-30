@@ -1,0 +1,12 @@
+<odoo>
+    <record id="operation_group_user_id" model="res.groups">
+        <field name="name">Operation Form User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+
+    </record>
+    <record id="operation_group_manager_id" model="res.groups">
+        <field name="name">Operation Form Manager</field>
+        <field name="implied_ids" eval="[(4, ref('operation_forms.operation_group_user_id'))]"/>
+
+    </record>
+</odoo>

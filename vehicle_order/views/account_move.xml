@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_move_form_view_inherited_vo_order" model="ir.ui.view">
+            <field name="name">account.move.form.view.inherited</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='payment_reference']" position="after">
+                    <field name="vo_id" readonly="1"/>
+                    <field name="mla_id" readonly="1"/>
+<!--                    <field name="fleet_vehicle_ids" readonly="1" invisible ="1" force_save="1"/>-->
+<!--                    <field name="fleet_vehicle_license_plate" readonly="1" invisible ="0" force_save="1"/>-->
+<!--                    <field name="fleet_vehicle_search_name" readonly="1" invisible ="1" force_save="1"/>-->
+                    <field name="invoices_date_from" readonly="1" invisible="1" force_save="1"/>
+                    <field name="invoices_date_to" readonly="1" invisible="1" force_save="1"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
+                    <field name="vehicle_licence_ids" readonly="1" widget="many2many_tags"/>
+                    <field name="vehicle_car_details_ids" readonly="1" widget="many2many_tags"/>
+                    <field name="lot_ids" readonly="1" widget="many2many_tags"/>
+                    <field name="date_from" readonly="1"/>
+                    <field name="date_to" readonly="1"/>
+                    <field name="total_km" readonly="1"/>
+                    <field name="km_reading" readonly="1"/>
+                    <field name="extra_km" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter_vehicle_order" model="ir.ui.view">
+            <field name="name">account.move.vehicle order search</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="sale.account_invoice_groupby_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+<!--                      <field name="fleet_vehicle_license_plate" string="Car Plate Number" filter_domain="[('fleet_vehicle_license_plate', '=', self)]" />-->
+                      <field name="invoices_date_from" string="Date From" />
+                      <field name="invoices_date_to" string="Date To" />
+                </xpath>
+                <xpath expr="//group/filter[@name='sales_channel']" position="after">
+<!--                    <filter string="Car Plate Number" name="fleet_vehicle_license_plate" domain="[]" context="{'group_by':'fleet_vehicle_license_plate'}"/>-->
+                    <filter string="Start Date" name="start_date" domain="[]" context="{'group_by':'invoices_date_from'}"/>
+                    <filter string="End Date" name="end_date" domain="[]" context="{'group_by':'invoices_date_to'}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+        <record id="partner_view_loan_compute_form" model="ir.ui.view">
+            <field name="name">loan.form.inherit</field>
+            <field name="model">partner.loan.details</field>
+            <field name="inherit_id" ref="odoo_customer_supplier_loan.partner_view_loan_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='installment_lines']/tree//field[@name='date_to']" position="after">
+                    <field name="beginning_balance"
+                           attrs="{'column_invisible': [('parent.interest_mode', '!=','mortgage_loan')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='installment_lines']/tree//field[@name='total']" position="after">
+                    <field name="ending_balance"
+                           attrs="{'column_invisible': [('parent.interest_mode', '!=','mortgage_loan')]}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

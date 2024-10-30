@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_view_loan_form_inherit_change_term_installment" model="ir.ui.view">
+        <field name="name">partner.loan.details.inherit.change.term</field>
+        <field name="model">partner.loan.details</field>
+        <field name="inherit_id" ref="odoo_customer_supplier_loan.partner_view_loan_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//header" position="inside">
+<!--                <button string="Change Term Loan" type="action" name="%(loan_change_terms_installment.action_emp_loan_report)d" groups="odoo_customer_supplier_loan.partner_loan_group_manager" attrs="{'invisible': ['|', ('allow_to_change_loan_term', '=', False), ('state', 'not in', ['approved', 'disburse'])]}"/>-->
+                <button string="Change Term Loan" type="action" name="%(loan_change_terms_installment.action_emp_loan_report)d" groups="odoo_customer_supplier_loan.partner_loan_group_manager" />
+            </xpath>
+            <xpath expr="//field[@name='loan_partner_type']" position="before">
+                <field name="allow_to_change_loan_term" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[last()]" position="after">
+                <page name="term_change_history_page" string="Term Change History">
+                    <field name="term_change_loan_ids" readonly="0">
+                        <tree editable="bottom">
+                            <field name="old_start_installment_date"/>
+                            <field name="new_start_installment_date"/>
+                            <field name="old_duration"/>
+                            <field name="new_duration"/>
+                            <field name="old_int_rate"/>
+                            <field name="new_int_rate"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="old_start_installment_date"/>
+                                    <field name="new_start_installment_date"/>
+                                </group>
+                                <group>
+                                    <field name="old_duration"/>
+                                    <field name="new_duration"/>
+                                </group>
+                                <group>
+                                    <field name="old_int_rate"/>
+                                    <field name="new_int_rate"/>
+                                </group>
+                                <group>
+                                    <field name="term_change_date"/>
+                                    <field name="term_change_by"/>
+                                </group>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="seq_fleet_cars_odometer" model="ir.sequence">
+        <field name="name">Cars Odometer</field>
+        <field name="code">fleet.cars.odometer</field>
+        <field name="prefix">OR/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id='fleet_cars_odometer_view_form' model='ir.ui.view'>
+        <field name="name">fleet.cars.odometer.form</field>
+        <field name="model">fleet.cars.odometer</field>
+        <field name="arch" type="xml">
+            <form string="Cars Odometer Request">
+                <header>
+                    <button name="confirm_action"
+                            type="object" string="Confirm" class="oe_highlight"
+                            attrs="{'invisible': [('state', '=', 'done')]}"
+                            groups="fleet_odometer.fleet_odometer_group_manager"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="user_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="create_date" string="Created On" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="vo_ids" widget="many2many_tags"
+                                   attrs="{'readonly': ['|', ('vehicle_ids', '!=', []), ('state', '!=', 'draft')]}"/>
+<!--                            <field name="vo_ids" widget="many2many_tags"-->
+<!--                                   />-->
+                            <button name="get_all_vehicles"
+                                    type="object" string="Get Vehicles" class="oe_highlight"
+                                    attrs="{'invisible': [('vehicle_ids', '!=', [])]}"
+                                    groups="fleet_odometer.fleet_odometer_group_manager"/>
+<!--                            <button name="get_all_vehicles"-->
+<!--                                    type="object" string="Get Vehicles" class="oe_highlight"-->
+<!--                                    groups="fleet_odometer.fleet_odometer_group_manager"/>-->
+                            <field name="vehicle_ids" widget="many2many_tags" readonly="1" force_save="1" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Cars Odometer">
+                            <field name="odometer_line_ids" nolabel='1' editable="bottom" colspan="2"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}" force_save="1">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="value"/>
+                                    <field name="vehicle_id"/>
+                                    <field name="driver_id"/>
+                                    <field name="employee_id"/>
+                                    <field name="vo_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='fleet_cars_odometer_view_tree' model='ir.ui.view'>
+        <field name="name">fleet.cars.odometer.tree</field>
+        <field name="model">fleet.cars.odometer</field>
+        <field name="arch" type="xml">
+            <tree string="Cars Odometer Request">
+                <field name="user_id"/>
+<!--                <field name="created_on"/>-->
+                <field name="create_date"/>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id='fleet_cars_odometer_lines_view_tree' model='ir.ui.view'>
+        <field name="name">fleet.cars.odometer.tree</field>
+        <field name="model">fleet.cars.odometer.line</field>
+        <field name="arch" type="xml">
+            <tree string="Cars Odometer">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="value"/>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="employee_id"/>
+                <field name="vo_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='fleet_cars_odometer_action' model='ir.actions.act_window'>
+        <field name="name">Cars Odometer Request</field>
+        <field name="res_model">fleet.cars.odometer</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Cars Odometer Request
+            </p>
+            <p>
+                You can add various odometer entries for all vehicles.
+            </p>
+        </field>
+    </record>
+    <record id='fleet_cars_odometer_lines_action' model='ir.actions.act_window'>
+        <field name="name">Odometer Lines</field>
+        <field name="res_model">fleet.cars.odometer.line</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{'create':0,'edit':0,'delete':0,'duplicate':0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Odometer Lines
+            </p>
+        </field>
+    </record>
+    <menuitem id="fleet_cars_odometer_menu" name="Odometer"
+              groups="fleet_odometer.fleet_odometer_group_user,fleet_odometer.fleet_odometer_group_manager"
+              sequence="222"/>
+    <menuitem id="fleet_cars_odometer_sub_menu_1" action="fleet_odometer.fleet_cars_odometer_action"
+              parent="fleet_odometer.fleet_cars_odometer_menu"
+              groups="fleet_odometer.fleet_odometer_group_user,fleet_odometer.fleet_odometer_group_manager"
+              sequence="3"/>
+    <menuitem id="fleet_cars_odometer_lines_menu" action="fleet_odometer.fleet_cars_odometer_lines_action"
+              parent="fleet_odometer.fleet_cars_odometer_menu"
+              groups="fleet_odometer.fleet_odometer_group_user,fleet_odometer.fleet_odometer_group_manager"
+              sequence="4"/>
+
+</odoo>

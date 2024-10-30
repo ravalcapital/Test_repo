@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="termination_form" model="ir.ui.view">
+            <field name="name">vehicle.termination.form</field>
+            <field name="model">vehicle.termination</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,submited,approved"/>
+                        <button name="action_submit" type="object"
+                                states="draft"
+                                string="Submit"/>
+                        <button name="action_approve" type="object"
+                                states="submited"
+                                string="Approve" groups="vehicle_termination.termination_manager_group"/>
+                        <button name="action_cancel" type="object"
+                                attrs="{'invisible': [('state', '=','cancel')]}"
+                                string="Cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="mla_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="vo_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="car_ids" invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Cars">
+                                <field name="order_car_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                    <tree edit="0" create="0">
+                                        <field name="name"/>
+                                        <field name="fleet_licence_plate_id"/>
+                                        <field name="fleet_licence_plate_id"/>
+                                        <field name="model_m_id"/>
+                                        <field name="invoice_start_date"/>
+                                        <field name="value"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="termination_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Termination</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vehicle.termination</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="termination_root_menu"
+                  name="Termination"
+                  sequence="55"/>
+        <menuitem id="termination_menu"
+                  name="Terminations"
+                  parent="termination_root_menu"
+                  action="termination_action"
+                  sequence="5"/>
+
+
+    </data>
+</odoo>

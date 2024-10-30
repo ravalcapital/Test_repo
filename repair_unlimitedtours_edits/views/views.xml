@@ -1,0 +1,73 @@
+<odoo>
+     <record id="repair_view_repair_order_form_inherited_bill2" model="ir.ui.view">
+        <field name="name">repair.order.form.view.inherited2</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair_vendor_bill.repair_view_repair_order_form_inherited_bill"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='supervisor_work_email']" position="after">
+                <field name="maintenance_supervisor2_id"/>
+                <field name="supervisor2_work_email"/>
+                <field name="supervisor2_mobile_phone"/>
+            </xpath>
+        </field>
+     </record>
+    <record id="repair_view_repair_order_form_inherited_bill" model="ir.ui.view">
+        <field name="name">repair.order.form.view.inherited</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='custom_repair_type']" position="before">
+                <field name="invoice_number"/>
+            </xpath>
+             <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="mobile_number"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="repair_view_repair_order_tree_inherited_bill" model="ir.ui.view">
+        <field name="name">repair.order.tree.view.inherited</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="invoice_number"/>
+            </xpath>
+
+
+            <xpath expr="//field[@name='address_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='guarantee_limit']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='sale_order_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="employee_default_form_view_id" model="ir.ui.view">
+        <field name="name">employee.default.tree</field>
+        <field name="model">employee.default</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="maintenance_engineer_id"/>
+                <field name="maintenance_quality_id"/>
+                <field name="maintenance_supervisor_id"/>
+                <field name="maintenance_supervisor2_id"/>
+            </tree>
+        </field>
+    </record>
+    <record id="employee_default_action_view" model="ir.actions.act_window">
+        <field name="name">Employee Default</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee.default</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="employee_default_id" name="Employee Default" parent="repair.repair_menu_config"
+              action="employee_default_action_view" sequence="100"/>
+</odoo>

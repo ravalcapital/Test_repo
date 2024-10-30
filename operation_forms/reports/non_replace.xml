@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="non_replacement_report" model="ir.actions.report">
+            <field name="name">Non Replacement</field>
+            <field name="model">non_replacement.model</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">operation_forms.non_replacement_template</field>
+            <field name="report_file">operation_forms.non_replacement_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="model_non_replacement_model"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_operation_forms"/>
+        </record>
+
+        <template id="non_replacement_template_lang">
+            <t t-call="operation_forms.operation_header_footer">
+                <div class="page">
+                    <div class="text-center">
+                        <p class="pull-left text-left  d-inline" t-field="o.name"/>
+
+                        <p class="font-weight-bold d-inline text-center">
+                            <span>نموذج فحص السيارة - بدون سيارة بديلة</span>
+                            <br/>
+                            (Non replacement) inspection form
+                        </p>
+                    </div>
+                    <style>
+                        th{vertical-align:middle}
+                        table tr th, table tr td {
+                        border: 1px solid;
+                        padding: 0px 3px;
+                        }
+                        table#info th { width:20%; font-size:10px }
+                        table#stock th { font-size:10px }
+
+                        table#checkbox td,table#checkbox th { font-size:10px; }
+                        table#checkbox tr td:nth-child(2),table#checkbox tr td:nth-child(3),table#checkbox tr
+                        td:nth-child(5),table#checkbox tr td:nth-child(6),table#checkbox tr
+                        td:nth-child(8),table#checkbox tr td:nth-child(9),table#checkbox tr
+                        td:nth-child(11),table#checkbox tr td:nth-child(12){
+                        text-align: center
+                        }
+                        table#sign td { font-size:10px }
+                    </style>
+                    <table id="info" class="w-100">
+                        <tr>
+                            <th class="text-center" colspan="6" style="background-color:grey;">LONG-TERM VEHICLE
+                                CONTRACT
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th>
+                                Customer
+                                <br/>
+                                الشركة
+                            </th>
+                            <td>
+                                <span t-field="o.customer_id"/>
+                            </td>
+                            <th>
+                                User Name
+                                <br/>
+                                اسم المستخدم
+                            </th>
+                            <td>
+                                <span t-field="o.user_name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Make
+                                <br/>
+                                نوع السيارة
+                            </th>
+                            <td>
+                                <span t-field="o.vehicle_model.brand_id"/>
+                            </td>
+                            <th>
+                                Model
+                                <br/>
+                                الموديل
+                            </th>
+                            <td>
+                                <span t-field="o.vehicle_model.name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Plate Number
+                                <br/>
+                                رقم اللوحات
+                            </th>
+                            <td>
+                                <span t-field="o.vehicle_id"/>
+                            </td>
+                            <th>
+                                VIN Number
+                                <br/>
+                                رقم الشاسيه
+                            </th>
+                            <td>
+                                <span t-field="o.vin_number"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Contract no
+                                <br/>
+                                رقم العقد
+                            </th>
+                            <td>
+                                <span t-field="o.contract_id"/>
+                            </td>
+                            <th>
+                                Phone Number
+                                <br/>
+                                رقم الهاتف
+                            </th>
+                            <td>
+                                <span t-field="o.phone"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Receive Date
+                                <br/>
+                                تاريخ الاستلام
+                            </th>
+                            <td>
+                                <span t-field="o.date_out"/>
+                            </td>
+                            <th>
+                                Delivery Date
+                                <br/>
+                                تاريخ التسليم
+                            </th>
+                            <td>
+                                <span t-field="o.date_in"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <img width="100%" src="/operation_forms/static/src/images/non_replacement.png"/>
+                    <table id="stock" class="w-100">
+                        <tr>
+                            <th>
+                                Receiving KM
+                                <br/>
+                                بيان العداد اﻷستلام
+                                <span t-field="o.km_reading_in"/>
+                            </th>
+                            <th>
+                                Receiving Time
+                                <br/>
+                                وقت اﻷستلام
+                                <span t-field="o.time_in"/>
+                            </th>
+                            <th>
+                                Delivery KM
+                                <br/>
+                                بيان العداد التسليم
+                                <span t-field="o.km_reading_out"/>
+                            </th>
+                            <th>
+                                Delivery Time
+                                <br/>
+                                وقت التسليم
+                                <span t-field="o.time_out"/>
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th colspan="2">
+                                Fuel / Out
+                                <br/>
+                                الوقود إستلام
+                                <span t-field="o.fuel_out"/>
+                            </th>
+
+                            <th colspan="2">
+                                Fuel / In
+                                <br/>
+                                الوقود تسليم
+                                <span t-field="o.fuel_in"/>
+                            </th>
+                        </tr>
+                    </table>
+                    <table id="checkbox" class="w-100">
+                        <tr>
+                            <td class="text-center" colspan="100">Vehicle Accessories &amp; Equipment’s</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                tools
+                                <br/>
+                                العدة
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.tools_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.tools_in"/>
+                            </td>
+                            <td>
+                                Triangle
+                                <br/>
+                                المثلث
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.triangle_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.triangle_in"/>
+                            </td>
+                            <td>
+                                Boot Mats
+                                <br/>
+                                دواسات
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.boot_mats_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.boot_mats_in"/>
+                            </td>
+                            <td>
+                                Antenna
+                                <br/>
+                                أريال
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.antenna_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.antenna_in"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Cassette
+                                <br/>
+                                كاسيت
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cassette_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cassette_in"/>
+                            </td>
+                            <td>
+                                Ac pots
+                                <br/>
+                                هويات التكييف
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.ac_pots_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.ac_pots_in"/>
+                            </td>
+                            <td>
+                                Seat Febric
+                                <br/>
+                                قماش الكرسى
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.seat_febric_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.seat_febric_in"/>
+                            </td>
+                            <td>
+                                Spare wheel
+                                <br/>
+                                الإستبن
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.spare_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.spare_in"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Jack Hammer
+                                <br/>
+                                كوريك
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.jack_hummer_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.jack_hummer_in"/>
+                            </td>
+                            <td>
+                                Manual Key
+                                <br/>
+                                سلاح المفتاح
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.manual_key_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.manual_key_in"/>
+                            </td>
+                            <td>
+                                License
+                                <br/>
+                                الرخصة
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.license_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.license_in"/>
+                            </td>
+                            <td>
+                                Cigarette tray
+                                <br/>
+                                طفاية السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_tray_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_tray_in"/>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td>
+                                1 st Aid Kit
+                                <br/>
+                                أسعافات أولية
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.first_aid_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.first_aid_in"/>
+                            </td>
+                            <td>
+                                Cigarette lighter
+                                <br/>
+                                والاعة السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_lighter_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_lighter_in"/>
+                            </td>
+                            <td>
+                                Cleanness in
+                                <br/>
+                                النظافة الداخلية
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cleanness_in_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cleanness_in_in"/>
+                            </td>
+                            <td>
+                                Fire Ext.
+                                <br/>
+                                طفاية حريق
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.fire_ext_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.fire_ext_in"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <table class="w-100">
+                        <tr style="font-size: 14px;">
+                            <td class="w-50">
+                                <span class="pull-left">service before Comments Customer</span>
+                                <span class="pull-right">ملاحظات العميل قبل الصيانة</span>
+                                <div style="clear:both"/>
+                                <span t-field="o.check_out_comments"/>
+                                <t t-if="not o.check_out_comments">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </t>
+                            </td>
+                            <td class="w-50">
+                                <span class="pull-left">Movement</span>
+                                <span class="pull-right">التحرك</span>
+                                <div style="clear:both"/>
+                                <span t-field="o.check_in_comments"/>
+                                <t t-if="not o.check_in_comments">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                </t>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="w-100">
+                        <tr>
+                            <td style="font-size: 12px">
+                                <span>Note: Europcar is not responsible for any belongings in the vehicle. The user must
+                                    clear the vehicle from any belongings before handing the
+                                    vehicle for service or repair
+                                </span>
+                                <br/>
+                                <span class="text-right">ملحوظة: شركة يوروب كار غير مسئولة عن اى متعلقات شخصية داخل
+                                    السيارة. وعلى العميل افراغ السيارة من اى متعلقات قبل تسليم السيارة للصيانة او اصلاح.
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="sign" class="w-100">
+                        <tr>
+                            <td>
+                                Concierge Signature Out: توقيع الكونسيرج
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Customer Signature Out: توقيع العميل
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Concierge Signature in: توقيع الكونسيرج
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Customer Signature in: توقيع العميل
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="non_replacement_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="context.get('lang')"/>
+                    <t t-call="operation_forms.non_replacement_template_lang"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

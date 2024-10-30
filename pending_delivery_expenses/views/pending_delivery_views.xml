@@ -1,0 +1,49 @@
+<odoo>
+    <record id="pending_delivery_form_inherit_expenses" model="ir.ui.view">
+        <field name="name">pending.delivery.form</field>
+        <field name="model">pending.delivery</field>
+        <field name="inherit_id" ref="purchase_vehicles.pending_delivery_form_view"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_create_expenses" string="Create Expenses"
+                        class="oe_highlight" type="object"
+                        attrs="{'invisible': [('state', '!=', 'policy')]}"/>
+            </header>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_expenses" class="oe_stat_button" icon="fa-truck"
+                        context="{'search_default_my_expenses': 1, 'search_default_no_report': 1, 'default_pending_delivery_id': active_id}"
+                        type="object" attrs="{'invisible': [('expense_count', '=', 0)]}">
+                    <field name="expense_count" string="Expenses" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_product_form_inherit_pending_delivery" model="ir.ui.view">
+        <field name="name">product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="hr_expense.product_product_expense_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='product_details']/group[2]" position="inside">
+                <field name="policy_payment"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="hr_expense_form_inherit_pending_delivery" model="ir.ui.view">
+        <field name="name">hr.expense.form</field>
+        <field name="model">hr.expense</field>
+        <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/group[2]" position="inside">
+                <field name="pending_delivery_id" readonly="1" force_save="1"/>
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="replace">
+                <field name="product_ids_domain" invisible="1"/>
+                <field name="product_id" required="1"
+                       context="{'default_can_be_expensed': 1, 'tree_view_ref': 'hr_expense.product_product_expense_tree_view'}"
+                       widget="many2one_barcode"
+                       domain="[('id', 'in', product_ids_domain)]"/>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>

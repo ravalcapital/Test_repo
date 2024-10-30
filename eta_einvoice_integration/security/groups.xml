@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="can_see_issued_date" model="res.groups">
+            <field name="name">Can See Issued Date</field>
+        </record>
+    </data>
+</odoo>

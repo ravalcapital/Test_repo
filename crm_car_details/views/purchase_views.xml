@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="purchase_order_form" model="ir.ui.view">
+           <field name="name">purchase.order.form</field>
+           <field name="model">purchase.order</field>
+           <field name="inherit_id" ref="purchase.purchase_order_form"/>
+           <field name="arch" type="xml">
+
+<!--               <xpath expr="//field[@name='order_line']/tree/field[@name='make_m_id']" position="after">-->
+<!--                   <field name="vehicle_model_id" attrs="{'required': [('is_vehicle', '=',True),('split_receipt', '=',True)]}"/>-->
+<!--               </xpath>-->
+               <xpath expr="//field[@name='order_line']/tree/field[@name='year_id']" position="after">
+                   <field name="color_id" attrs="{'required': [('is_vehicle', '=',True),('split_receipt', '=',True)]}"/>
+               </xpath>
+
+           </field>
+       </record>
+
+    </data>
+</odoo>

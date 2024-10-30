@@ -1,0 +1,99 @@
+<odoo>
+    <data>
+        <record id="fleet_vehicle_chauffeur_log_view_list" model="ir.ui.view">
+            <field name="name">fleet.vehicle.chauffeur.log.view.tree</field>
+            <field name="model">fleet.vehicle.chauffeur.log</field>
+            <field name="arch" type="xml">
+                <tree string="Chauffeur Logs" editable="bottom">
+                    <field name="vehicle_id" invisible="1"/>
+                    <field name="driver_chauffeur_id" widget="many2one_avatar"/>
+                    <field name="date_start"/>
+                    <field name="date_end"/>
+                </tree>
+            </field>
+        </record>
+        <record id="inherit_fleet_fleet_vehicle_view_repair_order" model="ir.ui.view">
+            <field name="name">inherit.fleet.vehicle.form.view</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_view_log_drivers_chauffeur" class="oe_stat_button" icon="fa-truck"
+                            type="object">
+                        <field name="log_drivers_chauffeur_count" string="Driver chauffeur" widget="statinfo"/>
+                    </button>
+                    <button name="action_view_repairs" class="oe_stat_button" icon="fa-wrench"
+                            type="object">
+                        <field name="repairs_count" string="Repair Orders" widget="statinfo"/>
+                    </button>
+                    <button name="action_view_vo" class="oe_stat_button" icon="fa-truck"
+                            type="object">
+                        <field name="vo_count" string="VO" widget="statinfo"/>
+                    </button>
+
+                </xpath>
+                <xpath expr="//field[@name='driver_id']" position="after">
+                    <field name="driver_chauffeur_id" widget="many2one_avatar"/>
+                    <field name="vo_ids" invisible="1"/>
+<!--                    <field name="vo_ids" >-->
+<!--                    <field name="vo_ids"  editable="bottom" colspan="2">-->
+<!--                         <tree editable="bottom">-->
+<!--                            <field name="id"/>-->
+<!--                            <field name="name" />-->
+                            <!--  <field name="fleet_licence_plate_id" / -->
+                            <!--  <field name="model_m_id" />-->
+                            <!--  <field name="model_id" /> -->
+                            <!--  <field name="invoice_start_date" /> -->
+                            <!--  <field name="no_of_invoices" /> -->
+<!--                        </tree>-->
+<!--                    </field>-->
+<!--                    <field name="vo_id" domain="[('state', 'in', ['inprogress','confirmed']), ('id', 'in', vo_ids)]"/>-->
+                    <field name="vo_id" domain="[('state', 'in', ['inprogress','confirmed'])]"/>
+                    <field name="mla_id"/>
+                    <field name="customer_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="inherit_fleet_tree_vehicle_view_repair_order" model="ir.ui.view">
+            <field name="name">inherit.fleet.vehicle.tree.view</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='driver_id']" position="after">
+                    <field name="driver_chauffeur_id" widget="many2one_avatar"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="inherit_fleet_vehicle_model_view_repair_order" model="ir.ui.view">
+            <field name="name">inherit.fleet.vehicle.model.form.view</field>
+            <field name="model">fleet.vehicle.model</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group" position="inside">
+                    <group>
+                        <field name="change_tire_every"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="car_maintenance_plan_notify_cron" model="ir.cron">
+            <field name="name">Car Maintenance Plan Notification</field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+            <field name="state">code</field>
+            <field name="code">model.crone_car_maintenance_plan_notify()</field>
+            <field name="priority" eval="5"/>
+        </record>
+        <record id="schedule_activity_car_maintenance_plan_notify" model="mail.activity.type">
+            <field name="name">Car Maintenance Plan Notification</field>
+            <field name="icon">fa-envelope</field>
+            <field name="res_model">fleet.vehicle</field>
+        </record>
+
+
+    </data>
+</odoo>

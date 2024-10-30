@@ -1,0 +1,65 @@
+<odoo>
+    <record id="fleet_damage_vehicle_view_form_id" model="ir.ui.view">
+        <field name="name">damage.vehicle.form.inherit</field>
+        <field name="model">damage.vehicle</field>
+        <field name="inherit_id" ref="damage_vehicle.fleet_damage_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="create_invoice_customer" string="CREATE INVOICE CUSTOMER" class="oe_highlight"
+                        type="object"  states="billing"/>
+                <button name="create_bill_service_center" string="CREATE BILL SERVICE CENTER" class="oe_highlight"
+                        type="object"  states="billing"/>
+                <button name="create_invoice_insurance_company" string=" CREATE Invoice Insurance Company"
+                        class="oe_highlight" type="object"  states="billing"/>
+
+                <button name="done_button" type="object" string="Done" class="oe_highlight"  states="billing"/>
+
+
+            </xpath>
+<!--            <xpath expr="//field[@name='state']" position="after">-->
+<!--                <field name="show_buttons" invisible="1"/>-->
+<!--            </xpath>-->
+
+<!--            <xpath expr="//header" position="inside">-->
+<!--                <button name="create_invoice_customer" string="CREATE INVOICE CUSTOMER" class="oe_highlight"-->
+<!--                       type="object"    attrs="{'invisible': [('state', '!=', 'billing'), ('show_buttons', '=', False)]}"/>-->
+<!--                <button name="create_bill_service_center" string="CREATE BILL SERVICE CENTER" class="oe_highlight"-->
+<!--                         type="object" attrs="{'invisible': [('state', '!=', 'billing'), ('show_buttons', '=', False)]}"/>-->
+<!--                <button name="create_invoice_insurance_company" string=" CREATE Invoice Insurance Company"-->
+<!--                        class="oe_highlight"  type="object" attrs="{'invisible': [('state', '!=', 'billing'), ('show_buttons', '=', False)]}"/>-->
+
+<!--                <button name="done_button" type="object" string="Done" class="oe_highlight"  attrs="{'invisible': [('state', '!=', 'billing'), ('show_buttons', '=', False)]}"/>-->
+
+
+<!--            </xpath>-->
+
+            <xpath expr="//field[@name='insurance_company_id']" position="after">
+                <field name="service_center_id"/>
+<!--                <field name="default_customer_journal"/>-->
+<!--                <field name="default_vendor_journal"/>-->
+
+            </xpath>
+            <xpath expr="//field[@name='type']" position="after">
+                <field name="default_customer_journal"/>
+                <field name="default_vendor_journal"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="view_move_form" model="ir.ui.view">
+        <field name="name">account.move</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='vo_id']" position="after">
+
+                <field name="serial_damage_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

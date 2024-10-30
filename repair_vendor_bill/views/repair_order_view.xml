@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="repair_view_repair_order_form_inherited_bill" model="ir.ui.view">
+            <field name="name">repair.order.form.view.inherited</field>
+            <field name="model">repair.order</field>
+            <field name="inherit_id" ref="repair.view_repair_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_open_repair_bill" type="object"
+                            class="oe_stat_button" icon="fa-file-text"
+                            attrs="{'invisible': [('bill_count','=', 0)]}">
+                        <field name="bill_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <header position="inside">
+                    <button name="create_bill" class="oe_highlight"
+                            string="Create Vendor Bill" type="object"
+                            attrs="{'invisible': ['|', ('show_bill_button','!=',True), ('bill_count','!=', 0)]}"/>
+                </header>
+                <xpath expr="//button[@name='action_repair_invoice_create']" position="after">
+                    <button name="action_custom_repair_done" type="object" string="End Repair" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('state', '!=', '2binvoiced'), ('invoice_method', '!=', 'after_repair')]}"
+                            data-hotkey="w"/>
+                    <button name="action_repair_ready" type="object" string="Ready to Repair" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('state', '!=', '2binvoiced'), ('invoice_method', '!=', 'b4repair')]}"
+                            data-hotkey="w"/>
+                    <button name="create_odometer" type="object" string="Create Odometer" class="oe_highlight"
+                            attrs="{'invisible': ['|', ('state', '!=', 'done'), ('odometer_created', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//button[@name='%(repair.action_repair_move_lines)d']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='schedule_date']" position="before">
+                    <field name="custom_repair_type" required="1"/>
+                    <field name="maintenance_plan_id"/>
+                </xpath>
+                <xpath expr="//field[@name='location_id']" position="before">
+                    <field name="km_in" required="1"/>
+                    <field name="km_date_in" required="1"/>
+                    <field name="show_bill_button" invisible="1"/>
+                    <field name="customer_id" invisible="1"/>
+                    <field name="odometer_created" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='location_id']" position="after">
+                    <field name="km_out"/>
+                    <field name="km_date_out"/>
+                </xpath>
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <field name="plate_lot_id" required="1"/>
+                    <field name="vehicle_id"/>
+                    <field name="model_id"/>
+                    <field name="vehicle_id2" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="vo_id" readonly="1"/>
+                    <field name="mla_id" readonly="1"/>
+<!--                    <field name="no_tire" readonly="1"/>-->
+                </xpath>
+                <xpath expr="//field[@name='guarantee_limit']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='address_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_method']" position="after">
+                    <field name="billing_method"/>
+                </xpath>
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="service_center_id" required="True"/>
+<!--                    <field name="service_center_mobile"/>-->
+                    <field name="service_center_add_id"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="after">
+<!--                    <field name="mobile_phone"/>-->
+                    <field name="next_maintenance_km"/>
+                    <field name="maintenance_engineer_id"/>
+                    <field name="emp_mobile_phone"/>
+                    <field name="emp_work_email"/>
+                    <field name="maintenance_quality_id"/>
+                    <field name="quality_mobile_phone"/>
+                    <field name="quality_work_email"/>
+                    <field name="maintenance_supervisor_id"/>
+                    <field name="supervisor_mobile_phone"/>
+                    <field name="supervisor_work_email"/>
+                </xpath>
+                <xpath expr="//field[@name='product_id']" position="attributes">
+                    <attribute name="string">Car Brand</attribute>
+                    <attribute name="readonly">1</attribute>
+                    <attribute name="force_save">1</attribute>
+                    <attribute name="required">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='product_qty']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='lot_id']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                    <attribute name="force_save">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sale_order_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="schedule_activity_of_send_repair_order_id" model="mail.activity.type">
+            <field name="name">Notification of Vehicle</field>
+            <field name="icon">fa-envelope</field>
+            <field name="res_model">fleet.vehicle</field>
+        </record>
+        <record id="repair_order_vehicle_notify_Cron" model="ir.cron">
+            <field name="name">Tire Repair Order Notification</field>
+            <field eval="True" name="active"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="repair.model_repair_order"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_repair_order()</field>
+            <field name="priority" eval="5"/>
+        </record>
+
+
+        <record id="repair_view_repair_order_tree_inherited_bill" model="ir.ui.view">
+            <field name="name">repair.order.tree.view.inherited</field>
+            <field name="model">repair.order</field>
+            <field name="inherit_id" ref="repair.view_repair_order_tree"/>
+            <field name="arch" type="xml">
+<!--                <xpath expr="//tree" position="inside">-->
+<!--                    <header>-->
+<!--                        <button name="create_po" type="object" string="create po"/>-->
+<!--                    </header>-->
+<!--                </xpath>-->
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="km_in" required="1"/>
+                    <field name="km_date_in"/>
+                    <field name="service_center_add_id"/>
+                    <field name="amount_total" string="Total Invoice"/>
+                    <field name="plate_lot_id"/>
+                    <field name="maintenance_plan_id"/>
+
+
+                </xpath>
+                <xpath expr="//field[@name='schedule_date']" position="before">
+                    <field name="model_id"/>
+                    <field name="description"/>
+
+                </xpath>
+
+            </field>
+        </record>
+        <record id="view_repair_order_form_filter" model="ir.ui.view">
+            <field name="name">repair.order.filter</field>
+            <field name="model">repair.order</field>
+            <field name="inherit_id" ref="repair.view_repair_order_form_filter"/>
+            <field name="arch" type="xml">
+
+<!--                <xpath expr="//field[@name='product_id']" position="after">-->
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="plate_lot_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="car_rental_base_template">
+            <t t-call="operation_forms.operation_header_footer">
+                <div class="page">
+                    <div class="text-center">
+                        <p class="pull-left text-left  d-inline" t-field="o.name"/>
+                        <p class="font-weight-bold d-inline text-center" t-raw="o.get_report_name()"/>
+                    </div>
+                    <style>
+                        th{vertical-align:middle}
+                        table tr th, table tr td {
+                        border: 1px solid;
+                        padding: 0px 3px;
+                        }
+                        table#info th { width:20%; font-size:10px }
+                        table#stock th { font-size:10px }
+
+                        table#checkbox td,table#checkbox th { font-size:10px; }
+                        table#checkbox tr td:nth-child(2),table#checkbox tr td:nth-child(3),table#checkbox tr
+                        td:nth-child(5),table#checkbox tr td:nth-child(6),table#checkbox tr
+                        td:nth-child(8),table#checkbox tr td:nth-child(9),table#checkbox tr
+                        td:nth-child(11),table#checkbox tr td:nth-child(12){
+                        text-align: center
+                        }
+                        table#sign td { font-size:10px }
+                    </style>
+                    <table id="info" class="w-100">
+                        <tr>
+                            <th>
+                                Customer
+                                <br/>
+                                الشركة
+                            </th>
+                            <td>
+                                <span t-field="o.customer_id"/>
+                            </td>
+                            <th>
+                                User Name
+                                <br/>
+                                اسم المستخدم
+                            </th>
+                            <td>
+                                <span t-field="o.user_name"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Contract Number
+                                <br/>
+                                رقم العقد
+                            </th>
+                            <td>
+                                <span t-field="o.contract_id"/>
+                            </td>
+                            <th>
+                                Email Address
+                                <br/>
+                                البريد اﻹلكتروني
+                            </th>
+                            <td>
+                                <span t-field="o.email"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                User ID
+                                <br/>
+                                بطاقة العميل
+                            </th>
+                            <td>
+                                <span t-field="o.user_id"/>
+                            </td>
+                            <th>
+                                ID Expiry Date
+                                <br/>
+                                تاريخ انتهاء البطاقة
+                            </th>
+                            <td>
+                                <span t-field="o.id_expiry_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                License No
+                                <br/>
+                                رقم رخصة القيادة
+                            </th>
+                            <td>
+                                <span t-field="o.license_number"/>
+                            </td>
+                            <th>
+                                License Expiry Date
+                                <br/>
+                                تاريخ انتهاء رخصة القيادة
+                            </th>
+                            <td>
+                                <span t-field="o.license_expiry_date"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                License Issue Place
+                                <br/>
+                                مكان اصدار الرخصة
+                            </th>
+                            <td>
+                                <span t-field="o.license_issue_place"/>
+                            </td>
+                            <th>
+                                Make / Model
+                                <br/>
+                                الماركة / الموديل
+                            </th>
+                            <td>
+                                <span t-field="o.vehicle_model"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Plate Number
+                                <br/>
+                                رقم اللوحة
+                            </th>
+                            <td>
+                                <span t-field="o.vehicle_id"/>
+                            </td>
+                            <th>
+                                Vehicle Color
+                                <br/>
+                                لون المركبة
+                            </th>
+                            <td>
+                                <span t-field="o.vehicle_color"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                VIN Number
+                                <br/>
+                                رقم الشاسيه
+                            </th>
+                            <td>
+                                <span t-field="o.vin_number"/>
+                            </td>
+                            <th>
+                                Engine Number
+                                <br/>
+                                رقم الموتور
+                            </th>
+                            <td>
+                                <span t-field="o.engine_number"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Owner Name
+                                <br/>
+                                اسم المالك للسيارة
+                            </th>
+                            <td>
+                                <span t-field="o.owner_name"/>
+                            </td>
+                            <th>
+                                Extra KM Rate
+                                <br/>
+                                سعر كيلو متر الزيادة
+                            </th>
+                            <td>
+                                <span t-field="o.extra_km_rate"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <img width="100%" src="/operation_forms/static/src/images/image1.png"/>
+                    <table id="stock" class="w-100">
+                        <tr>
+                            <th>
+                                Car Out
+
+                            </th>
+                            <th>
+                                <span t-field="o.car_out"/>
+
+                            </th>
+                            <th>
+                                Car In
+
+                            </th>
+                            <th>
+                                <span t-field="o.car_in"/>
+
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                Date Out
+                                <br/>
+                                تاريخ الاستلام
+                                <span t-field="o.date_out"/>
+                            </th>
+                            <th>
+                                Time Out
+                                <br/>
+                                ميعاد الاستلام
+                                <span t-field="o.time_out"/>
+                            </th>
+                            <th>
+                                Date In
+                                <br/>
+                                تاريخ تسليم
+                                <span t-field="o.date_in"/>
+                            </th>
+                            <th>
+                                Time In
+                                <br/>
+                                ميعاد تسليم
+                                <span t-field="o.time_in"/>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                Km Reading Out
+                                <br/>
+                                بيان العداد استلام
+                                <span t-field="o.km_reading_out"/>
+                            </th>
+                            <th>
+                                Fuel / Out
+                                <br/>
+                                الوقود استلام
+                                <span t-field="o.fuel_out"/>
+                            </th>
+                            <th>
+                                Km Reading In
+                                <br/>
+                                بيان العداد تسليم
+                                <span t-field="o.km_reading_in"/>
+                            </th>
+                            <th>
+                                Fuel / In
+                                <br/>
+                                الوقود تسليم
+                                <span t-field="o.fuel_in"/>
+                            </th>
+                        </tr>
+                    </table>
+                    <table id="checkbox" class="w-100">
+                        <tr>
+                            <td class="text-center" colspan="100">Vehicle Accessories &amp; Equipment’s</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                            <td></td>
+                            <td>Out</td>
+                            <td>In</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Screwdrivers
+                                <br/>
+                                مفكات
+                            </td>
+                            <td>
+                                <i t-if="o.screwdrivers_out" class="fa fa-check"/>
+                            </td>
+                            <td>
+                                <i t-if="o.screwdrivers_in" class="fa fa-check"/>
+                            </td>
+                            <td>
+                                Fire Ext.
+                                <br/>
+                                طفاية حريق
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.fire_ext_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.fire_ext_in"/>
+                            </td>
+                            <td>
+                                Ac pots
+                                <br/>
+                                هوايات التكييف
+                            </td>
+                            <td>
+                                <i t-if="o.ac_pots_out" class="fa fa-check"/>
+                            </td>
+                            <td>
+                                <i t-if="o.ac_pots_in" class="fa fa-check"/>
+                            </td>
+                            <td>
+                                Antenna
+                                <br/>
+                                الاريال
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.antenna_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.antenna_in"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Jack Hammer
+                                <br/>
+                                كوريك
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.jack_hummer_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.jack_hummer_in"/>
+                            </td>
+                            <td>
+                                Boot mats
+                                <br/>
+                                دواسات
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.boot_mats_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.boot_mats_in"/>
+                            </td>
+                            <td>
+                                Sun Visors
+                                <br/>
+                                شماسات
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.sun_visors_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.sun_visors_in"/>
+                            </td>
+                            <td>
+                                Wipers
+                                <br/>
+                                مساحات
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.wipers_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.wipers_in"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Tyre Spanner
+                                <br/>
+                                مفتاح العجل
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.tyre_spanner_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.tyre_spanner_in"/>
+                            </td>
+                            <td>
+                                License
+                                <br/>
+                                الرخصة
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.license_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.license_in"/>
+                            </td>
+                            <td>
+                                Inside Mirror
+                                <br/>
+                                مرآه داخلية
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.inside_mirror_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.inside_mirror_in"/>
+                            </td>
+                            <td>
+                                Hub Caps
+                                <br/>
+                                طاسات
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.hub_caps_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.hub_caps_in"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                1 st Aid Kit
+                                <br/>
+                                أسعافات أولية
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.first_aid_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.first_aid_in"/>
+                            </td>
+                            <td>
+                                Cigarette tray
+                                <br/>
+                                طفاية السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_tray_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_tray_in"/>
+                            </td>
+                            <td>
+                                Sun Roof
+                                <br/>
+                                فتحة سقف
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.sun_roof_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.sun_roof_in"/>
+                            </td>
+                            <td>
+                                Tyre Check
+                                <br/>
+                                كشف على الكوتش
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.tyre_check_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.tyre_check_in"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Hazard Triangle
+                                <br/>
+                                المثلث عاكس
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.hazard_triangle_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.hazard_triangle_in"/>
+                            </td>
+                            <td>
+                                Cigarette lighter
+                                <br/>
+                                ولاعة السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_lighter_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cigarette_lighter_in"/>
+                            </td>
+                            <td>
+                                Window Buttons
+                                <br/>
+                                مفاتيح زجاج
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.window_buttons_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.window_buttons_in"/>
+                            </td>
+                            <td>
+                                Cleanness Out
+                                <br/>
+                                النظافة الخارجية
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cleanness_out_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cleanness_out_in"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Spare Tyre
+                                <br/>
+                                كاوتش استبن
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.spare_tyre_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.spare_tyre_in"/>
+                            </td>
+                            <td>
+                                Cassette / CD
+                                <br/>
+                                كاسيت / CD
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cassette_cd_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cassette_cd_in"/>
+                            </td>
+                            <td>
+                                Outside Mirror Button
+                                <br/>
+                                مفاتيح المرآه الخارجية
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.outside_mirror_button_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.outside_mirror_button_in"/>
+                            </td>
+                            <td>
+                                Cleanness in
+                                <br/>
+                                النظافة الداخلية
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cleanness_in_out"/>
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cleanness_in_in"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="w-100">
+                        <tr>
+                            <td>
+                                Check Out Comments:
+                                <span t-field="o.check_out_comments"/>
+                            </td>
+                            <td>
+                                Check In Comments:
+                                <span t-field="o.check_in_comments"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="w-100">
+                        <tr>
+                            <td>
+                                Km Included per month :
+                                <span t-field="o.km_included_per_month"/>
+                                <br/>
+                                Damage Charge:
+                                <span t-field="o.damage_charge"/>
+                            </td>
+                            <td class="text-right">
+                                الكيلومترات الشاملة فى الشهر:
+                                <span t-field="o.km_included_per_month"/>
+                                <br/>
+                                نسبة التحمل: طبقا شروط العقد:
+                                <span t-field="o.damage_charge"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="sign" class="w-100">
+                        <tr>
+                            <td>
+                                Agent Signature Out: توقيع الموظف
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Customer Signature Out: توقيع العميل
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Agent Signature in: توقيع الموظف
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Customer Signature in: توقيع العميل
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

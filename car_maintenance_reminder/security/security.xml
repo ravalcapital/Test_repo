@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<odoo>
+        <record id="module_maintenance_schedule_category" model="ir.module.category">
+            <field name="name">Maintenance Schedule</field>
+            <field name="sequence">18</field>
+        </record>
+        <record id="maintenance_schedule_group_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="car_maintenance_reminder.module_maintenance_schedule_category"/>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+        <record id="maintenance_schedule_group_manager" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="implied_ids" eval="[(4, ref('maintenance_schedule_group_user'))]"/>
+            <field name="category_id" ref="car_maintenance_reminder.module_maintenance_schedule_category"/>
+            <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+        </record>
+</odoo>

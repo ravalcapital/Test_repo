@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_repair_notified_users,access_repair_notified_users,model_repair_notified_users,,1,1,1,1
+access_repair_car_notified_users,access_repair_car_notified_users,model_repair_car_notified_users,,1,1,1,1
+fleet_vehicle_chauffeur_log_access,fleet_vehicle_chauffeur_log_access_right,model_fleet_vehicle_chauffeur_log,,1,1,1,1
+

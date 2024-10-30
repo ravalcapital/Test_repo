@@ -1,0 +1,50 @@
+<odoo>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="vo_inherit_form_view" model="ir.ui.view">
+        <field name="name">vehicle.order.inherit.form</field>
+        <field name="model">vehicle.order</field>
+        <field name="inherit_id" ref="vehicle_order.vehicle_order_form_view_id"/>
+        <field name="arch" type="xml">
+
+<!--            <xpath expr="//sheet" position="inside">-->
+                <div name="button_box"  position="inside">
+                    <button name="get_payments_button" icon="fa-money" type="object" class="oe_stat_button">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="count"/>
+                            </span>
+                            <span class="o_stat_text">Payments(s)</span>
+                        </div>
+                    </button>
+                </div>
+
+<!--            </xpath>-->
+
+
+            <xpath expr="//page[3]" position="after">
+                <!-- Add your fields or attributes here -->
+                <page string="Down Payments">
+                    <field name="payment_compute_ids" invisible="1"/>
+                    <field name="payment_ids">
+                        <tree editable="bottom">
+                            <field name="customer_id"/>
+                            <field name="payment_reference"/>
+                            <field name="memo"/>
+                            <field name="defa" invisible="1"/>
+                            <field name="payment_id" invisible="1"/>
+                            <field name="amount"/>
+                            <field name="is_created" invisible="1"/>
+                            <field name="payment_date"/>
+                            <field name="journal_id" required="1"/>
+                            <field name="state"/>
+                            <button name="button_create_payment" type="object" string="Create Payment" attrs="{'invisible':[('is_created','=',True)]}"
+                                    class="oe_highlight"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

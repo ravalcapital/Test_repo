@@ -1,0 +1,15 @@
+<odoo>
+    <record id="fleet_vehicle_inherit_form_view" model="ir.ui.view">
+        <field name="name">fleet.vehicle.archive</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="inside">
+                <br/>
+                <label for="archive_date"/>
+                <field name="archive_date" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

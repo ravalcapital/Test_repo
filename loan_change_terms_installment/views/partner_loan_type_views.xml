@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="partner_view_loan_type_form_inherit_change_term_installment" model="ir.ui.view">
+        <field name="name">partner.loan.type.inherit.change.term</field>
+        <field name="model">partner.loan.type</field>
+        <field name="inherit_id" ref="odoo_customer_supplier_loan.partner_view_loan_type_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//group" position="inside">
+                <group>
+                    <field name="allow_to_change_loan_term"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

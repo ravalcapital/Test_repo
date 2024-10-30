@@ -1,0 +1,545 @@
+<odoo>
+
+    <record id="paperformat_vo_id" model="report.paperformat">
+        <field name="name">A4</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">40</field>
+        <field name="dpi">90</field>
+
+    </record>
+    <record id="vo_print_report_id" model="ir.actions.report">
+        <field name="name">Print Vehicle Order</field>
+        <field name="model">vehicle.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">vehicle_order.print_vehicle_report</field>
+        <field name="report_file">vehicle_order.print_vehicle_report</field>
+        <field name="binding_model_id" ref="vehicle_order.model_vehicle_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_vo_id"/>
+
+    </record>
+
+    <template id="report_vehicle_order_document">
+        <style>
+            .table th,.table td{
+
+            border-top:1px solid black;
+            }
+        </style>
+        <t t-call="web.external_layout">
+            <t t-set="o" t-value="o.with_context(lang=lang)"/>
+            <div class="page">
+                <div style="background-color:green;color:white;text-align:center;width:96%;font-family:bold;">
+                    <span t-esc="o.name"/>
+                </div>
+                <div class="row" style="width:100%;margin-top:10px;">
+                    <div class="col-4">
+                        <table class="table" style="border:1px solid black;font-size:9px">
+
+                            <tbody>
+                                <tr style="border-top:1px solid black;border-bottom:1px solid black;">
+                                    <th style=" border-top:1px solid black;font-family:bold;" scope="row">Customer:</th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.customer_id.name"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:1px solid black;font-family:bold;" scope="row">contact:</th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.contact_id.name"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:1px solid black;font-family:bold;width:100%" scope="row">
+                                        Europcar Egypt Contact Person:
+                                    </th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.created_by.name"/>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table class="table" style="border:1px solid black;font-size:9px">
+
+                            <tbody>
+                                <tr style="border-top:1px solid black;border-bottom:1px solid black;">
+                                    <th style=" border-top:1px solid black;border-right:1px solid black;font-family:bold;"
+                                        scope="row">Date:
+                                    </th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.create_date.date()"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:1px solid black;border-right:1px solid black;font-family:bold;"
+                                        scope="row">Quote NO:
+                                    </th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.order_id.name"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:1px solid black;border-right:1px solid black;font-family:bold;"
+                                        scope="row">Quote Validity::
+                                    </th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="env.company.quotation_validity_days"/>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-4">
+                        <table class="table" style="border:1px solid black;font-size:9px">
+
+                            <tbody>
+                                <tr style="border-top:1px solid black;border-bottom:1px solid black;">
+                                    <th style=" border-top:1px solid black;border-right:1px solid black;font-family:bold;"
+                                        scope="row">Duration:
+                                    </th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.duration"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:1px solid black;border-right:1px solid black;font-family:bold;"
+                                        scope="row">Km\Year:
+                                    </th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.km_year or 0"/>
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <th style=" border-top:1px solid black;border-right:1px solid black;font-family:bold;"
+                                        scope="row">Total km:
+                                    </th>
+                                    <td style=" border-top:1px solid black;font-family:bold;font-weight: bold;">
+                                        <t t-esc="o.total_km"/>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div style="width:100%;margin-top:10px;" class="row">
+
+                    <div class="col-6">
+                        <table class="table" style="border:1px solid black;font-size:12px;">
+                            <thead>
+                                <tr style="background-color:green;color:white;width:100%;">
+                                    <th style="border-right:1px solid black;text-align:center;font-family:bold;">vehicle
+                                        Details
+                                    </th>
+                                    <th style="text-align:center;font-family:bold;">List Price</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <th style="border-top:1px solid black;border-right:1px solid black;height:293px;"
+                                        scope="row">
+                                        <ul style="list-style: none;padding:initial;">
+                                            <li>Make:
+                                            </li>
+                                            <li>Model:</li>
+                                            <li>Year Model:</li>
+                                            <li>Transmission Type:</li>
+                                            <li>Vehicle Specs:</li>
+                                            <li>Additional Equipments:</li>
+                                        </ul>
+                                    </th>
+                                    <td style=" border-top:1px solid black;padding: 19px;">
+                                        <ul style="list-style: none;padding:initial;">
+                                            <li>
+                                                <t t-esc="o.make_id.name or 0"/>
+                                            </li>
+                                            <li>
+                                                <t t-esc="o.model_id.name or 0"/>
+                                            </li>
+                                            <li>
+                                                <t t-esc="o.year_id.name or 0"/>
+                                            </li>
+                                            <li>
+                                                <t t-esc="o.transmition_type"/>
+                                            </li>
+                                            <li>
+                                                <t t-esc="o.year_id.name or 0"/>
+                                            </li>
+                                            <li>
+                                                <t t-esc="o.year_id.name or 0"/>
+                                            </li>
+                                        </ul>
+                                    </td>
+
+                                </tr>
+
+                                <tr style="background-color:green;color:white;width:100%;margin-top: 80%;">
+                                    <th style="border-top:1px solid black;border-right:1px solid black;"
+                                        scope="row">Total Price of Vehicle including Equipments
+                                    </th>
+                                    <td style=" border-top:1px solid black;">
+                                        0.0
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-6">
+
+                        <table class="table"
+                               style="border:1px solid black;font-size:12px;height:400px;font-size:11px;font-weight: bold;">
+                            <thead>
+                                <tr style="background-color:green;color:white;width:100%;">
+                                    <th style="border-right:1px solid black;text-align:center;">Details of rent
+                                        parameters
+                                    </th>
+                                    <th style="text-align:center;">Included \ Not Included</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr>
+                                    <th style="border-top:1px solid black;padding: 19px;border-right:1px solid black;"
+                                        scope="row">
+                                        <ol style="padding:initial;">
+                                            <li>Financial
+                                                <ul style="list-style: none;">
+                                                    <li>Long Term Rental</li>
+                                                    <li>Option to buy</li>
+                                                </ul>
+                                            </li>
+                                            <li style="margin-top: 9%;">Insurance
+                                                <ul style="list-style: none;">
+                                                    <li>Vehicle material damage</li>
+                                                    <li>Third Party liability</li>
+                                                </ul>
+                                            </li>
+                                            <li>Services
+                                                <ul style="list-style: none;">
+                                                    <li>License Registration</li>
+                                                    <li>Insurance</li>
+                                                    <li>Maintenance</li>
+                                                    <li>Tyre management</li>
+                                                    <li>Replacement vehicle</li>
+                                                    <li>Road assistance</li>
+                                                    <li>Door to door service</li>
+                                                </ul>
+                                            </li>
+
+                                        </ol>
+                                    </th>
+                                    <td style=" border-top:1px solid black;">
+                                        <ul style="list-style: none;padding:initial;">
+                                            <li>
+                                                <br></br>
+                                                <ul style="list-style: none;">
+                                                    <li>
+
+                                                        <t t-if="o.long_term_rental">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+                                                        <t t-if="o.is_buy">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <br></br>
+
+                                            <li style="margin-top: 9%;">
+                                                <ul style="list-style: none;">
+                                                    <li>
+                                                        <t t-if="o.material_damage">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+                                                        <t t-if="o.third_party_Liability">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <br></br>
+
+                                            <li>
+                                                <ul style="list-style: none;">
+                                                    <li>
+                                                        <t t-if="o.licence_register">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+                                                        <t t-if="o.is_insurance">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+                                                        <t t-if="o.maintenance">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+                                                        <t t-if="o.tyre_management">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+                                                        <t t-if="o.replace_vehicle">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+                                                        <t t-if="o.road_assistance">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                    <li>
+
+                                                        <t t-if="o.door_services">
+                                                            <span>Included</span>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <span>Not Included</span>
+                                                        </t>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </td>
+
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <div style="width:100%;margin-top:10px;" class="row">
+
+
+                    <div class="col-12">
+                        <table class="table" style="border:1px solid black;font-size:12px;">
+
+                            <thead style="background-color:green;color:white;text-align:center;width:100%;">
+                                <tr style="background-color:green;color:white;text-align:center;margin-top:10px;">
+                                    <th style="/*! float: ; */text-align: left;border-bottom:none;">
+
+                                    </th>
+                                    <th style="/*! float: ; */text-align: left;border-bottom:none;">Monthly Payment
+                                        Details
+                                    </th>
+                                    <th style="/*! float: ; */text-align: left;border-bottom:none;"></th>
+                                    <th style="/*! float: ; */text-align: left;border-bottom:none;"></th>
+                                </tr>
+                                <tr>
+                                    <th style="border-right:1px solid black;"></th>
+                                    <th style="border-right:1px solid black;">NET</th>
+                                    <th style="border-right:1px solid black;">VAT</th>
+                                    <th style="border-right:1px solid black;">Price Including VAT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr style="text-align:center;">
+                                    <th style="border-right:1px solid black;" scope="row">Total Monthly Rental</th>
+                                    <td style="border-right:1px solid black;">
+                                        <t t-esc="o.unit_price"/>
+                                    </td>
+                                    <td style="border-right:1px solid black;">
+                                        <t t-esc="o.vat.name"/>
+                                    </td>
+                                    <td>
+                                        <t t-esc="o.total_qty"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Extra KM Rate: 0.00</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Excess charge:0.00</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+
+                                <tr>
+                                    <th scope="row">Number of Units:
+                                        <t t-esc="o.no_Vehicles"/>
+                                        Unit(s)
+                                    </th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">Downpayment Security Guarantee:
+                                        <t
+                                                t-esc="o.mla_id.security_deposit+o.mla_id.first_year_down_payment+o.mla_id.second_year_down_payment+o.mla_id.third_year_down_payment"/>
+                                        Months
+                                    </th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+                <div class="container-fluid">
+
+                    <div style="width:100%;margin-top:200px;" class="row">
+                        <div class="col-12">
+
+                            <pre style="white-space: pre-wrap;">
+
+                                    <t t-esc="o.terms_conditions"/>
+                            </pre>
+                        </div>
+                    </div>
+                </div>
+                <div style="width:100%;margin-top:15px;" class="row">
+                    <div class="col-12">
+                        <table class="table" style="border:1px solid black;font-size:12px">
+
+
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" style="border-top:1px solid black;border-right:1px solid black;">
+                                        <ul style="list-style: none;font-size:15px:font-weight:bold;">
+                                            <li style="font-weight: bold;">
+                                                <u>Name:</u>
+                                                ......................................................................................................................
+                                            </li>
+                                            <li style="font-weight: bold;">
+                                                <u>
+                                                    Title:
+                                                </u>
+                                                .......................................................................................................................
+                                            </li>
+                                            <li style="font-weight: bold;">
+                                                <u>
+                                                    Date:
+                                                </u>
+                                                ........................................................................................................................
+                                            </li>
+                                            <li style="font-weight: bold;">
+                                                <u>
+                                                    Signature:
+                                                </u>
+                                                .........................................................................................................................
+                                            </li>
+
+                                        </ul>
+                                    </td>
+                                    <td style=" border-top:1px solid black;text-align:center;">
+
+                                    </td>
+                                    <td style=" border-top:1px solid black;text-align:center;"></td>
+                                    <td style=" border-top:1px solid black;text-align:center;"></td>
+                                    <td colspan="4" style=" border-top:1px solid black;text-align:center;">
+                                        <h5>
+                                            <u>stamp</u>
+                                        </h5>
+                                    </td>
+                                    <td style=" border-top:1px solid black;text-align:center;"></td>
+                                    <td style=" border-top:1px solid black;text-align:center;"></td>
+                                    <td style=" border-top:1px solid black;text-align:center;"></td>
+                                    <td style=" border-top:1px solid black;text-align:center;"></td>
+
+
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </t>
+    </template>
+
+    <template id="print_vehicle_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value=" o.env.lang"/>
+                <t t-call="vehicle_order.report_vehicle_order_document" t-lang="lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

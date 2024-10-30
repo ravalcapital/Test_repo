@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="pending_delivery_form_view_inherited" model="ir.ui.view">
+            <field name="name">pending.delivery.form.view.inherited</field>
+            <field name="model">pending.delivery</field>
+            <field name="inherit_id" ref="purchase_vehicles.pending_delivery_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button name="action_open_pending_bill" type="object"
+                            class="oe_stat_button" icon="fa-file-text"
+                            attrs="{'invisible': [('bill_count','=', 0)]}">
+                        <field name="bill_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <header position="inside">
+                    <button name="create_bill" class="oe_highlight"
+                            string="Create Bill" type="object"
+                            attrs="{'invisible': [('state','not in',('registration','policy','licence'))]}"/>
+                </header>
+            </field>
+        </record>
+    </data>
+</odoo>

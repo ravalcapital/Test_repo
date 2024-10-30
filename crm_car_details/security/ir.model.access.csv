@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_car_details,name_crm_car_details,model_crm_car_details,,1,1,1,1
+
+

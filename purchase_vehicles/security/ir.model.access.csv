@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pending_delivery_manager,name_pending_delivery,model_pending_delivery,,1,1,1,1
+access_crm_car_color,name_crm_car_color,model_crm_car_color,,1,1,1,1

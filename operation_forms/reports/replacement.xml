@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="replacement_report" model="ir.actions.report">
+            <field name="name">Replacement Report</field>
+            <field name="model">replacement.model</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">operation_forms.replacement_template</field>
+            <field name="report_file">operation_forms.replacement_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="model_replacement_model"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_operation_forms"/>
+        </record>
+
+        <template id="replacement_lang">
+            <t t-call="operation_forms.operation_header_footer">
+                <div class="page">
+                    <div class="text-center">
+                        <p class="pull-left text-left  d-inline" t-field="o.name"/>
+                        <p class="font-weight-bold d-inline text-center">نموذج سيارة بديلة</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="font-weight-bold d-inline text-center" t-esc="o.get_report_name()"/>
+                    </div>
+                    <style>
+
+                    </style>
+                    <style>
+                        th{vertical-align:middle}
+                        table tr th, table tr td {
+                        border: 1px solid;
+                        padding: 0px 3px;
+                        }
+                        table#info th {font-size:12px }
+                        table#info td {font-size:12px }
+                        table#in th {font-size:12px }
+                        table#in td {font-size:12px }
+                        table#stock th { font-size:12px }
+                        table#sign td { font-size:12px }
+                        table#checkbox th { font-size:12px; text-align: center }
+                        table#checkbox td{ font-size:12px; text-align: center }
+
+                        td:nth-child(11),table#checkbox tr td:nth-child(12){
+                        text-align: center
+                        }
+                        table#sign td { font-size:10px }
+                    </style>
+                    <table id="info" class="w-100">
+                        <thead>
+                            <tr style="background-color:grey;text-align:center;">
+                                <th colspan="6">
+                                    LONG-TERM VEHICLE
+                                </th>
+                                <th colspan="6">
+                                    REPLACEMENT VEHICLE
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Customer
+                                    <br/>
+                                    الشركة
+                                </th>
+                                <td>
+                                    <t t-esc="o.customer_id.name"/>
+                                </td>
+                                <th>
+                                    User Name
+                                    <br/>
+                                    الاسم المستخدم
+                                </th>
+                                <td colspan="7">
+
+                                    <t t-esc="o.contact_id.name"/>
+
+                                </td>
+
+                                <th>
+                                    Phone Number
+                                    <br/>
+                                    التليفون
+                                </th>
+                                <td>
+                                    <t t-esc="o.phone_number"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Make
+                                    <br/>
+                                    النوع
+                                </th>
+                                <td>
+                                    <t t-esc="o.make_1.name"/>
+
+                                </td>
+                                <th>
+                                    Model
+                                    <br/>
+                                    الموديل
+                                </th>
+                                <td colspan="3">
+                                    <t t-esc="o.vehicle_model_1.name"/>
+
+                                </td>
+                                <th>
+                                    Make
+                                    <br/>
+                                    النوع
+                                </th>
+                                <td colspan="3">
+                                    <t t-esc="o.make_2.name"/>
+
+                                </td>
+                                <th>
+                                    Model
+                                    <br/>
+                                    الموديل
+                                </th>
+                                <td>
+                                    <t t-esc="o.vehicle_model_2.name"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <th>
+                                    Plate No
+                                    <br/>
+                                    رقم اللوحة
+                                </th>
+                                <td>
+<!--                                    <t t-esc="o.vehicle_id_1.name"/>-->
+                                    <t t-esc="o.vehicle_id.name"/>
+
+                                </td>
+                                <th>
+                                    VIN No
+                                    <br/>
+                                    رقم الشاسيه
+                                </th>
+                                <td colspan="3">
+                                    <t t-esc="o.vin_number_1"/>
+
+                                </td>
+
+                                <th>
+                                    Plate No
+                                    <br/>
+                                    رقم اللوحة
+                                </th>
+                                <td colspan="3">
+                                    <t t-esc="o.vehicle_id_2.name"/>
+
+                                </td>
+                                <th>
+                                    VIN No
+                                    <br/>
+                                    رقم الشاسيه
+                                </th>
+                                <td>
+                                    <t t-esc="o.vin_number_2"/>
+
+                                </td>
+                            </tr>
+                            <tr>
+
+                                <th>
+                                    Delivery Date
+                                    <br/>
+                                    تاريخ التسليم
+                                </th>
+                                <td>
+                                    <t t-esc="o.date_in_1"/>
+                                </td>
+                                <th>
+                                    Receive Date
+                                    <br/>
+                                    تاريخ الأستلام
+                                </th>
+                                <td colspan="3">
+                                    <t t-esc="o.date_out_1"/>
+                                </td>
+
+                                <th>
+                                    Delivery Date
+                                    <br/>
+                                    تاريخ التسليم
+                                </th>
+                                <td colspan="3">
+                                    <t t-esc="o.date_in_2"/>
+
+                                </td>
+                                <th>
+                                    Receive date
+                                    <br/>
+                                    تاريخ الأستلام
+                                </th>
+                                <td>
+                                    <t t-esc="o.date_out_2"/>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <img width="100%" src="/operation_forms/static/src/images/pic3.png"/>
+                    <table id="in" class="w-100">
+                        <thead>
+                            <tr style="background-color:grey;text-align:center;">
+                                <th>
+                                    Kilometer OUT
+                                    <br/>
+                                    بيان العداد الاستلام
+                                </th>
+                                <th>
+                                    Fuel Out
+                                    <br/>
+                                    الوقود استلام
+                                </th>
+                                <th>
+                                    Kilometer IN
+                                    <br/>
+                                    بيان العداد التسليم
+                                </th>
+                                <th>
+                                    Fuel / IN
+                                    <br/>
+                                    الوقود تسليم
+                                </th>
+                                <th>
+                                    Kilometer OUT
+                                    <br/>
+                                    بيان العداد الاستلام
+                                </th>
+                                <th>
+                                    Fuel Out
+                                    <br/>
+                                    الوقود استلام
+                                </th>
+                                <th>
+                                    Kilometer IN
+                                    <br/>
+                                    بيان العداد التسليم
+                                </th>
+                                <th>
+                                    Fuel / IN
+                                    <br/>
+                                    الوقود تسليم
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+
+                                <td>
+                                    <t t-esc="o.kilometer_out_1"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.fuel_out_1"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.kilometer_in_1"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.fuel_in_1"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.kilometer_out_2"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.fuel_out_2"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.kilometer_in_2"/>
+                                </td>
+                                <td>
+                                    <t t-esc="o.fuel_in_2"/>
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table id="checkbox" class="w-100">
+                        <tr style="background-color:grey;text-align:center;">
+                            <td class="text-center" colspan="6">
+                                كماليات السيارة اﻷصلية
+                                Accessories for Original Vehicle
+                            </td>
+                            <td class="text-center" colspan="6">
+                                كماليات السيارة البديلة
+                                Accessories Replacement Vehicle
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Tools
+                                <br/>
+                                العدة
+                            </td>
+                            <td>
+                                <i t-if="o.tools_1" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Fire Ext.
+                                <br/>
+                                طفاية حريق
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.fire_ext_1"/>
+                            </td>
+
+                            <td>
+                                Spare wheel
+                                <br/>
+                                الإستبن
+                            </td>
+                            <td>
+                                <i t-if="o.spare_1" class="fa fa-check"/>
+                            </td>
+                            <td>
+                                Tools
+                                <br/>
+                                العدة
+                            </td>
+                            <td>
+                                <i t-if="o.tools_2" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Fire Ext.
+                                <br/>
+                                طفاية حريق
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.fire_ext_2"/>
+                            </td>
+
+                            <td>
+                                Spare wheel
+                                <br/>
+                                الإستبن
+                            </td>
+                            <td>
+                                <i t-if="o.spare_2" class="fa fa-check"/>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Jack Hammer
+                                <br/>
+                                كوريك
+                            </td>
+                            <td>
+                                <i t-if="o.jack_hummer_1" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Ashtray
+                                <br/>
+                                طفاية السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.ashtray_1"/>
+                            </td>
+
+                            <td>
+                                License
+                                <br/>
+                                الرخصة
+                            </td>
+                            <td>
+                                <i t-if="o.licence_1" class="fa fa-check"/>
+                            </td>
+                            <td>
+                                Jack Hammer
+                                <br/>
+                                كوريك
+                            </td>
+                            <td>
+                                <i t-if="o.jack_hummer_2" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Ashtray
+                                <br/>
+                                طفاية السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.ashtray_2"/>
+                            </td>
+
+                            <td>
+                                License
+                                <br/>
+                                الرخصة
+                            </td>
+                            <td>
+                                <i t-if="o.licence_2" class="fa fa-check"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Triangle
+                                <br/>
+                                المثلث
+                            </td>
+                            <td>
+                                <i t-if="o.triangle_1" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Cig. Lighter
+                                <br/>
+
+                                ولاعة السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cig_1"/>
+                            </td>
+
+                            <td>
+                                Cassette
+                                <br/>
+                                كاسيت
+                            </td>
+                            <td>
+                                <i t-if="o.cassette_1" class="fa fa-check"/>
+                            </td>
+                            <td>
+                                Triangle
+                                <br/>
+                                المثلث
+                            </td>
+                            <td>
+                                <i t-if="o.triangle_2" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Cig. Lighter
+                                <br/>
+
+                                ولاعة السجائر
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.cig_2"/>
+                            </td>
+
+                            <td>
+                                Cassette
+                                <br/>
+                                كاسيت
+                            </td>
+                            <td>
+                                <i t-if="o.cassette_2" class="fa fa-check"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                1th Aid Kit
+                                <br/>
+                                أسعافات أولية
+                            </td>
+                            <td>
+                                <i t-if="o.aid_kit_1" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Antenna
+                                <br/>
+
+                                إريال
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.antenna_1"/>
+                            </td>
+
+                            <td>
+                                Seat Fabric
+                                <br/>
+                                قماش الكرسى
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.seat_1"/>
+                            </td>
+                            <td>
+                                1th Aid Kit
+                                <br/>
+                                أسعافات أولية
+                            </td>
+                            <td>
+                                <i t-if="o.aid_kit_2" class="fa fa-check"/>
+                            </td>
+
+                            <td>
+                                Antenna
+                                <br/>
+
+                                إريال
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.antenna_2"/>
+                            </td>
+
+                            <td>
+                                Seat Fabric
+                                <br/>
+                                قماش الكرسى
+                            </td>
+                            <td>
+                                <i class="fa fa-check" t-if="o.seat_2"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <table class="w-100">
+                        <tr>
+                            <td>
+
+                                <p>
+                                    I confirm herewith that the above described vehicle has been inspected and checked,
+                                    That
+                                    all equipment’s and accessories work in a proper way; The vehicle does not present
+                                    any
+                                    visible damage. I also confirm that <span style="color:red">I received 1 set of
+                                    keys
+                                </span> and the mandatory
+                                    documentation .Documents and keys must be kept in a safe place. At expiry of the
+                                    replacement vehicle period, all documents shall be delivered to Europcar Egypt,
+                                    according
+                                    to the contract condition.<br/>
+                                    Note: Europcar is not responsible for any belongings in the vehicle. The user must
+                                    clear
+                                    the vehicle from any belongings before handing the vehicle for service or repair.
+                                </p>
+                            </td>
+                            <td>
+                                <p style="text-align: right;">
+                                    أقر أن السيارة المذكورة أعلاه قد تم معاينتها والتأكد بأن جميع أجزاء وكماليات السيارة
+                                    تعمل بكفاءة،
+                                    وأن السيارة ليس بها عيوب مرئية. كما أقر بأننى إستلمت عدد (1) طقم مفاتيح للسيارة
+                                    وكذلك
+                                    جميع المستندات الضرورية. يجب المحافظة على المستندات والمفاتيح فى مكان آمن. عند
+                                    إنتهاء
+                                    مدة
+                                    أيجارالسيارة البديلة سيتم تسليم جميع المستندات الى شركة يوروب كار مصر طبقا ّ لشروط
+                                    العقد.
+                                    <br/>
+                                    ملحوظة: شركةيوروب كار غير مسئولة عن اى متعلقات شخصية داخل السيارة. و على العميل
+                                    افراغ
+                                    السيارة من اى متعلقات قبل تسليم السيارة للصيانة او اصلاح.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="w-100">
+                        <tr>
+                            <td>
+
+                                <p>
+                                    Unlimited tours / Europcar Egypt hereby delegates the above mentioned names to drive
+                                    the vehicle and to issue police report in case of accidents
+                                </p>
+                            </td>
+                            <td>
+                                <p style="text-align: right;">
+                                    فوضنا نحن شركه أنليمتد/يوروب كار مصر السادة المذكورين أعلاه بقياده السيارة وعمل محضر
+                                    في
+                                    حاله وقوع حادث و هذا تفويض بنا بذلك.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <table id="sign" class="w-100">
+                        <tr>
+                            <td>
+                                Receiver Signature: توقيع المستلم
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Delivered and approved: تم التسليم والموافقة بعرفة
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Receiver Signature: توقيع المستلم
+                                <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                            <td>
+                                Delivered and approved: تم التسليم والموافقة بعرفة
+                                    <br/>
+                                <br/>
+                                Date
+                                <br/>
+                                التاريخ
+                                <br/>
+                                <br/>
+                                Time
+                                الوقت
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="replacement_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="context.get('lang')"/>
+                    <t t-call="operation_forms.replacement_lang"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

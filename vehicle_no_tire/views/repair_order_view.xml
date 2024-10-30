@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="view_repair_order_form_inherited_no_tire" model="ir.ui.view">
+            <field name="name">repair.order.form.view.inherited.tire2</field>
+            <field name="model">repair.order</field>
+<!--            <field name="inherit_id" ref="repair.view_repair_order_form"/>-->
+            <field name="inherit_id" ref="repair_vendor_bill.repair_view_repair_order_form_inherited_bill"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='mla_id']" position="after">
+<!--                <xpath expr="//field[@name='partner_id']" position="before">-->
+<!--                <xpath expr="//field[@name='partner_id']" position="before">-->
+                        <field name="no_tire"/>
+                        <field name="remaining_tire"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="vehicle_car_details_form_view_id" model="ir.ui.view">
+            <field name="name">vehicle.car.details.form</field>
+            <field name="model">vehicle.car.details</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="id"/>
+                            <field name="name" />
+                            <field name="fleet_licence_plate_id" />
+                            <field name="model_m_id" />
+                        </group>
+                        <group>
+                            <field name="model_id" />
+                            <field name="invoice_start_date" />
+                            <field name="no_of_invoices" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="vehicle_car_details_tree_view_id" model="ir.ui.view">
+            <field name="name">vehicle.car.details.tree</field>
+            <field name="model">vehicle.car.details</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="id"/>
+                    <field name="name" />
+                    <field name="fleet_licence_plate_id" />
+                    <field name="model_m_id" />
+                    <field name="model_id" />
+                    <field name="invoice_start_date" />
+                    <field name="no_of_invoices" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="vehicle_car_details_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Car Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vehicle.car.details</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="vehicle_car_details_action_menu" name="Vehicle Car Details" parent="fleet.menu_root"
+              action="vehicle_car_details_action" sequence="102"/>
+
+    </data>
+</odoo>

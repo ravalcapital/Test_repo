@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_move_tree_purchase_vehicles" model="ir.ui.view">
+            <field name="name">stock.move.tree</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_dest_id']" position="after">
+                    <field name="model_m_id"/>
+                    <field name="make_m_id"/>
+                    <field name="category_m_id"/>
+                    <field name="year_id"/>
+                    <field name="color_id"/>
+                    <field name="is_vehicle" optional="hide"/>
+                    <field name="split_receipt" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_move_form_purchase_vehicles" model="ir.ui.view">
+            <field name="name">stock.move.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='location_dest_id']" position="after">
+                    <field name="model_m_id"/>
+                    <field name="make_m_id"/>
+                    <field name="category_m_id"/>
+                    <field name="year_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_move_search_analytic_purchase_vehicles" model="ir.ui.view">
+            <field name="name">stock.move.search</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="model_m_id"/>
+                    <field name="make_m_id"/>
+                    <field name="category_m_id"/>
+                    <field name="year_id"/>
+                    <field name="is_vehicle" optional="hide"/>
+                    <field name="split_receipt" optional="hide"/>
+                </xpath>
+                <xpath expr="//filter[@name='groupby_dest_location_id']"
+                       position="after">
+                    <filter
+                            string="Model"
+                            name="model_m_id"
+                            context="{'group_by':'model_m_id'}"/>
+                    <filter
+                            string="Make"
+                            name="make_m_id"
+                            context="{'group_by':'make_m_id'}"/>
+                    <filter
+                            string="Category"
+                            name="category_m_id"
+                            context="{'group_by':'category_m_id'}"/>
+                    <filter
+                            string="Year"
+                            name="year_id"
+                            context="{'group_by':'year_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_picking_form_analytic_purchase_vehicles" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='product_id']"
+                       position="after">
+                    <field name="model_m_id"/>
+                    <field name="make_m_id"/>
+                    <field name="category_m_id"/>
+                    <field name="year_id"/>
+                    <field name="color_id"/>
+                    <field name="is_vehicle" optional="hide"/>
+                    <field name="split_receipt" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

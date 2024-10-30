@@ -1,0 +1,9 @@
+<odoo>
+    <data>
+<!--        <template id="assets_backend" name="mail assets" inherit_id="web.assets_backend">-->
+<!--            <xpath expr="." position="inside">-->
+<!--                <script type="text/javascript" src="/eta_einvoice_integration/static/src/js/sigin_invoice.js"></script>-->
+<!--            </xpath>-->
+<!--        </template>-->
+    </data>
+</odoo>

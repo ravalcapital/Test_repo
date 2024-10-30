@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="outsource_agreement_report" model="ir.actions.report">
+            <field name="name">Out Source</field>
+            <field name="model">out.source</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">operation_forms.outsource_agreement_template</field>
+            <field name="report_file">operation_forms.outsource_agreement_template</field>
+            <field name="print_report_name">object.name</field>
+            <field name="binding_model_id" ref="model_out_source"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="paperformat_operation_forms"/>
+        </record>
+
+        <template id="outsource_agreement_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="context.get('lang')"/>
+                    <t t-call="operation_forms.car_rental_base_template"/>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+fleet_cars_odometer_id,fleet_cars_odometer_name,model_fleet_cars_odometer,,1,1,1,1
+fleet_cars_odometer_line_id,fleet_cars_odometer_line_name,model_fleet_cars_odometer_line,,1,1,1,1

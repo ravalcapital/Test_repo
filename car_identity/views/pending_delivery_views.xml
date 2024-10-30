@@ -1,0 +1,13 @@
+<odoo>
+    <record id="pending_delivery_form_inherit_expenses" model="ir.ui.view">
+        <field name="name">pending.delivery.form</field>
+        <field name="model">pending.delivery</field>
+        <field name="inherit_id" ref="purchase_vehicles.pending_delivery_form_view"/>
+        <field name="arch" type="xml">
+                          <xpath expr="//field[@name='color_id']" position="after">
+                    <field name="car_identity_id" options="{'no_open': True, 'no_create': True}"/>
+                </xpath>
+
+        </field>
+    </record>
+</odoo>

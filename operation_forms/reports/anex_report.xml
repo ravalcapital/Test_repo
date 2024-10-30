@@ -1,0 +1,1308 @@
+<odoo>
+
+    <record id="anex_report" model="ir.actions.report">
+        <field name="name">Anex Report</field>
+        <field name="model">lease.agree</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">operation_forms.anex_template</field>
+        <field name="report_file">operation_forms.anex_template</field>
+        <field name="print_report_name">object.name</field>
+        <field name="binding_model_id" ref="model_lease_agree"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_operation_forms"/>
+    </record>
+
+    <template id="anex_lang">
+        <t t-call="operation_forms.operation_header_footer">
+            <div class="page" style="padding-right:10px;">
+
+                <style>
+
+                </style>
+                <style>
+                    th{vertical-align:middle}
+                    #info tr th, #info tr td {
+                    border: 1px solid;
+                    padding: 0px 3px;
+                    } #checkbox tr th, #checkbox tr td {
+                    border: 1px solid;
+                    padding: 0px 3px;
+                    }
+                    table#checkbox th {width:200px; font-size:12px; text-align: center }
+                    table#checkbox td{ width:40px;font-size:12px; text-align: center }
+
+                    td:nth-child(11),table#checkbox tr td:nth-child(12){
+                    text-align: center
+                    }
+                </style>
+                <!--                    table#info th {font-size:12px }-->
+                <!--                    table#info td {font-size:12px }-->
+                <!--                    table#in th {font-size:12px }-->
+                <!--                    table#in td {font-size:12px }-->
+                <!--                    table#stock th { font-size:12px }-->
+                <!--                    table#sign td { font-size:12px }-->
+                <!--                    table#checkbox th { font-size:12px; text-align: center }-->
+                <!--                    table#checkbox td{ font-size:12px; text-align: center }-->
+
+                <!--                    td:nth-child(11),table#checkbox tr td:nth-child(12){-->
+                <!--                    text-align: center-->
+                <!--                    }-->
+                <!--                    table#sign td { font-size:10px }-->
+                <!--                </style>-->
+
+                <table class="w-100">
+                    <tr>
+                        <td class="text-left">
+
+                            <p>
+                                Unlimited Tours S.A.E (Europcar Egypt) herein represented by Mr
+                                Mahmoud Magdy Mohamed Farid El sayed El Masarawy
+                            </p>
+                            <h4>
+                                Second Party
+                            </h4>
+                            <p>
+                                Imerys Ceramics Egypt Duly represented herein by both Mr
+                                <t t-esc="o.customer_id.name"/>
+                                and
+                                <t t-esc="o.user_id.name"/>
+                                acting in his capacity as the general managers
+
+                            </p>
+                        </td>
+                        <td class="text-right">
+                            <p>
+                                يوروب كار ويشار إليها فيما بعد بال "مؤجر" ويمثلها في هذا العقد السيد/ محمود مجدي
+                                محمد فريد السيد العصراوي بصفته رئيس مجلس الادارة وطبقا للسلطات المخولة له
+                            </p>
+                            <h4 class="text-right">
+                                الطرف الثاني
+                            </h4>
+                            <br/>
+                            <p style="direction: rtl;">
+
+
+                                شركة ايميريس مصر لصناعة السيراميك ويشار إليها فيما بعد بال
+
+                                "المستأجر" ويمثلها في هذا العقد السيد /
+                                <t t-esc="o.customer_id.name"/>
+                                <br/>
+
+                                بصفته رئيس مجلس الادارة والسيد/
+                                <t t-esc="o.user_id.name"/>
+
+
+                                بصفته عضو مجلس الادارة وطبقا للسلطات المخوله لهما ويشار لهما فيما بعد بأطراف هذا التعاقد
+                                ويشار له فيما بعد بال"عقد"
+                            </p>
+                        </td>
+
+                    </tr>
+                </table>
+                <table class="w-100">
+                    <tr>
+                        <td>
+
+                            <ol>
+                                <li>
+                                    <p>
+                                        The Lessor shall transfer to the Lessee the vehicle as described below
+                                        into temporary possession and use, and the Lessee shall accept the
+                                        vehicle and make lease payments to the Lessor in accordance with the
+                                        conditions set forth herein. A complete description of the vehicle including
+                                        VIN number is mentioned below.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        The Lease Period of this Agreement shall be 24 months. Maximum
+                                        Kilometres of the vehicle shall be: Per year 40000 km; For the Lease
+                                        Period 80000 km.
+
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        The amount of lease payments under this Agreement is described below
+                                        in Para 7 (hereinafter “Payment details”)
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        The Lessee shall pay the Lease payments within 30 days after
+                                        receiving the invoice.
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        Rights and obligations of the Parties are regulated in the Master Lease
+                                        Agreement No .1734/1040,this annex is an inseparable part of the
+                                        Master Lease Agreement
+                                    </p>
+                                </li>
+                            </ol>
+                        </td>
+                        <td>
+
+                            <ol style="direction: rtl;">
+                                <li>
+                                    <p>
+                                        سوف يسلم المؤجر للمستأجر السيارة حسب المواصفات الموضحه بالاسفل بحيازة مؤقتة
+                                        للاستخدام علي صفة اﻷمانه ,وسوف يقبل المستأجر موضوع التعاقد علي أن يقوم بدفع
+                                        قيمة الايجار للمؤجر حسب الشروط الموضحة وسيتم ذكر المواصفات كاملة ف موضوع التعاقد
+                                        بما في ذلك رقم تعريف السيارة
+
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        مدة التعاقد 24 شهر الحد اﻷقصي للكيلومتر في موضوع التعاقد سنويا 40,000كم,وسيكون
+                                        طول مدة التعاقد 80000كم
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        القيمة اﻹيجارية بهذا العقد سوف يتم توضيحها ف الفقره رقم7 (تفاصيل الدفع)
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        سوف يقوم المستأجر بدفع القيمة اﻹيجاريه خلال 30 أيام من تاريخ إستلام الفاتوره
+                                    </p>
+                                </li>
+                                <li>
+                                    <p>
+                                        حقوق والتزامات اطراف التعاقد موضحة ومنظمه في عقد الشروط الاساسيه لايجار طويل
+                                        المدي رقم 1734/1040 ويعتبر هذا الملحق جزء لا يتجزأ من عقد الشروط الاساسيه لايجار
+                                        طويل المدي.
+                                    </p>
+                                </li>
+
+                            </ol>
+                        </td>
+                    </tr>
+                </table>
+                6.
+                <table id="info" class="w-100">
+                    <thead>
+                        <tr style="background-color:rgb(10, 238, 35);text-align:center;">
+                            <th class="text-left">
+                                Services
+                            </th>
+                            <th>
+
+
+                            </th>
+                            <th class="text-right">
+                                الخدمات
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-left">
+                                - Registration
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.licence_register">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                ترخيص -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                - Insurance
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.is_insurance">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                التأمين -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                - Maintenance
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.maintenance">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                الصيانة -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                - Tyre management
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.tyre_management">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                اطارات -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                - Replacement vehicle
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.replace_vehicle">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                سيارة بديلة -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                - Road assistance
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.road_assistance">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                طوارئ الطرق -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                - Door to door service
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.door_services">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                من الباب للباب -
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">
+                                - Fuel card
+                            </td>
+                            <td class="text-center">
+                                <t t-if="o.vo_id.fuel_card">
+                                    <span>Included / شامل</span>
+                                </t>
+                                <t t-else="">
+                                    Not included / غير شامل
+                                </t>
+                            </td>
+                            <td class="text-right">
+                                بطاقة الوقود -
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table id="info" style="margin-top:20px;" class="w-100">
+                    7.
+                    <thead>
+                        <tr style="background-color:rgb(10, 238, 35);text-align:center;">
+                            <th class="text-left">
+                                Payments Details
+                            </th>
+                            <th>
+
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th class="text-right">
+                                تفاصيل الدفع
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center">
+
+                            </td>
+                            <td>
+                                Net
+                            </td>
+                            <td class="text-center">
+                                VAT
+                                14%
+                            </td>
+                            <td class="text-center">
+                                Price Including
+                                VAT
+                            </td>
+                            <td class="text-center">
+                                السعر شامل الضريبة
+                            </td>
+                            <td class="text-center">
+                                الضريبة
+                            </td>
+                            <td class="text-center">
+                                الصافي
+                            </td>
+                            <td class="text-center">
+
+                            </td>
+                        </tr>
+                        <t t-foreach="o.vo_id.vehicle_payments" t-as="payment">
+                            <t t-set="vat" t-value="0"/>
+                            <tr>
+                                <td class="text-left">
+                                    Total Monthly
+                                    Rent (EGP
+                                </td>
+
+                                <td class="text-center">
+                                    <t t-esc="payment.total_rent"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="payment.vat_id.name"/>
+
+                                </td>
+                                <td class="text-center">
+                                    <t t-set="vat" t-value="(payment.total_rent*(payment.vat_id.amount/100))"/>
+                                    <t t-esc="payment.total_rent+vat"/>
+
+                                </td>
+                                <td class="text-center">
+                                    <t t-set="vat" t-value="(payment.total_rent*(payment.vat_id.amount/100))"/>
+                                    <t t-esc="payment.total_rent+vat"/>
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="payment.vat_id.name"/>
+
+                                </td>
+                                <td class="text-center">
+                                    <t t-esc="payment.total_rent"/>
+
+                                </td>
+                                <td class="text-center">
+                                    إجمالي الايجار الشهري (جم)
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td class="text-left" colspan="4">
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </td>
+
+                            <td class="text-right" colspan="4">
+                                XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table id="info" style="margin-top:20px;" class="w-100">
+
+                    <thead>
+                        <tr>
+                            <th class="text-left">
+                                Extra Kilometers Charges (
+                                <t t-esc="o.extra_km"/>
+                                L.E)
+                            </th>
+                            <th class="text-right">
+                                (
+                                <t t-esc="o.extra_km"/>
+                                L.E)
+                                سعر الكيلو متر الزائد
+
+
+                            </th>
+
+
+                        </tr>
+                        <tr>
+                            <th class="text-left">
+                                Excess charge for every minor or major damage
+                                <t t-esc="o.excess"/>
+                                EGP
+                            </th>
+
+                            <th class="text-right">
+                                في حالات الاصلاح يدفع مبلغ
+                                <t t-esc="o.excess"/>
+                                علي كل حالة
+
+                            </th>
+
+                        </tr>
+                    </thead>
+                </table>
+                <table id="info" style="margin-top:20px;" class="w-100">
+
+                    <tbody>
+                        <tr>
+                            <td class="text-left">
+                                <ul style="list-style-type: none;">
+                                    <li style="text-decoration: underline;">The Lessor / المؤجر</li>
+                                    <li>Name / الاسم:.......................................</li>
+                                    <br/>
+                                    <li>Date / التاريخ:.......................................</li>
+
+                                    <li>Signature / التوقيع :</li>
+                                    <br/>
+                                    <li>Stamp / الختم</li>
+                                    <br/>
+                                </ul>
+                            </td>
+                            <td class="text-left">
+                                <ul style="list-style-type: none;">
+                                    <li style="text-decoration: underline;">The Lessee / المستأجر</li>
+                                    <li>Name / الاسم:.......................................</li>
+                                    <br/>
+                                    <li>Date / التاريخ:.......................................</li>
+
+                                    <li>Signature / التوقيع :</li>
+                                    <br/>
+                                    <li>Stamp / الختم</li>
+                                    <br/>
+                                </ul>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="margin-top:20px;" class="w-100">
+                    <tbody>
+                        <tr style="border:3px solid black;padding:10px;">
+                            <td class="text-left">
+                                <span>
+                                    Lease Agreement and Transfer and Acceptance
+                                    <br/>
+                                    No
+                                    <br/>
+                                    <t t-esc="o.name"/>/
+                                    <t t-esc="o.vo_id.name"/>
+                                </span>
+                            </td>
+                            <td class="text-right">
+                                <span>
+                                    عقد ايجار واقرار وقبول حيازة
+
+                                    <br/>
+                                    رقم
+                                    <br/>
+                                    <t t-esc="o.name"/>/
+                                    <t t-esc="o.vo_id.name"/>
+
+                                    <!--                                    01601/095:رقم-->
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <table id="info" style="margin-top:150px;" class="w-100">
+
+                    <tbody>
+                        <tr>
+                            <td class="text-left">
+                                <ul style="list-style-type: none;">
+                                    <li style="text-decoration: underline;">The Lessor / المؤجر</li>
+                                    <li>Name / الاسم:.......................................</li>
+                                    <br/>
+                                    <li>Date / التاريخ:.......................................</li>
+
+                                    <li>Signature / التوقيع :</li>
+                                    <br/>
+                                    <li>Stamp / الختم</li>
+                                    <br/>
+                                </ul>
+                            </td>
+                            <td class="text-left">
+                                <ul style="list-style-type: none;">
+                                    <li style="text-decoration: underline;">The user / المستأجر</li>
+                                    <li>Name / الاسم:.......................................</li>
+                                    <br/>
+                                    <li>Date / التاريخ:.......................................</li>
+
+                                    <li>Signature / التوقيع :</li>
+                                    <br/>
+                                    <li>Stamp / الختم</li>
+                                    <br/>
+                                </ul>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="margin-top:20px;" class="w-100">
+                    <tbody>
+                        <tr style="border:3px solid black;padding:10px;">
+                            <td class="text-left">
+                                <span>
+                                    Lease Agreement and Transfer and Acceptance
+                                    <br/>
+                                    No:
+                                    <t t-esc="o.name"/>
+
+                                    <br/>
+                                </span>
+                            </td>
+                            <td class="text-right">
+                                <span>
+                                    عقد ايجار واقرار وقبول حيازة
+                                    <br/>
+                                    <t t-esc="o.name"/>:رقم
+                                    <br/>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <table id="info" class="w-100">
+
+                    <tr>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            User Name
+                            <br/>
+                            اسم المستخدم
+                        </td>
+                        <td>
+                            <t t-esc="o.user_id.name"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Phone number
+                            <br/>
+                            التليفون
+                        </td>
+                        <td>
+                            <t t-esc="o.phone"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            E-mail
+                            <br/>
+                            البريد اﻹلكتروني
+                        </td>
+                        <td>
+                            <t t-esc="o.email"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Customer
+                            <br/>
+                            الشركة
+                        </td>
+                        <td>
+                            <t t-esc="o.customer_id.name"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Contract Start
+                            Date
+                            <br/>
+                            تاريخ بداية العقد
+                        </td>
+                        <td>
+                            <t t-esc="o.contract_start_date"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Contract end
+                            Date
+                            <br/>
+                            تاريخ نهاية العقد
+                        </td>
+                        <td>
+                            <t t-esc="o.contract_end_date"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Make/ Model
+                            <br/>
+                            موديل / ماركة
+                        </td>
+                        <td><t t-esc="o.vehicle_model.brand_id.name"/>/
+                            <t t-esc="o.vehicle_model.name"/>
+
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Year / Model
+                            <br/>
+                            موديل السنه
+                        </td>
+                        <td>
+                            <t t-esc="o.year_model"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Colour
+                            <br/>
+                            اللون
+                        </td>
+                        <td>
+                            <t t-esc="o.vehicle_color"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Plate No
+                            <br/>
+                            رقم اللوحات
+                        </td>
+                        <td>
+                            <t t-esc="o.vehicle_id.name"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Chassis Number
+                            <br/>
+                            (VIN) الشاسيه رقم
+                        </td>
+                        <td>
+                            <t t-esc="o.vin_number"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Eng. Number
+                            <br/>
+                            رقم المحرك
+                        </td>
+                        <td>
+                            <t t-esc="o.engine_number"/>
+                        </td>
+
+                    </tr>
+
+                </table>
+                <table id="checkbox" style="margin-top:20px;" class="w-100">
+
+                    <tr>
+                        <th scope="row" rowspan="9">
+                            <img width="100%" src="/operation_forms/static/src/images/pic4.png"/>
+
+                        </th>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Left Side/الجانب
+                            <br/>
+                            الابسر
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Screwdrivers
+                            <br/>
+                            مفكات
+                        </td>
+                        <td>
+                            <t t-if="o.screwdrivers">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Cover
+                            <br/>
+                            غطاء سيارة
+                        </td>
+                        <td>
+                            <t t-if="o.cover">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Head rest
+                            <br/>
+                            مساند رأس
+                        </td>
+                        <td>
+                            <t t-if="o.head_rest">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Toeing Hook
+                            <br/>
+                            قطرة
+                        </td>
+                        <td>
+                            <t t-if="o.toeing_hook">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Cigarette Ashtray
+                            <br/>
+                            طفاية السجائر
+                        </td>
+                        <td>
+                            <t t-if="o.cigarette_ashtray">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Carpets
+                            <br/>
+                            دواسات
+                        </td>
+                        <td>
+                            <t t-if="o.carpets">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td style="text-align: center;">
+                            <span style="background-color:yellow;text-align:center;font-size:20px;font-weight:bold;">
+                                ZERO
+                            </span>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Tyre Spanner
+                            <br/>
+                            مفتاح العجل
+                        </td>
+                        <td>
+                            <t t-if="o.tyre_spanner">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Cigarette lighter
+                            <br/>
+                            ولاعة السجائر
+                        </td>
+                        <td>
+                            <t t-if="o.cigarette_lighter">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Interior Rear Curtain
+                            <br/>
+                            ستائر خلفيه
+                        </td>
+                        <td>
+                            <t t-if="o.interior_rear">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Right Side/الجانب
+                            <br/>
+                            الأيمن
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Lift
+                            <br/>
+                            كوريك
+                        </td>
+                        <td>
+                            <t t-if="o.lift">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            License
+                            <br/>
+                            الرخصة
+                        </td>
+                        <td>
+                            <t t-if="o.license">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            DVD
+                            <br/>
+                            دي في دي
+                        </td>
+                        <td>
+                            <t t-if="o.dvd">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Hazard Triangle
+                            <br/>
+                            مثلث عاكس
+                        </td>
+                        <td>
+                            <t t-if="o.hazard_triangle">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Seat Fabric
+                            condition
+                            <br/>
+                            حالة الفرش
+                        </td>
+                        <td>
+                            <t t-if="o.seat_fabric">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Bluetooth
+                            Device
+                            <br/>
+                            جهاز بلوتوث
+                        </td>
+                        <td>
+                            <t t-if="o.bluetooth_device">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td style="text-align: center;">
+                            <span style="background-color:yellow;text-align:center;font-size:20px;font-weight:bold;">
+                                ZERO
+                            </span>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            1 st Aid Kit
+                            <br/>
+                            حقيبة اسعافات أولية
+                        </td>
+                        <td>
+                            <t t-if="o.aid_kit">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Manual Booklet
+                            <br/>
+                            دليل المستخدم
+                        </td>
+                        <td>
+                            <t t-if="o.manual_booklet">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Hub Caps
+                            <br/>
+                            طاسات
+                        </td>
+                        <td>
+                            <t t-if="o.hub_caps">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                    </tr>
+
+                    <tr>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Front/الامام
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Fire Ext.
+                            <br/>
+                            طفاية حريق
+                        </td>
+                        <td>
+                            <t t-if="o.fire_ext">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Warranty Booklet
+                            <br/>
+                            الضمان كتيب
+                        </td>
+                        <td>
+                            <t t-if="o.warranty_booklet">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Antenna
+                            <br/>
+                            اريال
+                        </td>
+                        <td>
+                            <t t-if="o.antenna">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td>
+
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Spare wheel
+                            <br/>
+                            الإستبن
+                        </td>
+                        <td>
+                            <t t-if="o.spare_wheel">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Cassette/CD
+                            <br/>
+                            كاسيت/CD
+                        </td>
+                        <td>
+                            <t t-if="o.cassette_cd">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Track System
+                            <br/>
+                            جهاز تتبع
+                        </td>
+                        <td>
+                            <t t-if="o.track_system">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+                    </tr>
+                    <tr>
+
+                        <td style="text-align: center;">
+                            <span style="background-color:yellow;text-align:center;font-size:20px;font-weight:bold;">
+                                ZERO
+                            </span>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            4 Tyres type
+                            <br/>
+                            4 إطارات ماركة
+                        </td>
+                        <td>
+                            <t t-if="o.tyres_type">
+                                <i class="fa fa-check"/>
+
+                            </t>
+                            <t t-else="">
+                                X
+                            </t>
+                        </td>
+
+                        <td colspan="2">
+                            BRIDGESTONE
+                            <br/>
+                            <t t-esc="o.stone"/>
+                        </td>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Fuel type
+                            <br/>
+                            الوقود
+                        </td>
+                        <td>
+                            <span class="text-left">
+                            <t t-esc="o.fuel_type"/>
+                            </span>
+                        </td>
+                    </tr>
+
+
+                </table>
+                <table id="info" class="w-100">
+
+                    <tr>
+                        <th scope="row" rowspan="3" colspan="3">
+                            <img width="100%" src="/operation_forms/static/src/images/pic5.png"/>
+
+                        </th>
+
+                        <td style="background-color:rgb(10, 238, 35)">
+                            Rear/الخلف
+
+                        </td>
+                        <td scope="row" rowspan="3" colspan="6">
+                            <p>
+                                I confirm herewith that the above-described vehicle has been inspected and
+                                checked, That all equipment’s and accessories work in a proper way; The
+                                vehicle does not present any visible damage. I also confirm that I received
+                                1 set(s) of keys and the mandatory documentation .Documents and keys
+                                must be kept in a safe place. At expiry of the lease period, all documents
+                                shall be delivered to Europcar.
+                            </p>
+
+                        </td>
+
+
+                    </tr>
+                    <tr>
+
+                        <td style="text-align: center;">
+                            <span style="background-color:yellow;text-align:center;font-size:20px;font-weight:bold;">
+                                ZERO
+                            </span>
+                        </td>
+
+
+                    </tr>
+                    <tr>
+
+                        <td style="text-align: center;">
+                            <br/>
+                        </td>
+
+
+                    </tr>
+
+                    <tr>
+                        <td style="background-color:rgb(10, 238, 35)" class="text-center">
+                            Km reading
+                            Europcar
+                            <br/>
+                            قراءة العداد يوروب كار
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)" class="text-center">
+                            Km reading
+                            on delivery
+                            <br/>
+                            قراءة العداد عند التسليم
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)" class="text-center">
+                            Fuel الوقود
+                            <br/>
+                            Europcar
+
+                        </td>
+                        <td style="background-color:rgb(10, 238, 35)" class="text-center">
+                            Fuel الوقود
+                            <br/>
+                            (Delivery)
+
+                        </td>
+                        <th scope="row" rowspan="2" colspan="6">
+
+                            <img width="100%" src="/operation_forms/static/src/images/pic6.png"/>
+
+                        </th>
+                    </tr>
+                    <tr class="text-center">
+                        <td>
+
+                            <t t-esc="o.km_reading_europcar"/>
+                        </td>
+                        <td>
+
+                            <t t-esc="o.km_reading_delivery"/>
+
+                        </td>
+                        <td>
+
+                            <t t-esc="o.fuel_europcar"/>
+
+                        </td>
+                        <td>
+
+                            <t t-esc="o.fuel_delivery"/>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-decoration: underline;border-bottom:none;" colspan="8">
+                            Comments / ملاحظات
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="8">
+
+                            <t t-esc="o.comment"/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                        </td>
+                    </tr>
+
+
+                </table>
+
+
+            </div>
+        </t>
+    </template>
+
+    <template id="anex_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="lang" t-value="context.get('lang')"/>
+                <t t-call="operation_forms.anex_lang"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

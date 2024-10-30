@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+maintenance_schedule_id,maintenance_schedule_odometer_name,model_maintenance_schedule,,1,1,1,1
+maintenance_schedule_plan_id,maintenance_schedule_odometer_plan_name,model_maintenance_schedule_plan,,1,1,1,1
+fleet_price_list_id,fleet_price_list_name,model_fleet_price_list,,1,1,1,1

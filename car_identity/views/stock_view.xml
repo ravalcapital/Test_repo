@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+<!--        <record id="view_move_tree_car_identity_id" model="ir.ui.view">-->
+<!--            <field name="name">stock.move.tree</field>-->
+<!--            <field name="model">stock.move</field>-->
+<!--            <field name="inherit_id" ref="stock.view_move_tree"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='lot_ids']" position="after">-->
+<!--                    <field name="car_identity_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>-->
+
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+<!--        <record id="view_move_form_purchase_vehicles_car_identity_id" model="ir.ui.view">-->
+<!--            <field name="name">stock.move.form</field>-->
+<!--            <field name="model">stock.move</field>-->
+<!--            <field name="inherit_id" ref="stock.view_move_form"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//field[@name='lot_ids']" position="after">-->
+<!--                    <field name="car_identity_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+        <record id="view_picking_form_car_identity_id" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='lot_ids']"
+                       position="after">
+                    <field name="car_identity_ids" widget="many2many_tags" options="{'no_open': True, 'no_create': True}" force_save="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

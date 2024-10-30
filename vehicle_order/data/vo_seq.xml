@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="seq_sale_order" model="ir.sequence">
+            <field name="name">Vehicle Order</field>
+            <field name="code">vehicle.order</field>
+            <field name="prefix">VO</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="vo_end_date_cron" model="ir.cron">
+            <field name="name">Vehicle Order End Date</field>
+            <field name="model_id" ref="vehicle_order.model_vehicle_order"/>
+            <field name="state">code</field>
+            <field name="code">model.check_vo_end_date()</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+
+        <record id="vo_email_template_id" model="mail.template">
+            <field name="name">Alarm Vehicle Order End Date</field>
+            <field name="model_id" ref="model_vehicle_order"/>
+            <field name="subject">Notification: Vehicle Order {{object.name}} Ending in 30 days
+            </field>
+            <field name="email_from">{{ (object.create_uid.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.customer_id.id }}</field>
+            <field name="lang">{{ user.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear
+                        <t t-out="object.customer_id.name"/>
+                        <br/>
+                        your vehicle order number
+                        <t t-out="object.name"/>
+                        is to be expired on
+                        <t t-out="object.vo_end_date"/>
+                        <br/>
+                        Contact us for renewal
+                        <br/>
+
+                    </p>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

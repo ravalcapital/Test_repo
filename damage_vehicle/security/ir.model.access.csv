@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+fleet_damage_vehicle_id,fleet_damage_vehicle_name,model_damage_vehicle,,1,1,1,1
+fleet_damage_vehicle_line_id,fleet_damage_vehicle_line_name,model_damage_vehicle_line,,1,1,1,1

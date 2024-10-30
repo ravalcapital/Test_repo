@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_insurance,vehicle.insurance,model_vehicle_insurance,,1,1,1,1
+access_vehicle_insurance_line,vehicle.insurance.line,model_vehicle_insurance_line,,1,1,1,1
+access_vehicle_insurance_renew,vehicle.insurance.renew,model_vehicle_insurance_renew,,1,1,1,1

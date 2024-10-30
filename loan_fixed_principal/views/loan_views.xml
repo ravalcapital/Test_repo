@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <record id="partner_view_loan_compute_form_inherit_fixed_principal" model="ir.ui.view">
+            <field name="name">loan.form.inherit</field>
+            <field name="model">partner.loan.details</field>
+            <field name="inherit_id" ref="mortgage_based_loan.partner_view_loan_compute_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='installment_lines']/tree//field[@name='beginning_balance']"
+                       position="attributes">
+                    <attribute name="attrs">{'column_invisible': [('parent.interest_mode', 'not in',('mortgage_loan',
+                        'fixed_principal'))]}
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='installment_lines']/tree//field[@name='ending_balance']"
+                       position="attributes">
+                    <attribute name="attrs">{'column_invisible': [('parent.interest_mode', 'not in',('mortgage_loan',
+                        'fixed_principal'))]}
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="partner_view_loan_form_inherit_recal_alhaly_loan" model="ir.ui.view">
+            <field name="name">recalculate partner alahly loan</field>
+            <field name="model">partner.loan.details</field>
+            <field name="inherit_id" ref="odoo_customer_supplier_loan.partner_view_loan_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='loan_partner_type']" position='after'>
+                    <field name="interest_code" invisible="1"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button string="Recalculate Loan" name="recalculate_alhaly_loan" type="object" class="oe_highlight" groups="odoo_customer_supplier_loan.partner_loan_group_manager"  attrs="{'invisible': ['|',('interest_code', '!=', 'AH FX'),('state','!=','approved')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

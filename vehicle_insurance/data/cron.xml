@@ -1,0 +1,12 @@
+<odoo>
+    <record id="ir_cron_vehicle_insurance" model="ir.cron">
+        <field name="name">Vehicle Insurance</field>
+        <field name="model_id" ref="vehicle_insurance.model_vehicle_insurance"/>
+        <field name="state">code</field>
+        <field name="code">model.vehicle_insurance_cron()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+    </record>
+
+</odoo>

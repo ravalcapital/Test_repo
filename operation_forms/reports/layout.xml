@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="operation_header_footer">
+        <t t-if="not o and doc">
+            <t t-set="o" t-value="doc"/>
+        </t>
+
+        <t t-if="o and 'company_id' in o">
+            <t t-set="company" t-value="o.company_id.sudo()"/>
+        </t>
+        <t t-if="not o or not 'company_id' in o">
+            <t t-set="company" t-value="res_company"/>
+        </t>
+
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div>
+                <img src="/operation_forms/static/src/images/logo1.png" class="pull-left"/>
+                <img src="/operation_forms/static/src/images/logo2.png" class="pull-right"/>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+
+        <div class="footer o_background_footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <p>
+                    <t t-esc="company.street"/>
+                    <t t-esc="company.street2"/>-<t t-esc="company.city"/>-
+                    <t t-esc="company.state_id.name"/>
+                    -<t t-esc="company.zip"/>-
+                    <t t-esc="company.vat"/>-
+                    <t t-esc="company.company_registry"/>-
+                </p>
+
+                <p>
+                    Email:
+                    <t t-esc="company.email"/>
+
+                    phone:
+                    <t t-esc="company.phone"/>
+                    Tel:
+                    <t t-esc="company.mobile"/>
+                    <br/>
+                    <a href="company.website">
+                        Website:
+                        <t t-esc="company.website"/>
+                    </a>
+                </p>
+            </div>
+
+        </div>
+    </template>
+</odoo>

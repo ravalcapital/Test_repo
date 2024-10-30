@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vehicle_order_vehicle_order,vehicle_order.vehicle_order,model_vehicle_order,base.group_user,1,1,1,1
+access_vehicle_order_vehicle_order_payment,vehicle_order.vehicle_order_payment,model_vehicle_order_payment,base.group_user,1,1,1,1
+access_vehicle_order_vehicle_order_moves,vehicle_order.vehicle_order_account_move,model_account_move_vehicle,base.group_user,1,1,1,1
+access_vehicle_terms,vehicle_order.vehicle_vo_terms,model_vo_term,base.group_user,1,1,1,1
+access_vehicle_car_details,vehicle_order.vehicle_car_details,model_vehicle_car_details,base.group_user,1,1,1,1

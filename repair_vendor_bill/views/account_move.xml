@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="account_move_form_view_inherited_ro" model="ir.ui.view">
+            <field name="name">account.move.form.view.inherited</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="repair_vb_id" readonly="1" attrs="{'invisible': [('is_repair_order_bill','!=', True)]}"/>
+                    <field name="is_repair_order_bill" invisible="1" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

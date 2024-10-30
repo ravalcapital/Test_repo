@@ -1,0 +1,19 @@
+<odoo>
+
+    <record id="crm_inherit_lead_id" model="ir.ui.view">
+        <field name="name">crm.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='crm_car_ids']/tree/field[@name='model_m_id']" position="after">
+                <field name="model_m_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='model_m_id']" position="attributes">
+                <attribute name="domain">[('id','in',model_m_ids)]</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

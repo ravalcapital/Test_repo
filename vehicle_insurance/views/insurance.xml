@@ -1,0 +1,89 @@
+<odoo>
+    <record id="vehicle_insurance_form_view" model="ir.ui.view">
+        <field name="name">Vehicle Insurance Form View</field>
+        <field name="model">vehicle.insurance</field>
+        <field name="arch" type="xml">
+            <form string="Vehicle Insurance">
+                <header>
+                    <button string="Next Step" name="next_step_action" type="object"
+                            class="oe_highlight" states="draft"/>
+                    <button string="Update Insurance" name="%(vehicle_insurance.renew_insurance_wizard_action)d" type="action"
+                            class="oe_highlight" states="to_renew"/>
+                    <button string="Cancel" name="expired_action" type="object"
+                            attrs="{'invisible': [('state', '=', 'expired')]}"/>
+                    <button string="Set To Draft" name="set_draft_action" states="expired" type="object"
+                            class="oe_highlight"/>
+
+                    <field name="state" widget="statusbar" statusbar_visible="draft,valid,to_renew"/>
+                </header>
+                <sheet>
+                    <field name="image_128" widget='image' class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Vehicle Information">
+                            <field name="vehicle_id"/>
+                            <field name="license_plate"/>
+                            <field name="vehicle_name"/>
+
+                        </group>
+                        <group string="Insurance Information">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page string="Renew Insurance" name="renew_insurance">
+                                <field name="Insurance_line_ids" nolabel="1" readonly="1">
+                                    <tree editable="bottom">
+                                        <field name="user_id"/>
+                                        <field name="creation_date"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="attachment"/>
+                                        <field name="years_no"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+
+            </form>
+        </field>
+    </record>
+    <record id="vehicle_insurance_tree_view" model="ir.ui.view">
+        <field name="name">Vehicle Insurance Tree View</field>
+        <field name="model">vehicle.insurance</field>
+        <field name="arch" type="xml">
+            <tree string="Vehicle Insurance">
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="vehicle_insurance_action" model="ir.actions.act_window">
+        <field name="name">Vehicle Insurance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vehicle.insurance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+        </field>
+    </record>
+    <!-- This Menu Item Must have a parent -->
+    <menuitem id="vehicle_insurance_menu" name="Vehicle Insurance" parent="fleet.menu_root" sequence="5"
+              action="vehicle_insurance_action"/>
+
+</odoo>

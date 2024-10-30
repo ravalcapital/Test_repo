@@ -1,0 +1,162 @@
+<odoo>
+    <record id="bank_paper_form_view_id" model="ir.ui.view">
+        <field name="name">bank.paper.form.view</field>
+        <field name="model">bank.paper</field>
+        <field name="arch" type="xml">
+            <form string="Bank Paper">
+                <header>
+                    <button name="button_next_stage" type="object" string="Next Stage"/>
+                    <button name="back_stage" type="object" string="Back Stage"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="create_uid"/>
+                            <field name="create_date" string="Creation Date"/>
+                        </group>
+                        <group>
+                            <field name="bank_account_id"/>
+                            <field name="bank_id"/>
+                            <field name="loan_id"/>
+                            <field name="company_id"/>
+                        </group>
+
+                    </group>
+                    <group string="Validation Needed" attrs="{'invisible': [('state','=','draft')]}">
+                        <!--                        <group>-->
+                        <!--                            <field name="acceptance_form" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                            <field name="date_received_1" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                            <field name="date_submitted_1" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                            <field name="date_approved_1" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                        </group>-->
+                        <!--                        <group>-->
+                        <!--                            <group>-->
+                        <!--                                <field name="vendor_po_id" domain="[('state','=','purchase')]"-->
+                        <!--                                       attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                                <field name="date_received_2" attrs="{'required': [('state','=','approved')]}"/>-->
+
+                        <!--                                <field name="date_submitted_2" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                                <field name="date_approved_2" attrs="{'required': [('state','=','approved')]}"/>-->
+
+                        <!--                            </group>-->
+                        <!--                            <group>-->
+                        <!--                                <field name="vehicle_order" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                                <field name="date_received_3" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                                <field name="date_submitted_3" attrs="{'required': [('state','=','approved')]}"/>-->
+                        <!--                                <field name="date_approved_3" attrs="{'required': [('state','=','approved')]}"/>-->
+
+                        <!--                            </group>-->
+                    </group>
+                    <!--                        <group>-->
+                    <!--                            <field name="attachment_1"/>-->
+                    <!--                        </group>-->
+                    <!--                        <group>-->
+                    <!--                            <field name="attachment_2"/>-->
+
+                    <!--                        </group>-->
+                    <!--                        <group>-->
+                    <!--                            <field name="attachment_3"/>-->
+                    <!--                        </group>-->
+                    <!--                    </group>-->
+                    <notebook>
+                        <page string="Pending Delivery" invisible="1">
+                            <group>
+                                <field name="attachment_3"/>
+                            </group>
+                        </page>
+                        <page string="Pending Delivery">
+                            <field name="pending_delivery_lines2"/>
+                        </page>
+                        <page string="Acceptance Form" attrs="{'invisible': [('state','=','draft')]}">
+                            <group>
+                                <group>
+                                    <field name="acceptance_form" attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_received_1" attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_submitted_1" attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_approved_1" attrs="{'required': [('state','=','approved')]}"/>
+                                </group>
+                                <group>
+                                    <field name="attachment_1"  attrs="{'required': [('state','=','approved')]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Vendor PO" attrs="{'invisible': [('state','=','draft')]}">
+                            <group>
+                                <group>
+                                    <field name="vendor_po_id" domain="[('state','=','purchase')]"
+                                           attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_received_2" attrs="{'required': [('state','=','approved')]}"/>
+
+                                    <field name="date_submitted_2" attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_approved_2" attrs="{'required': [('state','=','approved')]}"/>
+
+                                </group>
+                                <group>
+                                    <field name="attachment_2"  attrs="{'required': [('state','=','approved')]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Vehicle Order" attrs="{'invisible': [('state','=','draft')]}">
+                            <group>
+                                <group>
+                                    <field name="vehicle_order" attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_received_3" attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_submitted_3" attrs="{'required': [('state','=','approved')]}"/>
+                                    <field name="date_approved_3" attrs="{'required': [('state','=','approved')]}"/>
+
+                                </group>
+                                <group>
+                                    <field name="attachment_3"  attrs="{'required': [('state','=','approved')]}"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="bank_paper_list_view_id" model="ir.ui.view">
+        <field name="name">bank.paper.tree.view</field>
+        <field name="model">bank.paper</field>
+        <field name="arch" type="xml">
+            <tree string="">
+                <field name="name"/>
+                <field name="create_date" string="Creation Date"/>
+                <field name="create_uid"/>
+                <field name="vendor_po_id"/>
+                <field name="activity_ids" widget="many2many-tags"/>
+
+                <field name="company_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id="bank_paper_action_view_id" model="ir.actions.act_window">
+        <field name="name">Bank Paper</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bank.paper</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>
+                Create First Bank Paper
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="main_bank_paper_menu" name="Bank Paper"/>
+    <menuitem id="action_bank_paper_menu" name="Bank Paper" parent="main_bank_paper_menu"
+              action="bank_paper_action_view_id"/>
+
+</odoo>

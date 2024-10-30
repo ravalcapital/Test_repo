@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_down_payment_vo_down_payment_vo,down_payment_vo.down_payment_vo,model_vo_account_payment_line,base.group_user,1,1,1,1

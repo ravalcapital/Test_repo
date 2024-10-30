@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <record id="purchase_order_form_car_identity_id" model="ir.ui.view">
+           <field name="name">purchase.order.form</field>
+           <field name="model">purchase.order</field>
+           <field name="inherit_id" ref="purchase.purchase_order_form"/>
+           <field name="arch" type="xml">
+               <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position="after">
+                   <field name="car_identity_id" options="{'no_open': True, 'no_create': True}"/>
+               </xpath>
+           </field>
+       </record>
+
+    </data>
+</odoo>

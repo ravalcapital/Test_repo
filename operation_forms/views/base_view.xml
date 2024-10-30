@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="car_rental_base_form_view_id" model="ir.ui.view">
+            <field name="name">car.rental.base.form.view.id</field>
+            <field name="model">car.rental.agreement</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button type="object" name="action_request_sent" string="Next Stage" class="oe_highlight"
+                                attrs="{'invisible': [('state', '!=', 'draft')]}"
+                                groups="operation_forms.operation_group_user_id"/>
+                        <button type="object" name="next_stage" string="Next Stage" class="oe_highlight"
+                                attrs="{'invisible': [('state', 'in', ('draft','closed'))]}"
+                                groups="operation_forms.operation_group_manager_id"/>
+                        <button type="object" name="prev_stage" string="Previous Stage"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                groups="operation_forms.operation_group_manager_id"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group id="first_group">
+                            <group>
+                                <field name="customer_id" domain="[('is_company', '=', True)]"/>
+                                <field name="child_ids" invisible="1"/>
+                                <field name="contact_id" domain="[('id','in',child_ids)]"/>
+                                <field name="contract_id"/>
+                                <field name="user_id"/>
+                                <field name="license_number"/>
+                                <field name="license_issue_place"/>
+                                <field name="vehicle_id"/>
+                                <field name="vo_id"/>
+                                <field name="vo_start_date"/>
+                                <field name="vo_end_date"/>
+<!--                                <field name="fleet_in"/>-->
+<!--                                <field name="fleet_out"/>-->
+                                <!--                                <field name="vehicle_id"/>-->
+                                <field name="vin_number"/>
+                                <field name="owner_name"/>
+                            </group>
+                            <group>
+                                <field name="user_name"/>
+                                <field name="email"/>
+                                <field name="id_expiry_date"/>
+<!--                                <field name="closed_date"/>-->
+                                <field name="license_expiry_date"/>
+                                <field name="vehicle_model"/>
+                                <field name="vehicle_color"/>
+                                <field name="engine_number"/>
+                                <field name="extra_km_rate"/>
+                                <field name="mla_id"/>
+                                <field name="mla_start_date"/>
+                                <field name="mla_end_date"/>
+                            </group>
+                            <group string="Delivery">
+                                <field name="car_out"/>
+                                <field name="date_out"/>
+                                <field name="time_out" widget="float_time"/>
+                                <field name="km_reading_out"/>
+                                <field name="fuel_out"/>
+                            </group>
+                            <group string="Receive">
+                                <field name="car_in"/>
+                                <field name="date_in"/>
+                                <field name="time_in" widget="float_time"/>
+                                <field name="km_reading_in"/>
+                                <field name="fuel_in"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Vehicle Accessories &amp; Equipment’s">
+                                <group>
+                                    <group>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Out</th>
+                                                <th>In</th>
+                                            </tr>
+                                            <tr id="screwdrivers">
+                                                <th style="padding-right: 20px">Screwdrivers</th>
+                                                <th>
+                                                    <field name="screwdrivers_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="screwdrivers_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-right: 20px">Jack Hammer</th>
+                                                <th>
+                                                    <field name="jack_hummer_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="jack_hummer_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="spanner">
+                                                <th style="padding-right: 20px">Tyre Spanner</th>
+                                                <th>
+                                                    <field name="tyre_spanner_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="tyre_spanner_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-right: 20px">First Aid Kit</th>
+                                                <th>
+                                                    <field name="first_aid_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="first_aid_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="hazard">
+                                                <th style="padding-right: 20px">Hazard Triangle</th>
+                                                <th>
+                                                    <field name="hazard_triangle_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="hazard_triangle_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="spare_t">
+                                                <th style="padding-right: 20px">Spare Tyre</th>
+                                                <th>
+                                                    <field name="spare_tyre_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="spare_tyre_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="fire_exe">
+                                                <th style="padding-right: 20px">Fire Ext.</th>
+                                                <th>
+                                                    <field name="fire_ext_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="fire_ext_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-right: 20px">Boot mats</th>
+                                                <th>
+                                                    <field name="boot_mats_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="boot_mats_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-right: 20px">License</th>
+                                                <th>
+                                                    <field name="license_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="license_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-right: 20px">Cigarette tray</th>
+                                                <th>
+                                                    <field name="cigarette_tray_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="cigarette_tray_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-right: 20px">Cigarette lighter</th>
+                                                <th>
+                                                    <field name="cigarette_lighter_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="cigarette_lighter_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="cdc">
+                                                <th style="padding-right: 20px">Cassette / CD</th>
+                                                <th>
+                                                    <field name="cassette_cd_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="cassette_cd_in"/>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </group>
+                                    <group>
+                                        <table>
+                                            <tr>
+                                                <th></th>
+                                                <th>Out</th>
+                                                <th>In</th>
+                                            </tr>
+                                            <tr id="ac_pots">
+                                                <th style="padding-right: 20px">Ac pots</th>
+                                                <th>
+                                                    <field name="ac_pots_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="ac_pots_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="sun">
+                                                <th style="padding-right: 20px">Sun Visors</th>
+                                                <th>
+                                                    <field name="sun_visors_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="sun_visors_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="imirror">
+                                                <th style="padding-right: 20px">Inside Mirror</th>
+                                                <th>
+                                                    <field name="inside_mirror_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="inside_mirror_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="roof">
+                                                <th style="padding-right: 20px">Sun Roof</th>
+                                                <th>
+                                                    <field name="sun_roof_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="sun_roof_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="window">
+                                                <th style="padding-right: 20px">Window Buttons</th>
+                                                <th>
+                                                    <field name="window_buttons_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="window_buttons_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="omirror">
+                                                <th style="padding-right: 20px">Outside Mirror Button</th>
+                                                <th>
+                                                    <field name="outside_mirror_button_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="outside_mirror_button_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="antenna">
+                                                <th style="padding-right: 20px">Antenna</th>
+                                                <th>
+                                                    <field name="antenna_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="antenna_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="wipers">
+                                                <th style="padding-right: 20px">Wipers</th>
+                                                <th>
+                                                    <field name="wipers_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="wipers_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="hup">
+                                                <th style="padding-right: 20px">Hub Caps</th>
+                                                <th>
+                                                    <field name="hub_caps_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="hub_caps_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="tyre">
+                                                <th style="padding-right: 20px">Tyre Check</th>
+                                                <th>
+                                                    <field name="tyre_check_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="tyre_check_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr id="cout">
+                                                <th style="padding-right: 20px">Cleanness Out</th>
+                                                <th>
+                                                    <field name="cleanness_out_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="cleanness_out_in"/>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-right: 20px">Cleanness in</th>
+                                                <th>
+                                                    <field name="cleanness_in_out"/>
+                                                </th>
+                                                <th>
+                                                    <field name="cleanness_in_in"/>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Info">
+                                <group>
+                                    <group>
+                                        <field name="check_out_comments"/>
+                                    </group>
+                                    <group>
+                                        <field name="check_in_comments"/>
+                                    </group>
+                                    <group>
+                                        <field name="km_included_per_month"/>
+                                        <field name="damage_charge"/>
+                                    </group>
+                                </group>
+
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="car_rental_base_tree_view_id" model="ir.ui.view">
+            <field name="name">car.rental.base.tree.view.id</field>
+            <field name="model">car.rental.agreement</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="customer_id"/>
+
+                    <field name="contact_id"/>
+                    <field name="state"/>
+                    <field name="vehicle_id"/>
+                    <field name="vo_start_date"/>
+                    <field name="vo_end_date"/>
+                    <field name="activity_ids" widget="list_activity" optional="show"/>
+
+
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

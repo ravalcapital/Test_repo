@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="pending_delivery_form_view_inherit" model="ir.ui.view">
+            <field name="name">pending.delivery.form.view</field>
+            <field name="model">pending.delivery</field>
+            <field name="inherit_id" ref="purchase_vehicles.pending_delivery_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                    <button type="object" name="bank_paper_action" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <field name="bank_paper_count" string="Bank Paper" widget="statinfo"/>
+                    </button>
+                </xpath>
+                <xpath expr="//field[@name='bank_id']" position="after">
+                    <field name="bank_paper_id" readonly="True" invisible="1"/>
+                    <field name="bank_paper_ids" readonly="True" widget="many2many_tags"/>
+                    <field name="bank_paper_created" readonly="True" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="action_create_bank_paper_from_pending_delivery" model="ir.actions.server">
+            <field name="name">Create Bank Papers</field>
+            <field name="type">ir.actions.server</field>
+            <field name="state">code</field>
+            <field name="model_id" ref="model_pending_delivery"/>
+            <field name="binding_model_id" ref="model_pending_delivery"/>
+            <field name="code">
+                records.create_bank_paper()
+            </field>
+        </record>
+    </data>
+</odoo>

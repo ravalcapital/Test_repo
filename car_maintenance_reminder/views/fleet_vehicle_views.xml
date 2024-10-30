@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="maintenance_schedule_ids_view_form" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position='inside'>
+                <page string="Maintenance Plan">
+                    <field name="maintenance_schedule_ids" nolabel='1' editable="bottom" colspan="2" readonly="1">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="km_maintenance" force_save="1"/>
+                            <field name="done" force_save="1"/>
+                            <field name="vehicle_id" invisible="1"/>
+                            <field name="maintenance_schedule_id" invisible="1"/>
+                            <field name="repair_id" readonly="1" force_save="1"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="fleet_fleet_vehicle_model_view_form_maintenance_schedule" model="ir.ui.view">
+        <field name="name">fleet.vehicle.model.form</field>
+        <field name="model">fleet.vehicle.model</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_model_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position='before'>
+                 <header>
+                    <button name="update_vehicle_maintenance_schedule_plan" class="oe_highlight"
+                            string="Update Vehicle Maintenance Plan" type="object"/>
+                </header>
+            </xpath>
+            <xpath expr="//notebook" position='inside'>
+                <page string="Maintenance Schedule">
+                    <field name="maintenance_schedule_ids" nolabel='1' editable="bottom" colspan="2">
+                        <tree editable="bottom">
+                            <field name="name"/>
+                            <field name="km_maintenance"/>
+<!--                            <field name="vehicle_id" invisible="1"/>-->
+                        </tree>
+                    </field>
+                </page>
+                <page string="Price List">
+                    <field name="price_list_ids" nolabel='1' editable="bottom" colspan="2">
+                        <tree editable="bottom">
+                            <field name="price_date"/>
+                            <field name="price"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

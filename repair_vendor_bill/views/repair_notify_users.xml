@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="repair_notified_users_form_view_id" model="ir.ui.view">
+            <field name="name">repair.notified.users.form</field>
+            <field name="model">repair.notified.users</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="notified_users" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="repair_notified_users_tree_view_id" model="ir.ui.view">
+            <field name="name">repair.notified.users.tree</field>
+            <field name="model">repair.notified.users</field>
+            <field name="arch" type="xml">
+                <tree multi_edit="1" sample="1">
+                    <field name="notified_users" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="notification_users_in_repair_action" model="ir.actions.act_window">
+            <field name="name">Tire Notified Users</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">repair.notified.users</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="notification_users_in_repair_menu" name="Tire Notified Users" parent="repair.repair_menu_config"
+              action="notification_users_in_repair_action" sequence="100"/>
+
+    </data>
+</odoo>

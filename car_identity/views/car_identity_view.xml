@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="seq_fleet_change_car_identity" model="ir.sequence">
+        <field name="name">Cars Identity</field>
+        <field name="code">change.car.identity</field>
+        <field name="prefix">CI/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id='fleet_change_car_identity_view_form' model='ir.ui.view'>
+        <field name="name">change.car.identity.form</field>
+        <field name="model">change.car.identity</field>
+        <field name="arch" type="xml">
+            <form string="Change Identity">
+                <header>
+                    <button name="send_action"
+                            type="object" string="Send" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <button name="approve_action"
+                            type="object" string="Approve" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'in_progress')]}"
+                            groups="car_identity.car_identity_group_manager"/>
+                    <button name="cancel_action"
+                            type="object" string="Cancel" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'in_progress')]}"
+                            groups="car_identity.car_identity_group_manager"/>
+                    <button name="set_to_draft_action"
+                            type="object" string="Set To Draft" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'cancelled')]}"
+                            groups="car_identity.car_identity_group_manager"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="created_on" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="approved_by_id" attrs="{'readonly': [('state', '!=', 'draft')]}" readonly="1" force_save="1"/>
+                        </group>
+                        <group>
+                            <field name="user_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="approved_on" attrs="{'readonly': [('state', '!=', 'draft')]}" readonly="1" force_save="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="car_identity_line_ids" nolabel='1' editable="bottom" colspan="2"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="lot_id"/>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="current_car_identity_id" readonly="1" force_save="1"/>
+                                    <field name="new_car_identity_id"/>
+                                </tree>
+                            </field>
+                        </page>
+<!--                        <page string="Description">-->
+<!--                            <field name="description"/>-->
+<!--                        </page>-->
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='fleet_change_car_identity_view_tree' model='ir.ui.view'>
+        <field name="name">change.car.identity.tree</field>
+        <field name="model">change.car.identity</field>
+        <field name="arch" type="xml">
+            <tree string="Change Identity">
+                <field name="name"/>
+                <field name="created_on"/>
+                <field name="user_id"/>
+                <field name="approved_on"/>
+                <field name="approved_by_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record id='fleet_car_identity_view_form' model='ir.ui.view'>
+        <field name="name">car.identity.form</field>
+        <field name="model">car.identity</field>
+        <field name="arch" type="xml">
+            <form string="Car Identity">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='fleet_car_identity_view_tree' model='ir.ui.view'>
+        <field name="name">car.identity.tree</field>
+        <field name="model">car.identity</field>
+        <field name="arch" type="xml">
+            <tree string="Car Identity">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='fleet_car_identity_lines_view_tree' model='ir.ui.view'>
+        <field name="name">change.car.identity.tree</field>
+        <field name="model">change.car.identity.line</field>
+        <field name="arch" type="xml">
+            <tree string="Car Identity Lines">
+                <field name="lot_id"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="current_car_identity_id"/>
+                <field name="new_car_identity_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='fleet_car_identity_action' model='ir.actions.act_window'>
+        <field name="name">Car Identity</field>
+        <field name="res_model">car.identity</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Car Identity
+            </p>
+        </field>
+    </record>
+    <record id='fleet_change_car_identity_action' model='ir.actions.act_window'>
+        <field name="name">Change Identity</field>
+        <field name="res_model">change.car.identity</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Change Identity
+            </p>
+        </field>
+    </record>
+    <record id='fleet_car_identity_lines_action' model='ir.actions.act_window'>
+        <field name="name">Change Identity Lines</field>
+        <field name="res_model">change.car.identity.line</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{'create':0,'edit':0,'delete':0,'duplicate':0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Change Identity Lines
+            </p>
+        </field>
+    </record>
+    <menuitem id="fleet_car_identity_menu" name="Car Identity"
+              groups="car_identity.car_identity_group_user,car_identity.car_identity_group_manager"/>
+
+    <menuitem id="fleet_change_car_identity_sub_menu_1" action="car_identity.fleet_change_car_identity_action"
+              parent="car_identity.fleet_car_identity_menu"
+              groups="car_identity.car_identity_group_user,car_identity.car_identity_group_manager"
+              sequence="3"/>
+
+    <menuitem id="fleet_car_identity_sub_menu_1" action="car_identity.fleet_car_identity_action"
+              parent="car_identity.fleet_car_identity_menu"
+              groups="car_identity.car_identity_group_user,car_identity.car_identity_group_manager"
+              sequence="4"/>
+
+    <menuitem id="fleet_car_identity_lines_menu" action="car_identity.fleet_car_identity_lines_action"
+              parent="car_identity.fleet_car_identity_menu"
+              groups="car_identity.car_identity_group_user,car_identity.car_identity_group_manager"
+              sequence="5"/>
+
+</odoo>

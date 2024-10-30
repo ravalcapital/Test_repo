@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="purchase_order_form_add_vehicle_grade" model="ir.ui.view">
+            <field name="name">purchase.order.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='make_m_id']" position="after">
+                    <field name="vehicle_grade_id"
+                           attrs="{'required': [('is_vehicle', '=',True),('split_receipt', '=',True)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="pending_delivery_form_inherit_vehicle_grade" model="ir.ui.view">
+            <field name="name">pending.delivery.form</field>
+            <field name="model">pending.delivery</field>
+            <field name="inherit_id" ref="purchase_vehicles.pending_delivery_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='make_m_id']" position="before">
+                    <field name="vehicle_grade_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

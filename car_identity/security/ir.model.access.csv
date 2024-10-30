@@ -1,0 +1,4 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+fleet_car_identity_id,fleet_car_identity_name,model_car_identity,,1,1,1,1
+fleet_change_car_identity_id,fleet_change_car_identity_name,model_change_car_identity,,1,1,1,1
+fleet_change_car_identity_line_id,fleet_change_car_identity_line_name,model_change_car_identity_line,,1,1,1,1

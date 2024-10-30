@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_lead_view_form_inherit_car_details" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="contract_term"/>
+                    <field name="option_to_puy" attrs="{'invisible': [('contract_term', '!=', 'long_term')]}"/>
+                    <field name="millage_calculation" attrs="{'invisible': [('contract_term', '!=', 'long_term')]}"/>
+                    <field name="total_pool_millage" attrs="{'invisible': [('millage_calculation', '!=', 'pool')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="decision_ids" invisible="1"/>
+                    <field name="decision_id" options="{'no_open': True, 'no_create': True}"/>
+                    <field name="mla_id"
+                           domain="[('partner_id', '=', partner_id),('state', 'in', ('active', 'to_expire'))]"
+                           options="{'no_open': True, 'no_create': True}"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Car Details" id="car_details_id">
+                        <field name="crm_car_ids">
+                            <tree editable="top">
+                                <field name="contract_term" invisible="1"/>
+                                <field name="license_plate" attrs="{'invisible': [('contract_term', '=','long_term')]}"/>
+                                <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="make_m_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="model_m_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="category_m_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="year_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="qty"/>
+                                <field name="car_availability" invisible="1"/>
+                                <field name="delivery_date" optional="hide"/>
+                                <field name="color_ids" widget="many2many_tags"
+                                       options="{'color_field': 'color', 'no_create_edit': True , 'no_open': True,}" optional="hide"/>
+                                <field name="max_daily_km"
+                                       attrs="{'column_invisible': [('parent.contract_term', '!=', 'short_term')]}"/>
+                                <field name="millage"
+                                       attrs="{'column_invisible': [('parent.millage_calculation', '!=', 'limited_km')]}"/>
+                                <field name="list_price"/>
+                                <field name="percentage"
+                                       attrs="{'column_invisible': [('parent.option_to_puy', '!=', 'lease_to_own')]}"/>
+                                <field name="duration_in_month"/>
+                                <field name="purchasing_value"/>
+
+                            </tree>
+                        </field>
+                    </page>
+<!--                    <page string="VO">-->
+<!--                        <field name="vo_ids">-->
+<!--                            <tree string="VO">-->
+<!--                                <field name="customer_id"/>-->
+<!--                                <field name="name" string="VO Sequence"/>-->
+<!--                                <field name="start_date"/>-->
+<!--                                <field name="end_date"/>-->
+<!--                                <field name="order_id"/>-->
+<!--                                <field name="make_id"/>-->
+<!--                                <field name="model_id"/>-->
+<!--                                <field name="create_uid" string="User"/>-->
+<!--                                <field name="create_date"/>-->
+<!--                                <field name="state"/>-->
+<!--                            </tree>-->
+<!--                        </field>-->
+<!--                    </page>-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

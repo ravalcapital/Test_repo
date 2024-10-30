@@ -1,0 +1,176 @@
+<odoo>
+    <data>
+        <record id="pending_delivery_form_view" model="ir.ui.view">
+            <field name="name">pending.delivery.form.view</field>
+            <field name="model">pending.delivery</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_next_stage"
+                                type="object" string="Next Stage" class="oe_highlight"
+                                attrs="{'invisible': [('state', '=', 'done')]}"
+                                groups="purchase_vehicles.group_pending_delivery_user_manager"/>
+                        <button name="action_back_stage"
+                                type="object" string="Back Stage" class="oe_highlight"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                groups="purchase_vehicles.group_pending_delivery_user_manager"/>
+                        <button name="action_create_vehicle"
+                                type="object" string="Create Vehicle" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state', '!=', 'done'), ('vehicle_id', '!=', False)]}"
+                                groups="purchase_vehicles.group_pending_delivery_user_manager"/>
+                        <button name="action_create_insurance"
+                                type="object" string="Create Insurance" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state', '!=', 'done'), ('vehicle_insurance_id', '!=', False)]}"
+                                groups="purchase_vehicles.group_pending_delivery_user_manager"/>
+                        <button name="action_create_stock_move"
+                                type="object" string="Create Vehicle Move" class="oe_highlight"
+                                attrs="{'invisible': ['|', ('state', '!=', 'done'), ('receive_id', '!=', False)]}"
+                                groups="purchase_vehicles.group_pending_delivery_user_manager"/>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+
+                    <sheet string="Pending Delivery">
+                         <div class="o_not_full oe_button_box" />
+                        <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="active" invisible="1"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1" placeholder="Name..."/>
+                            </h1>
+                        </div>
+                        <group string="Draft">
+                            <group>
+                                <field name="date" attrs="{'readonly': [('state', 'not in', ['draft', 'licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="purchase_id" attrs="{'readonly': [('state', 'not in', ['draft', 'licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="purchase_line_id" domain="[('order_id', '=', purchase_id)]"
+                                       attrs="{'readonly': [('state', 'not in', ['draft', 'licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="partner_id" attrs="{'readonly': [('state', 'not in', ['draft','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="company_id" readonly="1"/>
+                                <field name="make_m_id"/>
+                                <field name="model_m_id"/>
+                                <field name="category_m_id"/>
+
+                                <field name="year_id"/>
+                                <field name="color_id" attrs="{'readonly': [('state', 'not in', ['draft','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                            </group>
+                            <group>
+                                <field name="user_id" widget="many2one_avatar_user"
+                                       attrs="{'readonly': [('state', 'not in', ['draft','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="receive_ids" widget="many2many_tags" string="PO Receipts"/>
+                                <field name="receive_id" readonly="1" force_save="1"/>
+<!--                                <field name="vehicle_name" attrs="{'readonly': [('state', 'not in', ['draft','licence'])], 'required': [('state', '=', 'licence')]}"/>-->
+                                <field name="vehicle_id" readonly="1" force_save="1"/>
+
+                                <field name="vehicle_price"/>
+                                <field name="vehicle_price_incl"/>
+                                <field name="car_po_price"/>
+                                <field name="vin_date" attrs="{'readonly': [('state', 'not in', ['draft','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="supplier_delivery_date" attrs="{'readonly': [('state', 'not in', ['draft','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="vehicle_document_date" attrs="{'readonly': [('state', 'not in', ['draft','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                            </group>
+                        </group>
+                        <group string="Bank Papers" attrs="{'invisible': [('state', 'not in', ['draft','licence','bank_papers', 'done'])]}">
+                            <group>
+                                <field name="bank_state" string="" widget="radio"
+                                       attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="bank_loan_amount" attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="bank_id" attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                            </group>
+                            <group>
+                                <field name="bank_account_id" attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="bank_po_date" attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="fund_contract_sign_date"
+                                       attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="analytic_account_id" groups="analytic.group_analytic_accounting" string="Analytic Account" attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="analytic_tag_ids" groups="analytic.group_analytic_tags" string="Analytic Tags" widget="many2many_tags" attrs="{'readonly': [('state', 'not in', ['bank_papers','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                            </group>
+                        </group>
+                        <group string="Registration"
+                               attrs="{'invisible': [('state', 'in',['bank_papers','draft'])]}">
+                            <group>
+                                <field name="car_registration_number" invisible="1"
+                                       attrs="{'readonly': [('state', 'not in', ['registration','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="chassis_number" attrs="{'readonly': [('state', 'not in', ['registration','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                            </group>
+                            <group>
+                                <field name="car_engin_number" attrs="{'readonly': [('state', 'not in', ['registration','licence'])], 'required': [('state', '=', 'licence')]}"/>
+                            </group>
+                        </group>
+                        <group string="Insurance"
+                               attrs="{'invisible': [('state', 'in',['registration','bank_papers','draft','policy'])], 'required': [('state', '=', 'licence')]}">
+                            <group>
+                                <field name="insurance_no" attrs="{'readonly': [('state', 'not in', ['insurance', 'licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="insurance_year" readonly="1"/>
+                                <field name="vehicle_insurance_id" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="insurance_start_date"
+                                       attrs="{'readonly': [('state', 'not in', ['insurance', 'licence'])], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="insurance_end_date"/>
+                            </group>
+                        </group>
+                        <group string="Licence"
+                               attrs="{'invisible': [('state', 'in',['bank_papers','policy','registration','draft','insurance'])]}">
+                            <group>
+                                <field name="car_plate_no" attrs="{'readonly': [('state', '!=', 'licence')], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="license_year" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="license_start_date" attrs="{'readonly': [('state', '!=', 'licence')], 'required': [('state', '=', 'licence')]}"/>
+                                <field name="license_probation_period"/>
+                                <field name="license_renewal_date"/>
+                                <field name="license_code" attrs="{'readonly': [('state', '!=', 'licence')], 'required': [('state', '=', 'licence')]}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter" name="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
+                        <field name="activity_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="pending_delivery_tree_view" model="ir.ui.view">
+            <field name="name">pending.delivery.tree.view</field>
+            <field name="model">pending.delivery</field>
+            <field name="arch" type="xml">
+                <tree string="Pending Delivery">
+                    <field name="name"/>
+                    <field name="purchase_id"/>
+                    <field name="user_id" widget="many2one_avatar_user"/>
+                    <field name="bank_id" string="Bank Name"/>
+                    <field name="bank_account_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Actions and Menuitems -->
+        <record id="pending_delivery_action" model="ir.actions.act_window">
+            <field name="name">Pending Delivery</field>
+            <field name="res_model">pending.delivery</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create New Pending Delivery.
+                </p>
+            </field>
+        </record>
+        <menuitem
+                id="pending_delivery_sub_menu"
+                parent="purchase.menu_purchase_root"
+                name="Pending Delivery"
+                action="pending_delivery_action"
+                sequence="9"/>
+        <record id="seq_pending_delivery" model="ir.sequence">
+            <field name="name">Pending Delivery</field>
+            <field name="code">pending.delivery</field>
+            <field name="prefix">PD/</field>
+            <field name="padding">6</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

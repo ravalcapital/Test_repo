@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="update_loan_installment_view" model="ir.ui.view">
+            <field name="name">Update Loan Installment</field>
+            <field name="model">change.loan.term.installment</field>
+            <field name="arch" type="xml">
+                <form string="Update Loan Installment">
+                    <div class="row mt16 o_settings_container" id="term_change_div">
+                        <div class="col-4">
+                          <field name="is_change_next_intmnt_date"/>
+                          <label for="is_change_next_intmnt_date"/>
+                          <div class="text-muted">
+                              Change Next Installment Date with incase of any emergency discussed
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <field name="is_change_duration"/>
+                          <label for="is_change_duration"/>
+                          <div class="text-muted">
+                              Change Duration of the installments
+                          </div>
+                        </div>
+                        <div class="col-4">
+                          <field name="is_change_int_rate"/>
+                          <label for="is_change_int_rate"/>
+                          <div class="text-muted">
+                              Change Interest Rate due to some changes of terms
+                          </div>
+                        </div>
+                      </div>
+                    <group>
+                        <group>
+                            <field name="next_instment_date" attrs="{'invisible': [('is_change_next_intmnt_date', '=', False)], 'required': [('is_change_next_intmnt_date', '=', True)]}"/>
+                            <field name="duration" attrs="{'invisible': [('is_change_duration', '=', False)], 'required': [('is_change_duration', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="interest_rate" attrs="{'invisible': [('is_change_int_rate', '=', False)], 'required': [('is_change_int_rate', '=', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="is_confirm_change_term" string="Are you sure Do you want to Change Terms ?" attrs="{'invisible': [('is_change_next_intmnt_date', '=', False), ('is_change_int_rate', '=', False), ('is_change_duration', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_update_installment" string="Update" type="object" class="oe_highlight" attrs="{'invisible': [('is_change_next_intmnt_date', '=', False), ('is_change_int_rate', '=', False), ('is_change_duration', '=', False)]}"/>
+                        <span attrs="{'invisible': [('is_change_next_intmnt_date', '=', False), ('is_change_int_rate', '=', False), ('is_change_duration', '=', False)]}"> or </span>
+                        <button string="Cancel" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_emp_loan_report" model="ir.actions.act_window">
+            <field name="name">Loan Term Changes</field>
+            <field name="res_model">change.loan.term.installment</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="update_loan_installment_view"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

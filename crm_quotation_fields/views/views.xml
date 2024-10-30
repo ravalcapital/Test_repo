@@ -1,0 +1,100 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="crm_sale_fields_form_inherit" model="ir.ui.view">
+            <field name="name">crm_sale_fields_form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="opportunity_id" string="Related Opportunity"
+                           help="Log in the chatter from which opportunity the order originates"
+                           groups="base.group_no_one"/>
+                    <field name="mla_id"
+                           domain="[('partner_id', '=', partner_id),('state', 'in', ('active', 'to_expire'))]"
+                           options="{'create': false,'no_open': True,'no_quick_create':True,'no_create':True,'create_edit': false}"/>
+
+                </xpath>
+                <xpath expr="//page[@name='other_information']" position="after">
+                    <page name="crm_details" string="Crm Details">
+                        <group>
+                            <field name="contract_term"/>
+                            <field name="option_to_puy" attrs="{'invisible': [('contract_term', '!=', 'long_term')]}"/>
+                            <field name="millage_calculation"
+                                   attrs="{'invisible': [('contract_term', '!=', 'long_term')]}"/>
+                            <field name="total_pool_millage"
+                                   attrs="{'invisible': [('millage_calculation', '!=', 'pool')]}"/>
+                        </group>
+                    </page>
+                </xpath>
+
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="sale_view_order_form_so_line_id_inherit" model="ir.ui.view">
+            <field name="name">sale_view_order_form_so_line_id_inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="crm_car_details.sale_view_order_form_so_line_id"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='order_line']/tree//field[@name='duration_in_month']" position="after">
+                    <field name="millage"
+                           attrs="{'column_invisible': [('parent.millage_calculation', '!=', 'limited_km')]}"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="vehicle_order_fields_form_inherit" model="ir.ui.view">
+            <field name="name">vehicle.order_form</field>
+            <field name="model">vehicle.order</field>
+            <field name="inherit_id" ref="vehicle_order.vehicle_order_form_view_id"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='customer_id']" position="after">
+                    <field name="mla_id" domain="[('partner_id', '=', customer_id)]"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="vehicle_order_fields_tree_inherit" model="ir.ui.view">
+            <field name="name">vehicle.order_tree</field>
+            <field name="model">vehicle.order</field>
+            <field name="inherit_id" ref="vehicle_order.vehicle_order_list_view_id"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="mla_id"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="crm_lead_view_form_inherit_car_details_vo_ids" model="ir.ui.view">
+            <field name="name">crm.lead.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="VO">
+                        <field name="vo_ids">
+                            <tree string="VO">
+                                <field name="customer_id"/>
+                                <field name="name" string="VO Sequence"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="order_id"/>
+                                <field name="make_id"/>
+                                <field name="model_id"/>
+                                <field name="create_uid" string="User"/>
+                                <field name="create_date"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

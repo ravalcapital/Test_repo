@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_product_normal_form_view" model="ir.ui.view">
+        <field name="name">inherit.product.product.form</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <div name="options" position="inside">
+                <span class="d-inline-block">
+                    <field name="is_vehicle"/>
+                    <label for="is_vehicle"/>
+                </span>
+                <span class="d-inline-block">
+                    <field name="split_receipt"/>
+                    <label for="split_receipt"/>
+                </span>
+            </div>
+        </field>
+    </record>
+    <record id="inherit_product_template_form_view" model="ir.ui.view">
+        <field name="name">inherit.product.template.form.view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <div name="options" position="inside">
+                <span class="d-inline-block">
+                    <field name="is_vehicle"/>
+                    <label for="is_vehicle"/>
+                </span>
+                <span class="d-inline-block">
+                    <field name="split_receipt"/>
+                    <label for="split_receipt"/>
+                </span>
+            </div>
+        </field>
+    </record>
+    <record id="inherit_fleet_fleet_vehicle_view_form_view" model="ir.ui.view">
+        <field name="name">inherit.fleet.vehicle.form.view</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <field name="acquisition_date" position="before">
+                <field name="no_of_keys"/>
+                <field name="purchase_id" readonly="1" force_save="1"/>
+                <field name="purchase_line_id" readonly="1" force_save="1"/>
+                <field name="pending_delivery_id" readonly="1" force_save="1"/>
+                <field name="receive_ids" widget="many2many_tags" readonly="1" force_save="1"/>
+            </field>
+            <label for="tag_ids" position="before">
+                <label for="year_id"/>
+                <div>
+                    <field name="year_id" class="oe_inline" force_save="1"/>
+                </div>
+                <label for="lot_id"/>
+                <div>
+                    <field name="lot_id" class="oe_inline" force_save="1"/>
+                </div>
+                <label for="location_id"/>
+                <div>
+                    <field name="location_id" class="oe_inline" force_save="1"/>
+                </div>
+            </label>
+            <field name="location" position="replace">
+            </field>
+        </field>
+    </record>
+    <record id="inherit_stock_view_production_lot_form_view" model="ir.ui.view">
+        <field name="name">inherit.stock.production.lot.form.view</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="vehicle_id" readonly="0" force_save="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

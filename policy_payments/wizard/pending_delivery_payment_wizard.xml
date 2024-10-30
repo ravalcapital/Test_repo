@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="pending_delivery_payment_wizard" model="ir.ui.view">
+            <field name="name">pending.delivery.payment.wizard</field>
+            <field name="model">pending.delivery.payment</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group string="">
+                        <field name="name" readonly="1" invisible="1"/>
+                        <field name="pending_delivery_id" readonly="1"/>
+                    </group>
+                    <field name="line_ids">
+                        <tree editable="top">
+                            <field name="journal_id"/>
+                            <field name="partner_id"/>
+                            <field name="amount"/>
+                            <field name="date"/>
+                            <field name="payment_type" readonly="1"/>
+                            <field name="name"/>
+                            <field name="pending_payment_id" invisible="1"/>
+                            <field name="pending_delivery_id" readonly="1"/>
+                            <field name="payment_method_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="gen_pending_delivery_payment" type="object" string="Create Payment"
+                                class="oe_highlight" icon="fa-money"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" icon="fa-times"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

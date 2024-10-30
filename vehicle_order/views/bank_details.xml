@@ -1,0 +1,29 @@
+<odoo>
+    <record id="res_bank_details_form_id" model="ir.ui.view">
+        <field name="name">res.bank.form.inherit</field>
+        <field name="model">res.bank</field>
+        <field name="inherit_id" ref="base.view_res_bank_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="iban" invisible="1"/>
+<!--                <field name="swift_code"/>-->
+                <field name="branch_no"/>
+            </xpath>
+
+        </field>
+    </record>
+    <record id="res_partner_bank_details_form_id_add_iban" model="ir.ui.view">
+        <field name="name">res.bank.form.inherit</field>
+        <field name="model">res.partner.bank</field>
+        <field name="inherit_id" ref="base.view_partner_bank_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='acc_holder_name']" position="after">
+                <field name="iban"/>
+<!--                <field name="swift_code"/>-->
+<!--                <field name="branch_no"/>-->
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

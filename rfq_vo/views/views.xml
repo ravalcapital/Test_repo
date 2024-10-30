@@ -1,0 +1,21 @@
+<odoo>
+    <record id="vo_inherit_form_view" model="ir.ui.view">
+        <field name="name">vehicle.order.inherit.form</field>
+        <field name="model">vehicle.order</field>
+        <field name="inherit_id" ref="vehicle_order.vehicle_order_form_view_id"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='year_id']" position="after">
+
+                <field name="product_id"/>
+<!--                <field name="manufacturer_id" invisible="1"/>-->
+
+            </xpath>
+            <xpath expr="//button[@name='bank_details_letter']" position="after">
+                <button name="create_rfq_button" type="object"
+                        string="Create RFQ"
+                        class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

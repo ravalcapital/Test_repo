@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="seq_fleet_damage_vehicle" model="ir.sequence">
+        <field name="name">Damage Vehicle</field>
+        <field name="code">damage.vehicle</field>
+        <field name="prefix">DV/</field>
+        <field name="padding">4</field>
+        <field name="company_id" eval="False"/>
+    </record>
+    <record id='fleet_damage_vehicle_view_form' model='ir.ui.view'>
+        <field name="name">damage.vehicle.form</field>
+        <field name="model">damage.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Damage Vehicle">
+                <header>
+                    <button name="confirm_action"
+                            type="object" string="Validate" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ['inprogress','done'])]}"
+                            groups="damage_vehicle.damage_vehicle_group_manager"/>
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" required="1" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="created_on" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="insurance_company_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                        <group>
+                            <field name="user_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                            <field name="type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Lines">
+                            <field name="damage_vehicle_line_ids" nolabel='1' editable="bottom" colspan="2"
+                                   attrs="{'readonly': [('state', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="licence_plate"/>
+                                    <field name="date"/>
+                                    <field name="mla_id"/>
+                                    <field name="vo_id"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
+                           <group class="oe_subtotal_footer oe_right" colspan="2" >
+                              <field name="total_cost"  colspan="2"/>
+                           </group>
+                        </page>
+                        <page string="Description">
+                            <field name="description" nolabel="1" widget="html" options="{'style-inline': true}"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='fleet_damage_vehicle_view_tree' model='ir.ui.view'>
+        <field name="name">damage.vehicle.tree</field>
+        <field name="model">damage.vehicle</field>
+        <field name="arch" type="xml">
+            <tree string="Damage Vehicle">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="created_on"/>
+                <field name="state"/>
+                <field name="total_cost"/>
+            </tree>
+        </field>
+    </record>
+    <record id='fleet_damage_vehicle_lines_view_tree' model='ir.ui.view'>
+        <field name="name">damage.vehicle.tree</field>
+        <field name="model">damage.vehicle.line</field>
+        <field name="arch" type="xml">
+            <tree string="Damage Vehicle Lines">
+                <field name="product_id"/>
+                <field name="name"/>
+                <field name="licence_plate"/>
+                <field name="date"/>
+                <field name="mla_id"/>
+                <field name="vo_id"/>
+                <field name="amount"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id='fleet_damage_vehicle_action' model='ir.actions.act_window'>
+        <field name="name">Damage Vehicle</field>
+        <field name="res_model">damage.vehicle</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Damage Vehicle
+            </p>
+        </field>
+    </record>
+    <record id='fleet_damage_vehicle_lines_action' model='ir.actions.act_window'>
+        <field name="name">Damage Vehicle Lines</field>
+        <field name="res_model">damage.vehicle.line</field>
+        <field name="view_mode">tree,kanban,form,graph</field>
+        <field name="context">{'create':0,'edit':0,'delete':0,'duplicate':0}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Damage Vehicle Lines
+            </p>
+        </field>
+    </record>
+    <menuitem id="fleet_damage_vehicle_menu" name="Damage Vehicle"
+              groups="damage_vehicle.damage_vehicle_group_user,damage_vehicle.damage_vehicle_group_manager"
+              sequence="222"/>
+    <menuitem id="fleet_damage_vehicle_sub_menu_1" action="damage_vehicle.fleet_damage_vehicle_action"
+              parent="damage_vehicle.fleet_damage_vehicle_menu"
+              groups="damage_vehicle.damage_vehicle_group_user,damage_vehicle.damage_vehicle_group_manager"
+              sequence="3"/>
+    <menuitem id="fleet_damage_vehicle_lines_menu" action="damage_vehicle.fleet_damage_vehicle_lines_action"
+              parent="damage_vehicle.fleet_damage_vehicle_menu"
+              groups="damage_vehicle.damage_vehicle_group_user,damage_vehicle.damage_vehicle_group_manager"
+              sequence="4"/>
+
+</odoo>

@@ -1,0 +1,237 @@
+<odoo>
+    <data>
+        <record id="seq_vehicle_car_details" model="ir.sequence">
+            <field name="name">Vehicle Car Details</field>
+            <field name="code">vehicle.car.details</field>
+            <field name="prefix">VCD/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        <record id="vehicle_order_form_view_id" model="ir.ui.view">
+            <field name="name">vehicle.order.form</field>
+            <field name="model">vehicle.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="inprogress_button" states="draft" type="object" string="Inprogress"
+                                class="btn-primary"/>
+                        <button name="confirmed_button" states="inprogress" type="object" string="Confirmed"
+                                class="btn-primary"/>
+                        <button name="expired_button" states="confirmed" type="object" string="Expired"
+                                class="btn-primary"/>
+                        <button name="bank_details_letter" type="object"
+                                string="Bank Details Letter"
+                                class="btn-primary"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+
+                            <span invisible="1">dd</span>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+
+                            <group>
+                                <field name="customer_id" domain="[('is_company', '=', True)] "/>
+                                <field name="make_id"/>
+                                <field name="currency" invisible="1"/>
+                                <field name="total_qty" invisible="1"/>
+                                <field name="vat" invisible="1"/>
+                                <field name="created_by" readonly="0"/>
+                                <field name="create_date"/>
+                                <field name="km_year"/>
+                                <field name="year_id"/>
+                                <field name="is_sent" invisible="1"/>
+                                <field name="journal_id"/>
+                                <field name="invoice_every_months"/>
+                                <field name="invoice_policy" required="1"/>
+
+
+                            </group>
+                            <group>
+                                <field name="order_id"/>
+
+                                <field name="contact_id"
+                                       domain="[('is_company', '=', False),('customer_rank','>', 0)]"/>
+                                <field name="duration"/>
+                                <field name="vo_start_date"/>
+                                <field name="vo_end_date"/>
+                                <field name="unit_price"/>
+
+                                <field name="no_Vehicles"/>
+
+                                <field name="model_id"/>
+                                <field name="total_km"/>
+                                <field name="transmition_type" widget="radio"/>
+                                <field name="pool_millage"/>
+
+                            </group>
+                            <field name="vehicle_car_ids">
+                                <tree editable="top">
+                                    <field name="name" readonly="1"/>
+                                    <field name="model_id" invisible="1"/>
+                                    <field name="vehicle_ids" invisible="1"/>
+                                    <field name="fleet_licence_plate_id" options="{'no_open': True, 'no_create': True}"
+                                           attrs="{'readonly': [('vehicle_order_payment_ids', '!=', [])]}" domain="[('id', 'in', vehicle_ids)]"/>
+<!--                                    <field name="fleet_licence_plate_id" options="{'no_open': True, 'no_create': True}"-->
+<!--                                           attrs="{'readonly': [('vehicle_order_payment_ids', '!=', [])]}" />-->
+
+                                    <field name="model_m_id"/>
+                                    <field name="invoice_start_date"
+                                           attrs="{'readonly': [('vehicle_order_payment_ids', '!=', [])]}"/>
+                                    <field name="no_of_invoices"/>
+                                    <field name="pool_millage" attrs="{'column_invisible': [('parent.pool_millage', '!=',True)]}"/>
+                                    <field name="vehicle_order_payment_ids" invisible="1"/>
+                                    <field name="initial_km"
+                                           attrs="{'readonly': [('vehicle_order_payment_ids', '!=', [])]}"/>
+                                    <button name="generate_pre_invoice_lines_action" type="object"
+                                            string="Generate Pre-Invoice Lines"
+                                            class="btn-primary"
+                                            attrs="{'invisible': [('vehicle_order_payment_ids', '!=', [])]}"/>
+                                    <field name="total_km"
+                                           attrs="{'readonly': [('pool_millage', '=', True)]}"/>
+                                    <field name="outsource_serial"/>
+
+                                </tree>
+                            </field>
+                            <group string="Finance">
+                                <group>
+                                    <field name="long_term_rental"/>
+                                </group>
+                                <group>
+                                    <field name="is_buy"/>
+                                </group>
+                            </group>
+                            <group string="Insurance">
+                                <group>
+                                    <field name="material_damage"/>
+
+                                </group>
+                                <group>
+                                    <field name="third_party_Liability"/>
+                                </group>
+
+                            </group>
+                            <group string="Services">
+                                <group>
+                                    <field name="licence_register"/>
+                                    <field name="maintenance"/>
+                                    <field name="replace_vehicle"/>
+                                    <field name="door_services"/>
+                                    <field name="extra_km"/>
+                                    <field name="fuel_card"/>
+
+                                </group>
+                                <group>
+                                    <field name="is_insurance"/>
+                                    <field name="tyre_management"/>
+                                    <field name="road_assistance"/>
+                                </group>
+
+                            </group>
+
+                        </group>
+                        <group string="Terms and conditions">
+                            <field name="term_id"/>
+                            <field name="terms_conditions"/>
+
+                        </group>
+
+                        <notebook>
+                            <page string="Monthly Payments">
+<!--                                 <button name="create_invoice_action" type="object" string="Create Invoice"-->
+<!--                                                class="btn-primary" attrs="{'invisible': [('invoice_policy', '!=', 'grouped'), ('pool_millage', '!=', True)]}"/>-->
+                                 <button name="create_invoice_action" type="object" string="Create Invoice"
+                                                class="btn-primary" attrs="{'invisible': [('invoice_policy', '!=', 'grouped')]}"/>
+
+                                <field name="vehicle_payments">
+                                    <tree editable="bottom">
+<!--                                        <field name="is_grouped" optional="hide" attrs="{'column_invisible': [('parent.invoice_policy', '!=', 'grouped'), ('parent.pool_millage', '!=', True)],'readonly': [('invoice_id', '!=', False)]}"/>-->
+                                        <field name="is_grouped" optional="hide" attrs="{'column_invisible': ['|',('parent.invoice_policy', '!=', 'grouped'), ('parent.pool_millage', '!=', True)],'readonly': [('invoice_id', '!=', False)]}"/>
+
+                                        <field name="total_rent" optional="hide"/>
+<!--                                        <field name="vat_id" optional="hide"/>-->
+                                        <field name="vehicle_car_details_id" readonly="1"/>
+                                        <field name="vehicle_licence"/>
+                                        <field name="date_from"/>
+                                        <field name="date_to"/>
+                                        <field name="total_km"/>
+                                        <field name="invoice_id" readonly="1" optional="hide"/>
+                                        <field name="pool_millage" optional="hide"/>
+                                        <field name="invoice_policy" invisible="1"/>
+<!--                                        <button name="create_invoice_action" type="object" string="Create Invoice"-->
+<!--                                                class="btn-primary" attrs="{'invisible': ['|', '|', ('invoice_id', '!=', False), ('invoice_policy', '=', 'grouped'), ('pool_millage', '=', True)]}"/>-->
+
+                                        <button name="create_invoice_action" type="object" string="Create Invoice"
+                                                class="btn-primary" attrs="{'invisible': ['|', ('invoice_id', '!=', False), ('invoice_policy', '=', 'grouped')]}"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+<!--                            <page string="Invoices">-->
+<!--                                <field name="move_ids">-->
+<!--                                    <tree editable="name">-->
+<!--                                        <field name="move_id"/>-->
+<!--                                        <field name="state"/>-->
+<!--                                        <field name="invoice_date"/>-->
+<!--                                        <field name="currency_id" invisible="1"/>-->
+<!--                                        <field name="amount_total"/>-->
+
+<!--                                    </tree>-->
+<!--                                </field>-->
+<!--                            </page>-->
+                            <page string="Bank Details">
+
+                                <group>
+                                    <field name="bank_id"/>
+                                    <field name="bank_account_id"/>
+                                </group>
+                            </page>
+                            <page name="crm_details" string="Crm Details">
+                                <group>
+                                    <field name="contract_term"/>
+                                    <field name="option_to_puy"
+                                           attrs="{'invisible': [('contract_term', '!=', 'long_term')]}"/>
+                                    <field name="millage_calculation"
+                                           attrs="{'invisible': [('contract_term', '!=', 'long_term')]}"/>
+                                    <field name="total_pool_millage"
+                                           attrs="{'invisible': [('millage_calculation', '!=', 'pool')]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="vehicle_order_list_view_id" model="ir.ui.view">
+            <field name="name">vehicle.order.list</field>
+            <field name="model">vehicle.order</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="customer_id"/>
+                    <field name="name"/>
+                    <field name="order_id"/>
+                    <field name="model_id"/>
+                    <field name="make_id"/>
+                    <field name="create_uid" string="User"/>
+                    <field name="create_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="vehicle_order_action_id" model="ir.actions.act_window">
+            <field name="name">Vehicle Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vehicle.order</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="vehicle_order_menu_id" name="Vehicle Order" parent="sale.sale_menu_root" sequence="4"
+                  action="vehicle_order_action_id"/>
+    </data>
+</odoo>

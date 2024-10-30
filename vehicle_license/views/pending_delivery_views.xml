@@ -1,0 +1,20 @@
+<odoo>
+    <record id="pending_delivery_form_inherit_vehicle_license" model="ir.ui.view">
+        <field name="name">pending.delivery.form</field>
+        <field name="model">pending.delivery</field>
+        <field name="inherit_id" ref="purchase_vehicles.pending_delivery_form_view"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="action_create_vehicle_license" string="Vehicle License"
+                        class="oe_highlight" type="object"
+                        attrs="{'invisible': ['|', ('state', '!=', 'done'), ('vehicle_license_count', '>', 0)]}"/>
+            </header>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_vehicle_license" class="oe_stat_button" icon="fa-list-alt"
+                        type="object" attrs="{'invisible': [('vehicle_license_count', '=', 0)]}">
+                    <field name="vehicle_license_count" string="Vehicle License" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

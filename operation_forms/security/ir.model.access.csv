@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lease_agree,operation_forms.lease_agree,model_lease_agree,base.group_user,1,1,1,1
+access_garage_delivery,operation_forms.garage_delivery,model_garage_delivery,base.group_user,1,1,1,1
+access_replacement,operation_forms.replacement,model_replacement_model,base.group_user,1,1,1,1
+access_nonreplacement,operation_forms.non_replacement,model_non_replacement_model,base.group_user,1,1,1,1
+access_car_rental_agreement,operation_forms.carrentalagreement,model_car_rental_agreement,base.group_user,1,1,1,1
+access_model_pre_lease,operation_forms.pre_lease,model_pre_lease,base.group_user,1,1,1,1
+access_model_vehicle_restitution,operation_forms.vehicle_restitution,model_vehicle_restitution,base.group_user,1,1,1,1
+access_model_vehicle_restitution,operation_forms.vehicle_restitution,model_vehicle_restitution,base.group_user,1,1,1,1
+access_out_source,operation_forms.out_source,model_out_source,base.group_user,1,1,1,1
+access_out_source,operation_forms.out_source,model_out_source,base.group_user,1,1,1,1
+access_short_contract,operation_forms.short_contract,model_short_contract,base.group_user,1,1,1,1
+access_car_rental,operation_forms.carrental,model_car_rental,base.group_user,1,1,1,1
+access_model_all_args,operation_forms.model_all_args,model_all_args,base.group_user,1,1,1,1
+access_model_car_move,operation_forms.model_car_move,model_car_move,base.group_user,1,1,1,1

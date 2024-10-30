@@ -1,0 +1,1319 @@
+<odoo>
+    <menuitem id="menu_root_forms" name="Operation Forms"/>
+    <!-- Inherit Form View to Modify it -->
+
+    <record id="lease_agree_form_view_id" model="ir.ui.view">
+        <field name="name">lease.agree.form.view</field>
+        <field name="model">lease.agree</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="action_request_sent" string="Next Stage" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"
+                            groups="operation_forms.operation_group_user_id"/>
+                    <button type="object" name="next_stage" string="Next Stage" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ('draft','closed'))]}"
+                            groups="operation_forms.operation_group_manager_id"/>
+                    <button type="object" name="prev_stage" string="Previous Stage"
+                            attrs="{'invisible': [('state', '=', 'draft')]}"
+                            groups="operation_forms.operation_group_manager_id"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id" domain="[('is_company', '=', True)]"/>
+                            <field name="users_peron" invisible="1"/>
+                            <field name="user_id" domain="[('id','in',users_peron)]"/>
+                            <field name="phone"/>
+                            <field name="email"/>
+                            <field name="partner_id" invisible="1"/>
+                            <field name="child_ids" invisible="1"/>
+                            <field name="contact_id" domain="[('id','in',child_ids)]"/>
+                            <field name="vehicle_id" string="Vehicle"/>
+                            <field name="vin_number"/>
+                            <field name="vo_id" readonly="1" />
+                            <field name="vo_start_date"/>
+                            <field name="vo_end_date"/>
+                            <!--                            <field name="fleet_in"/>-->
+                            <!--                            <field name="fleet_out"/>-->
+
+                        </group>
+                        <group>
+                            <field name="contract_start_date"/>
+                            <field name="contract_end_date"/>
+                            <field name="mla_id"/>
+                            <field name="mla_start_date"/>
+                            <field name="mla_end_date"/>
+                            <field name="vehicle_model"/>
+                            <field name="vehicle_color"/>
+                            <field name="year_model"/>
+                            <field name="engine_number"/>
+                            <!--                            <field name="vin_number"/>-->
+                            <field name="fuel_delivery"/>
+                            <field name="fuel_europcar"/>
+                            <field name="fuel_type"/>
+                            <field name="stone"/>
+                        </group>
+                        <group>
+                            <field name="km_reading_delivery"/>
+                            <field name="km_reading_europcar"/>
+
+
+                        </group>
+
+                    </group>
+
+                    <notebook>
+                        <page string="Vehicle Accessories &amp; Equipment’s">
+                            <group>
+                                <group>
+                                    <field name="screwdrivers"/>
+                                    <field name="cover"/>
+                                    <field name="head_rest"/>
+                                    <field name="toeing_hook"/>
+                                    <field name="cigarette_ashtray"/>
+                                    <field name="carpets"/>
+                                    <field name="tyre_spanner"/>
+                                    <field name="cigarette_lighter"/>
+                                    <field name="interior_rear"/>
+                                    <field name="lift"/>
+                                </group>
+                                <group>
+                                    <field name="license"/>
+                                    <field name="dvd"/>
+                                    <field name="hazard_triangle"/>
+                                    <field name="seat_fabric"/>
+                                    <field name="bluetooth_device"/>
+                                    <field name="aid_kit"/>
+                                    <field name="manual_booklet"/>
+                                    <field name="hub_caps"/>
+                                    <field name="fire_ext"/>
+                                    <field name="warranty_booklet"/>
+                                    <field name="antenna"/>
+                                    <field name="spare_wheel"/>
+                                    <field name="cassette_cd"/>
+                                    <field name="track_system"/>
+                                    <field name="tyres_type"/>
+
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Info">
+                            <group>
+                                <group>
+                                    <field name="extra_km"/>
+                                    <field name="excess"/>
+                                </group>
+                                <group>
+                                    <field name="comment"/>
+
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Car Moves">
+                            <field name="car_move_ids">
+                                <tree editable="bottom">
+                                    <field name="car_move"/>
+                                    <field name="driver_id"/>
+                                    <field name="serial_id" string="Plate Number"/>
+                                    <field name="vehicle_id" string="Vehicle"/>
+                                    <field name="date"/>
+                                    <field name="km_reading"/>
+                                    <field name="fuel"/>
+                                    <field name="source_location_id"/>
+                                    <field name="dest_location_id"/>
+                                    <field name="operation_type"/>
+
+                                    <button name="create_stock_move" type="object" string="Create Stock Move"
+                                            class="oe_highlight" attrs="{'invisible':[('is_created','=',True)]}"/>
+                                    <field name="is_created" invisible="1"/>
+
+                                    <field name="garage_serial"/>
+                                </tree>
+                            </field>
+                        </page>
+
+
+                    </notebook>
+                    <!--                    <notebook>-->
+                    <!--                        <page string="Vehicle Accessories &amp; Equipment’s">-->
+                    <!--                            <group>-->
+                    <!--                                <group>-->
+                    <!--                                    <table>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th></th>-->
+                    <!--                                            <th>Out</th>-->
+                    <!--                                            <th>In</th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Screwdrivers</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="screwdrivers_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="screwdrivers_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Jack Hammer</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="jack_hummer_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="jack_hummer_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Tyre Spanner</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="tyre_spanner_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="tyre_spanner_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">First Aid Kit</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="first_aid_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="first_aid_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Hazard Triangle</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="hazard_triangle_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="hazard_triangle_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Spare Tyre</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="spare_tyre_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="spare_tyre_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Fire Ext.</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="fire_ext_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="fire_ext_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Boot mats</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="boot_mats_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="boot_mats_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">License</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="license_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="license_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Cigarette tray</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cigarette_tray_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cigarette_tray_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Cigarette lighter</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cigarette_lighter_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cigarette_lighter_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Cassette / CD</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cassette_cd_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cassette_cd_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                    </table>-->
+                    <!--                                </group>-->
+                    <!--                                <group>-->
+                    <!--                                    <table>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th></th>-->
+                    <!--                                            <th>Out</th>-->
+                    <!--                                            <th>In</th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Ac pots</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="ac_pots_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="ac_pots_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Sun Visors</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="sun_visors_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="sun_visors_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Inside Mirror</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="inside_mirror_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="inside_mirror_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Sun Roof</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="sun_roof_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="sun_roof_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Window Buttons</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="window_buttons_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="window_buttons_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Outside Mirror Button</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="outside_mirror_button_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="outside_mirror_button_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Antenna</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="antenna_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="antenna_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Wipers</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="wipers_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="wipers_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Hub Caps</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="hub_caps_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="hub_caps_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Tyre Check</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="tyre_check_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="tyre_check_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Cleanness Out</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cleanness_out_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cleanness_out_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                        <tr>-->
+                    <!--                                            <th style="padding-right: 20px">Cleanness in</th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cleanness_in_out"/>-->
+                    <!--                                            </th>-->
+                    <!--                                            <th>-->
+                    <!--                                                <field name="cleanness_in_in"/>-->
+                    <!--                                            </th>-->
+                    <!--                                        </tr>-->
+                    <!--                                    </table>-->
+                    <!--                                </group>-->
+                    <!--                            </group>-->
+                    <!--                        </page>-->
+                    <!--                        <page string="Info">-->
+                    <!--                            <group>-->
+                    <!--                                <group>-->
+                    <!--                                    <field name="check_out_comments"/>-->
+                    <!--                                </group>-->
+                    <!--                                <group>-->
+                    <!--                                    <field name="check_in_comments"/>-->
+                    <!--                                </group>-->
+                    <!--                                <group>-->
+                    <!--                                    <field name="km_included_per_month"/>-->
+                    <!--                                    <field name="damage_charge"/>-->
+                    <!--                                </group>-->
+                    <!--                            </group>-->
+
+                    <!--                        </page>-->
+                    <!--                    </notebook>-->
+                </sheet>
+                <!--                <div class="oe_chatter">-->
+                <!--                    <field name="message_follower_ids" groups="base.group_user"/>-->
+                <!--                    <field name="activity_ids"/>-->
+                <!--                    <field name="message_ids"/>-->
+                <!--                </div>-->
+            </form>
+        </field>
+    </record>
+    <record id="lease_agreement_tree_view_id" model="ir.ui.view">
+        <field name="name">lease.agree.model.tree.view</field>
+        <field name="model">lease.agree</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="lease_agree_view_action_id" model="ir.actions.act_window">
+        <field name="name">Lease Agreement and transfer and acceptance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">lease.agree</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="categ_menu_lease_id" name="Lease Agreement and transfer and acceptance" parent="menu_root_forms"
+              action="lease_agree_view_action_id"/>
+
+    <record id="replacement_model_form_view_id" model="ir.ui.view">
+        <field name="name">replacement.model.form.view</field>
+        <field name="model">replacement.model</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button type="object" name="action_request_sent" string="Next Stage" class="oe_highlight"
+                            attrs="{'invisible': [('state', '!=', 'draft')]}"
+                            groups="operation_forms.operation_group_user_id"/>
+                    <button type="object" name="next_stage" string="Next Stage" class="oe_highlight"
+                            attrs="{'invisible': [('state', 'in', ('draft','closed'))]}"
+                            groups="operation_forms.operation_group_manager_id"/>
+                    <button type="object" name="prev_stage" string="Previous Stage"
+                            attrs="{'invisible': [('state', '=', 'draft')]}"
+                            groups="operation_forms.operation_group_manager_id"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="customer_id" domain="[('is_company', '=', True)]"/>
+                            <field name="contact_id" domain="[('id','in',child_ids)]"/>
+                            <field name="child_ids" invisible="1"/>
+
+                            <field name="user_id"/>
+                            <field name="mla_id"/>
+                            <field name="mla_start_date"/>
+                            <field name="mla_end_date"/>
+                        </group>
+                        <group>
+
+                            <field name="phone_number"/>
+                            <field name="vo_id"/>
+                            <field name="vo_start_date"/>
+                            <field name="vo_end_date"/>
+                            <!--                            <field name="fleet_in"/>-->
+                            <!--                            <field name="fleet_out"/>-->
+                        </group>
+                        <group string="LONG TERM VEHICLE">
+<!--                            <field name="vehicle_id_1"/>-->
+                            <field name="vehicle_id" string="Vehicle"/>
+                            <field name="engine_number_1"/>
+                            <field name="vin_number_1"/>
+                            <field name="car_out_1"/>
+                            <field name="date_out_1"/>
+                            <field name="car_in_1"/>
+                            <field name="date_in_1"/>
+                            <field name="kilometer_out_1"/>
+                            <field name="kilometer_in_1"/>
+                            <field name="fuel_out_1"/>
+                            <field name="fuel_in_1"/>
+                            <field name="vehicle_model_1"/>
+                            <field name="make_1"/>
+
+                        </group>
+                        <group string="REPLACMENT VEHILCE">
+                            <field name="vehicle_id_2" string="Vehicle"/>
+                            <field name="engine_number_2"/>
+
+                            <field name="vin_number_2"/>
+                            <field name="car_out_2"/>
+                            <field name="date_out_2"/>
+                            <field name="car_in_2"/>
+                            <field name="date_in_2"/>
+                            <field name="kilometer_out_2"/>
+                            <field name="kilometer_in_2"/>
+                            <field name="fuel_out_2"/>
+                            <field name="fuel_in_2"/>
+                            <field name="vehicle_model_2"/>
+                            <field name="make_2"/>
+
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Vehicle Accessories &amp; Equipment’s">
+                            <group>
+                                <group>
+                                    <table>
+                                        <tr>
+                                            <th>Accessories For Original Vehicle</th>
+                                            <th></th>
+
+
+                                        </tr>
+
+                                        <tr>
+                                            <th style="padding-right: 20px">Tools</th>
+                                            <th>
+                                                <field name="tools_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Jack Hammer</th>
+                                            <th>
+                                                <field name="jack_hummer_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Triangle</th>
+                                            <th>
+                                                <field name="triangle_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">First Aid Kit</th>
+                                            <th>
+                                                <field name="aid_kit_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Fire Ext</th>
+                                            <th>
+                                                <field name="fire_ext_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Ashtray</th>
+                                            <th>
+                                                <field name="ashtray_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Cig. Lighter</th>
+                                            <th>
+                                                <field name="cig_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Antenna</th>
+                                            <th>
+                                                <field name="antenna_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Spare Wheel</th>
+                                            <th>
+                                                <field name="spare_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">License</th>
+                                            <th>
+                                                <field name="licence_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Cassette</th>
+                                            <th>
+                                                <field name="cassette_1"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Seat Fabric</th>
+                                            <th>
+                                                <field name="seat_1"/>
+                                            </th>
+
+                                        </tr>
+
+                                    </table>
+                                </group>
+                                <group>
+                                    <table>
+                                        <tr>
+                                            <th>Accessories For Replacement Vehicle</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Tools</th>
+                                            <th>
+                                                <field name="tools_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Jack Hammer</th>
+                                            <th>
+                                                <field name="jack_hummer_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Triangle</th>
+                                            <th>
+                                                <field name="triangle_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">First Aid Kit</th>
+                                            <th>
+                                                <field name="aid_kit_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Fire Ext</th>
+                                            <th>
+                                                <field name="fire_ext_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Ashtray</th>
+                                            <th>
+                                                <field name="ashtray_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Cig. Lighter</th>
+                                            <th>
+                                                <field name="cig_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Antenna</th>
+                                            <th>
+                                                <field name="antenna_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Spare Wheel</th>
+                                            <th>
+                                                <field name="spare_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">License</th>
+                                            <th>
+                                                <field name="licence_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Cassette</th>
+                                            <th>
+                                                <field name="cassette_2"/>
+                                            </th>
+
+                                        </tr>
+                                        <tr>
+                                            <th style="padding-right: 20px">Seat Fabric</th>
+                                            <th>
+                                                <field name="seat_2"/>
+                                            </th>
+
+                                        </tr>
+                                    </table>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Info">
+                            <group>
+                                <group>
+                                    <field name="check_out_comments"/>
+                                </group>
+                                <group>
+                                    <field name="check_in_comments"/>
+                                </group>
+                                <group>
+                                    <field name="km_included_per_month"/>
+                                    <field name="damage_charge"/>
+                                </group>
+                            </group>
+
+                        </page>
+                        <page string="Car Moves">
+                            <field name="car_move_ids">
+                                <tree editable="bottom">
+                                    <field name="car_move"/>
+                                    <field name="driver_id"/>
+                                    <field name="serial_id" string="Plate Number"/>
+                                    <field name="vehicle_id" string="Vehicle"/>
+                                    <field name="date"/>
+                                    <field name="km_reading"/>
+                                    <field name="fuel"/>
+                                    <field name="source_location_id"/>
+                                    <field name="dest_location_id"/>
+                                    <field name="operation_type"/>
+
+                                    <button name="create_stock_move" type="object" string="Create Stock Move"
+                                            class="oe_highlight" attrs="{'invisible':[('is_created','=',True)]}"/>
+                                    <field name="is_created" invisible="1"/>
+
+                                    <field name="garage_serial"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <!--                <div class="oe_chatter">-->
+                <!--                    <field name="message_follower_ids" groups="base.group_user"/>-->
+                <!--                    <field name="activity_ids"/>-->
+                <!--                    <field name="message_ids"/>-->
+                <!--                </div>-->
+            </form>
+        </field>
+    </record>
+
+    <record id="replace_model_tree_view_id" model="ir.ui.view">
+        <field name="name">replacement.model.tree.view</field>
+        <field name="model">replacement.model</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="replacement_action_id" model="ir.actions.act_window">
+        <field name="name">Replacement Model</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">replacement.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="replacement_model_categ" name="Replacement Model" parent="menu_root_forms"
+              action="replacement_action_id"/>
+
+    <record id="non_replacement_model_form_view_id" model="ir.ui.view">
+        <field name="name">non_replacement.model.form.view</field>
+        <field name="model">non_replacement.model</field>
+        <field name="inherit_id" ref="car_rental_base_form_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='first_group']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+            <xpath expr="//page[2]" position="after">
+                <page string="Car Moves">
+                    <field name="car_move_ids">
+                        <tree editable="bottom">
+                            <field name="car_move"/>
+                            <field name="driver_id"/>
+                            <field name="serial_id" string="Plate Number"/>
+                            <field name="vehicle_id" string="Vehicle"/>
+                            <field name="date"/>
+                            <field name="km_reading"/>
+                            <field name="fuel"/>
+                            <field name="source_location_id"/>
+                            <field name="dest_location_id"/>
+                            <field name="operation_type"/>
+
+                            <button name="create_stock_move" type="object" string="Create Stock Move"
+                                    class="oe_highlight" attrs="{'invisible':[('is_created','=',True)]}"/>
+                            <field name="is_created" invisible="1"/>
+
+                            <field name="garage_serial"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </xpath>
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="phone"/>
+            </xpath>
+            <xpath expr="//tr[@id='screwdrivers']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='screwdrivers']" position="before">
+                <tr id="tools">
+                    <th style="padding-right: 20px">Tools</th>
+                    <th>
+                        <field name="tools_out"/>
+                    </th>
+                    <th>
+                        <field name="tools_in"/>
+                    </th>
+                </tr>
+                <tr id="triangle">
+                    <th style="padding-right: 20px">Triangle</th>
+                    <th>
+                        <field name="triangle_out"/>
+                    </th>
+                    <th>
+                        <field name="triangle_in"/>
+                    </th>
+                </tr>
+                <tr id="ashtray">
+                    <th style="padding-right: 20px">Ashtray</th>
+                    <th>
+                        <field name="ashtray_out"/>
+                    </th>
+                    <th>
+                        <field name="ashtray_in"/>
+                    </th>
+                </tr>
+
+                <tr id="cassette">
+                    <th style="padding-right: 20px">Cassette</th>
+                    <th>
+                        <field name="cassette_out"/>
+                    </th>
+                    <th>
+                        <field name="cassette_in"/>
+                    </th>
+                </tr>
+                <tr id="ac_pots">
+                    <th style="padding-right: 20px">Ac pots</th>
+                    <th>
+                        <field name="ac_port_out"/>
+                    </th>
+                    <th>
+                        <field name="ac_port_in"/>
+                    </th>
+                </tr>
+                <tr id="seat_febric">
+                    <th style="padding-right: 20px">Seat Febric</th>
+                    <th>
+                        <field name="seat_febric_out"/>
+                    </th>
+                    <th>
+                        <field name="seat_febric_in"/>
+                    </th>
+                </tr>
+                <tr id="spare">
+                    <th style="padding-right: 20px">Spare wheel</th>
+                    <th>
+                        <field name="spare_out"/>
+                    </th>
+                    <th>
+                        <field name="spare_in"/>
+                    </th>
+                </tr>
+
+                <tr id="Manual">
+                    <th style="padding-right: 20px">Manual Key</th>
+                    <th>
+                        <field name="manual_key_out"/>
+                    </th>
+                    <th>
+                        <field name="manual_key_in"/>
+                    </th>
+                </tr>
+
+            </xpath>
+            <xpath expr="//tr[@id='wipers']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='ac_pots']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='tyre']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='sun']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='imirror']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='roof']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='window']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='omirror']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='cout']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='cdc']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='spare_t']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='hazard']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='spanner']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='screwdrivers']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//tr[@id='hup']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="non_replacement_model_tree_view_id" model="ir.ui.view">
+        <field name="name">non_replacement.model.tree.view</field>
+        <field name="model">non_replacement.model</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="non_replacement_model_view_view_id" model="ir.actions.act_window">
+        <field name="name">Non Replacement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">non_replacement.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="categ_non_replacement_id" name="Non Replacement" parent="menu_root_forms"
+              action="non_replacement_model_view_view_id"/>
+
+    <record id="pre_lease_form_view_id" model="ir.ui.view">
+        <field name="name">pre.lease.form.view</field>
+        <field name="model">pre.lease</field>
+        <field name="inherit_id" ref="car_rental_base_form_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='first_group']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+            <xpath expr="//page[2]" position="after">
+                <page string="Car Moves">
+                    <field name="car_move_ids">
+                        <tree editable="bottom">
+                            <field name="car_move"/>
+                            <field name="driver_id"/>
+                            <field name="serial_id" string="Plate Number"/>
+                            <field name="vehicle_id" string="Vehicle"/>
+                            <field name="date"/>
+                            <field name="km_reading"/>
+                            <field name="fuel"/>
+                            <field name="source_location_id"/>
+                            <field name="dest_location_id"/>
+                            <field name="operation_type"/>
+
+                            <button name="create_stock_move" type="object" string="Create Stock Move"
+                                    class="oe_highlight" attrs="{'invisible':[('is_created','=',True)]}"/>
+                            <field name="is_created" invisible="1"/>
+
+                            <field name="garage_serial"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="pre_lease_tree_view_id" model="ir.ui.view">
+        <field name="name">pre.lease.tree.view</field>
+        <field name="model">pre.lease</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+    <record id="pre_lease_view_action_id" model="ir.actions.act_window">
+        <field name="name">PreLease</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pre.lease</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="pre_lease_id" name="PreLease" parent="menu_root_forms"
+              action="pre_lease_view_action_id"/>
+
+    <record id="short_contract_form_view_id" model="ir.ui.view">
+        <field name="name">short.contract.form.view</field>
+        <field name="model">short.contract</field>
+        <field name="inherit_id" ref="car_rental_base_form_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='first_group']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+            <xpath expr="//page[2]" position="after">
+                <page string="Car Moves">
+                    <field name="car_move_ids">
+                        <tree editable="bottom">
+                            <field name="car_move"/>
+                            <field name="driver_id"/>
+                            <field name="serial_id" string="Plate Number"/>
+                            <field name="vehicle_id" string="Vehicle"/>
+                            <field name="date"/>
+                            <field name="km_reading"/>
+                            <field name="fuel"/>
+                            <field name="source_location_id"/>
+                            <field name="dest_location_id"/>
+                            <field name="operation_type"/>
+
+                            <button name="create_stock_move" type="object" string="Create Stock Move"
+                                    class="oe_highlight" attrs="{'invisible':[('is_created','=',True)]}"/>
+                            <field name="is_created" invisible="1"/>
+
+                            <field name="garage_serial"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+    <record id="short_contract_tree_view_id" model="ir.ui.view">
+        <field name="name">short.contract.tree.view</field>
+        <field name="model">short.contract</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+    <record id="short_contract_view_action_id" model="ir.actions.act_window">
+        <field name="name">Short Term</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">short.contract</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="short_contract_id" name="Short Term" parent="menu_root_forms"
+              action="short_contract_view_action_id"/>
+
+    <record id="out_source_form_view_id" model="ir.ui.view">
+        <field name="name">out.source.form.view</field>
+        <field name="model">out.source</field>
+        <field name="inherit_id" ref="car_rental_base_form_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='first_group']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+
+            </xpath>
+            <xpath expr="//field[@name='vo_end_date']" position="after">
+                <field name="invoice_start_date"/>
+                <field name="initial_km"/>
+                <field name="is_updated" invisible="1"/>
+            </xpath>
+            <xpath expr="//page[2]" position="after">
+                <page string="Car Moves">
+                    <field name="car_move_ids">
+                        <tree editable="bottom">
+                            <field name="car_move"/>
+                            <field name="driver_id"/>
+                            <field name="serial_id" string="Plate Number"/>
+                            <field name="vehicle_id" string="Vehicle"/>
+                            <field name="date"/>
+                            <field name="km_reading"/>
+                            <field name="fuel"/>
+                            <field name="source_location_id"/>
+                            <field name="dest_location_id"/>
+                            <field name="operation_type"/>
+                            <button name="create_stock_move" type="object" string="Create Stock Move"
+                                    class="oe_highlight" attrs="{'invisible':[('is_created','=',True)]}"/>
+                            <field name="is_created" invisible="1"/>
+
+                            <field name="garage_serial"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="update_vo_action"
+                        attrs="{'invisible':['|',('state','!=','inprogress'),('is_updated','=',True)]}" type="object"
+                        string="Update Vo" class="oe_highlight"/>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="out_source_tree_view_id" model="ir.ui.view">
+        <field name="name">out.source.tree.view</field>
+        <field name="model">out.source</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="out_source_view_action_id" model="ir.actions.act_window">
+        <field name="name">Out Source</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">out.source</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="out_source_id" name="Out Source" parent="menu_root_forms"
+              action="out_source_view_action_id"/>
+
+    <record id="car_rental_agreement_form_view_id" model="ir.ui.view">
+        <field name="name">car.rental.agreement.form.view</field>
+        <field name="model">car.rental</field>
+        <field name="inherit_id" ref="car_rental_base_form_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='first_group']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+            <xpath expr="//page[2]" position="after">
+                <page string="Car Moves">
+                    <field name="car_move_ids">
+                        <tree editable="bottom">
+                            <field name="car_move"/>
+                            <field name="driver_id"/>
+                             <field name="serial_id" string="Plate Number"/>
+                            <field name="vehicle_id" string="Vehicle"/>
+                            <field name="date"/>
+                            <field name="km_reading"/>
+                            <field name="fuel"/>
+                            <field name="source_location_id"/>
+                            <field name="dest_location_id"/>
+                            <field name="operation_type"/>
+
+                            <button name="create_stock_move" type="object" string="Create Stock Move"
+                                    class="oe_highlight" attrs="{'invisible':[('is_created','=',True)]}"/>
+                            <field name="is_created" invisible="1"/>
+
+                            <field name="garage_serial"/>
+                        </tree>
+                    </field>
+                </page>
+
+            </xpath>
+
+        </field>
+    </record>
+    <record id="car_rental_agreement_tree_view_id" model="ir.ui.view">
+        <field name="name">car.rental.agreement.tree.view</field>
+        <field name="model">car.rental</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field['customer_id']" position="before">
+                <field name="name" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="garage_delivery_from_view_id" model="ir.ui.view">
+        <field name="name">garage.delivery.tree.view</field>
+        <field name="model">garage.delivery</field>
+        <field name="inherit_id" ref="car_rental_base_form_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='first_group']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="garage_delivery_tree_view_id" model="ir.ui.view">
+        <field name="name">garage.delivery.tree.view</field>
+        <field name="model">garage.delivery</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="garage_delivery_action" model="ir.actions.act_window">
+        <field name="name">Garage Delivery</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">garage.delivery</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!--    <menuitem id="garage_delivery_menu" name="Garage Delivery" parent="menu_root_forms"-->
+    <!--              action="garage_delivery_action"/>-->
+
+    <record id="car_rental_agreement_action" model="ir.actions.act_window">
+        <field name="name">Car Rental Agreement</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">car.rental</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="car_rental_agreement_menu" name="Car Rental Agreement" parent="menu_root_forms"
+              action="car_rental_agreement_action"/>
+
+    <record id="all_args_form_view" model="ir.ui.view">
+        <field name="name">all.args.form.view</field>
+        <field name="model">all.args</field>
+        <field name="inherit_id" ref="car_rental_base_form_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@id='first_group']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="all_args_tree_view_id" model="ir.ui.view">
+        <field name="name">all.args.tree.view</field>
+        <field name="model">all.args</field>
+        <field name="inherit_id" ref="car_rental_base_tree_view_id"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='customer_id']" position="before">
+
+                <field name="name" readonly="1"/>
+
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="all_args_action" model="ir.actions.act_window">
+        <field name="name">All Arguments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">all.args</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--    <menuitem id="all_args_menu" name="All Arguments" parent="menu_root_forms"-->
+    <!--              action="all_args_action"/>-->
+
+
+</odoo>

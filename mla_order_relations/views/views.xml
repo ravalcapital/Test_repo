@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="partner_mla_relation_partner_view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form.lone</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//sheet/notebook" position="inside">
+                        <page string="MLA"
+                              attrs="{'invisible': [('is_company', '=', False)]}">
+                            <field name="mla_ids">
+                                <tree string="MLA">
+                                    <field name="name" string="MLA Sequence"/>
+                                    <field name="partner_id"/>
+                                    <field name="type"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                    <field name="state" string="Status"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

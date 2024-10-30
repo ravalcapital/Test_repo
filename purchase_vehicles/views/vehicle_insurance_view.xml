@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="view_vehicle_insurance_pending_vehicles" model="ir.ui.view">
+            <field name="name">vehicle.insurance.form</field>
+            <field name="model">vehicle.insurance</field>
+            <field name="inherit_id" ref="vehicle_insurance.vehicle_insurance_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vehicle_name']" position="after">
+                    <field name="from_pending_delivery" invisible="1"/>
+<!--                    <field name="model_m_id" readonly="0" force_save="1" attrs="{'invisible': [('from_pending_delivery', '!=',True)]}"/>-->
+<!--                    <field name="make_m_id" readonly="0" force_save="1" attrs="{'invisible': [('from_pending_delivery', '!=',True)]}"/>-->
+<!--                    <field name="category_m_id" readonly="0" force_save="1" attrs="{'invisible': [('from_pending_delivery', '!=',True)]}"/>-->
+
+                    <field name="model_m_id" readonly="0" force_save="1" />
+                    <field name="make_m_id" readonly="0" force_save="1" />
+                    <field name="category_m_id" readonly="0" force_save="1" />
+                    <field name="model_search" string="Vehicle Models" force_save="1" invisible="1"/>
+
+
+
+                </xpath>
+                <xpath expr="//field[@name='date_to']" position="after">
+<!--                    <field name="year_id" readonly="0" force_save="1" attrs="{'invisible': [('from_pending_delivery', '!=',True)]}"/>-->
+<!--                    <field name="insurance_no" readonly="0" force_save="1" attrs="{'invisible': [('from_pending_delivery', '!=',True)]}"/>-->
+<!--                    <field name="insurance_year" readonly="0" force_save="1" attrs="{'invisible': [('from_pending_delivery', '!=',True)]}"/>-->
+
+                    <field name="year_id" readonly="0" force_save="1"/>
+                    <field name="insurance_no" readonly="0" force_save="1" />
+                    <field name="insurance_year" readonly="0" force_save="1" />
+
+
+<!--                    <field name="pending_delivery_id" readonly="0" force_save="1"-->
+<!--                           attrs="{'invisible': [('from_pending_delivery', '!=',True)]}"/>-->
+                    <field name="pending_delivery_id" readonly="0" force_save="1"/>
+
+                </xpath>
+            </field>
+        </record>
+         <record id="view_vehicle_insurance_pending_vehicles_tree_inherit" model="ir.ui.view">
+            <field name="name">vehicle.insurance.form</field>
+            <field name="model">vehicle.insurance</field>
+            <field name="inherit_id" ref="vehicle_insurance.vehicle_insurance_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="vehicle_id"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="insurance_no"/>
+                </xpath>
+            </field>
+         </record>
+
+        <record id="vehicle_insurance_search_view" model="ir.ui.view">
+            <field name="name">vehicle.insurance search</field>
+            <field name="model">vehicle.insurance</field>
+            <field name="arch" type="xml">
+                <search string="Vehicle Insurance">
+                    <field name="license_plate" string="Plate no" />
+                    <field name="insurance_no" string="Insurance No." />
+                    <field name="model_search" string="Vehicle Models" force_save="1"/>
+                </search>
+            </field>
+        </record>
+        <record id="vehicle_insurance.vehicle_insurance_action" model="ir.actions.act_window">
+            <field name="name">Vehicle Insurance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vehicle.insurance</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="vehicle_insurance_search_view"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

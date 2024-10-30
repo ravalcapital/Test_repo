@@ -1,0 +1,52 @@
+<odoo>
+    <record id="vo_terms_form_id" model="ir.ui.view">
+        <field name="name">vo.term.form</field>
+        <field name="model">vo.term</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="terms"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="terms_and_conditions_action" model="ir.actions.act_window">
+        <field name="name">Vehicle Terms &amp; conditions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">vo.term</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem id="vehicle_terms_menu" name="Vehicle Terms &amp; conditions" parent="sale.sale_menu_root"
+              action="terms_and_conditions_action" sequence="200"/>
+    <record id="sale_order_inherit_form_view" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_vo" invisible="1"/>
+
+            </xpath>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button name="create_vo_button" type="object" string="Create Vo" class="btn-primary"
+                        attrs="{'invisible': ['|',('is_vo', '=', True),('state','!=','sale')]}"/>
+
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_view_vo" class="oe_stat_button" icon="fa-truck"
+                        context="{'default_order_id': active_id}"
+                        type="object" attrs="{'invisible': [('vo_count', '=', 0)]}">
+                    <field name="vo_count" string="VO" widget="statinfo"/>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>
