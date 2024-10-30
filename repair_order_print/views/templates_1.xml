@@ -21,8 +21,7 @@
         </div>
 
         <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
-             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/repair_order_print/static/desc/stamp.jpg' if company.layout_background == 'Geometric' else ''}});"
-
+             t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
              t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
              t-att-data-oe-lang="o and o.env.context.get('lang')">
             <div class="pt-5">
@@ -34,50 +33,62 @@
 
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
             <div class="text-center" style="border-top: 1px solid black;">
-                   <div class="row" style="display:flex;justify-content:flex-start;align-items:flex-start;" >
-                         <div style="width:50%">
-                            <strong>ب.ض</strong>
-                            <t t-esc="company.vat"/>
-                         </div>
-                         <div style="width:50%">
-                            <t t-esc="company.street"/>
-                         </div>
+                <ul class="mb4 list-unstyled" style="direction: rtl;padding:0px;">
+                    <strong>
 
-                    </div>
-                    <div class="row" style="display:flex;justify-content:flex-start;align-items:flex-start;" >
+                        <li>
+                            <span>
+                                <t t-esc="company.street"/>
+                            </span>
+                            <span>
+                                ب.ض
+                                <t t-esc="company.vat"/>
+                            </span>
+                            <!--                        <span>-->
+                            <!--                            ب.ض-->
+                            <!--                            <t t-esc="company.vat"/>-->
+                            <!--                        </span>-->
 
-                           <div style="width:33.33%;">
-                               <strong>خط ساخن:</strong>
+                        </li>
+                    </strong>
+                    <strong>
+                        <li style="padding-right:30px;">
 
-                                19348
-                           </div>
-                           <div style="width:33.33%;">
-                                <strong>ت:</strong>
-                                <t t-esc="company.mobile"/>
-                           </div>
-                           <div style="width:33.33%;">
-                               <strong> .س.ت:</strong>
-
+                            <span>
+                                .س.ت:
                                 <t t-esc="company.company_registry"/>
-                           </div>
+                            </span>
+                            <span style="margin-right:40px;">
+                                ت:
+                                <t t-esc="company.mobile"/>
+
+                            </span>
+                            <span style="float:left;margin-left:65px;">
+                                خط ساخن:
+                                19348
+                            </span>
+
+                        </li>
+
+                    </strong>
+                    <strong>
+                        <li>
+                            <span style="float:left;margin-left:65px;">
+                                <t t-esc="company.website"/>
+                            </span>
+                        </li>
+                    </strong>
 
 
+                    <!--                    <div t-field="company.report_footer"/>-->
+                </ul>
 
-
-                    </div>
-                   <div class="row" style="display:flex;justify-content:flex-start;align-items:flex-start;" >
-                        <div style="width:50%">
-                            <t t-esc="company.website"/>
-                        </div>
-
-                        <div t-if="report_type == 'pdf'" class="text-muted" style="width:50%">
-
-                            Page:
-                            <span class="page"/>
-                            /
-                            <span class="topage"/>
-                        </div>
-                   </div>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page:
+                    <span class="page"/>
+                    /
+                    <span class="topage"/>
+                </div>
             </div>
         </div>
     </template>
@@ -120,28 +131,13 @@
                     /* Example CSS for resizing font */
                     .resize-font {
                     font-size: 15px; /* Adjust the font size as needed */
-                    position:relative;
-
                     }
-
-                    .div-stamp{
-<!--                    background-color:red;-->
-                    position:relative;
-                    left:0%;
-                    bottom:0;
+                    .watermark {
+                    position: fixed;
+                    opacity: 0.5; /* Adjust the opacity as needed */
+                    z-index: -1; /* Ensure the watermark stays behind the content */
+                    transform: translate(-50%, -50%); /* Center the watermark */
                     }
-                    .div-stamp .watermark {
-                    width: 25%;
-                    position:absolute;
-<!--                    background-color:blue;-->
-                    opacity:1.0;
-                    left:48%;
-                    bottom:-10px;
-                    z-index:-1;
-                    transform: translate(-50%, -50%);
-                    }
-
-
                 </style>
 
 
@@ -159,11 +155,10 @@
                             <strong>Repair:</strong>
                             <p t-field="o.product_id.name" class="m-0"/>
                         </div>
-<!--                        <div class="col-3 bm-2" groups="stock.group_production_lot">-->
-                        <div class="col-3 bm-2" >
+                        <div class="col-3 bm-2" groups="stock.group_production_lot">
                             <strong>Plate:</strong>
                             <t t-if="o.lot_id">
-                                <p t-field="o.lot_id.name"/>
+                                <span t-field="o.lot_id.name"/>
                             </t>
                         </div>
                         <div t-if="o.guarantee_limit" class="col-3 bm-2">
@@ -434,7 +429,7 @@
                                     <br/>
                                 </div>
                             </div>
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col-4" style="border:1px solid black;">
                                     <p>
                                         <b>Maintenance Supervisor:</b>
@@ -460,7 +455,7 @@
                             </div>
                             <!--  ==========-->
                             <!--  ======= maintenance supervisor2  ========-->
-                            <div class="row ">
+                            <div class="row">
                                 <div class="col-4" style="border:1px solid black;">
                                     <p>
                                         <b>Maintenance Supervisor:</b>
@@ -484,17 +479,16 @@
                                 </div>
 
                             </div>
-                             <!-- Stamp image -->
-
-                            <div class='div-stamp'>
-                                <img class="watermark" src="repair_order_print/static/desc/stamp.jpg" alt="Stamp" />
-                            </div>
 
                             <!-- =======End maintenance supervisor2  ========-->
-
                         </div>
                     </div>
 
+                    <!-- Stamp image -->
+                    <div style="position: relative; bottom: 40px; left: 800px;">
+                        <img class="watermark" src="repair_order_print/static/desc/stamp.jpg" alt="Stamp"
+                             style="width: 300px; height: auto;"/>
+                    </div>
 
                 </div>
 
@@ -503,22 +497,22 @@
         </xpath>
     </template>
 
-<!--        <record id="paperformat_repair_order" model="report.paperformat">-->
-<!--            <field name="name">Custom Paperformat Repair Order</field>-->
-<!--            <field name="default" eval="False"/>-->
-<!--            <field name="disable_shrinking" eval="True"/>-->
-<!--            <field name="format">A4</field>-->
-<!--            <field name="page_height">0</field>-->
-<!--            <field name="page_width">0</field>-->
-<!--            <field name="orientation">Portrait</field>-->
-<!--            <field name="margin_top">30</field>-->
-<!--            <field name="margin_bottom">30</field>-->
-<!--            <field name="margin_left">8</field>-->
-<!--            <field name="margin_right">8</field>-->
-<!--            <field name="dpi">96</field>-->
-<!--            <field name="header_spacing">0</field>-->
+    <!--    <record id="paperformat_repair_order" model="report.paperformat">-->
+    <!--        <field name="name">Custom Paperformat repair</field>-->
+    <!--        <field name="default" eval="False"/>-->
+    <!--        <field name="disable_shrinking" eval="True"/>-->
+    <!--        <field name="format">A4</field>-->
+    <!--        <field name="page_height">0</field>-->
+    <!--        <field name="page_width">0</field>-->
+    <!--        <field name="orientation">Portrait</field>-->
+    <!--        <field name="margin_top">50</field>-->
+    <!--        <field name="margin_bottom">50</field>-->
+    <!--        <field name="margin_left">8</field>-->
+    <!--        <field name="margin_right">8</field>-->
+    <!--        <field name="dpi">96</field>-->
+    <!--        <field name="header_spacing">0</field>-->
 
-<!--        </record>-->
+    <!--    </record>-->
     <record id="repair.action_report_repair_order" model="ir.actions.report">
         <field name="name">Quotation / Order</field>
         <field name="model">repair.order</field>
@@ -530,7 +524,7 @@
         </field>
         <field name="binding_model_id" ref="repair.model_repair_order"/>
         <field name="binding_type">report</field>
-<!--                <field name="paperformat_id" ref="repair_order_print.paperformat_repair_order"/>-->
+        <!--        <field name="paperformat_id" ref="paperformat_repair_order"/>-->
     </record>
 
 </odoo>

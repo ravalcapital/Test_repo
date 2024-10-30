@@ -93,11 +93,17 @@ class Repair(models.Model):
             if rec.km_in:
                 rec.km_out = rec.km_in
 
+    # custom_repair_type = fields.Selection([
+    #     ('predictive', 'Predictive'),
+    #     ('corrective', 'Corrective'),
+    #     ('both', 'Both'), ('accident', 'Accident')], string='Repair Type',
+    #     copy=False, tracking=True)
     custom_repair_type = fields.Selection([
         ('predictive', 'Predictive'),
         ('corrective', 'Corrective'),
-        ('both', 'Both'), ('accident', 'Accident')], string='Repair Type',
+        ('both', 'Both'),('battery', 'Battery'),('tire', 'Tire')], string='Repair Type',
         copy=False, tracking=True)
+
 
     @api.constrains('km_in')
     def check_km_validate(self):
